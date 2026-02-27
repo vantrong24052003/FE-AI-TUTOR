@@ -803,85 +803,9 @@
 
 ---
 
-## 3. TEACHER PAGES
+## 3. MISSING PAGES (Cần bổ sung)
 
-### 3.1 Teacher Dashboard `/teacher/dashboard`
-
-**Mô tả:** Dashboard của giảng viên
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Stats** |
-| | Total Courses | Number | Số khóa đã tạo |
-| | Total Students | Number | Tổng học viên |
-| | Revenue | Number | Doanh thu |
-| | Rating | Number | Đánh giá TB |
-| **My Courses** |
-| | Course List | Table | Danh sách khóa |
-| | Actions | Buttons | Edit, Delete, View |
-
----
-
-### 3.2 Create/Edit Course `/teacher/courses/create`
-
-**Mô tả:** Form tạo/sửa khóa học
-
-**UI Elements:**
-
-| Element | Field | Type | Mô tả |
-|---------|-------|------|-------|
-| Title | `title` | Input | Tên khóa học |
-| Description | `description` | Textarea | Mô tả |
-| Thumbnail | `thumbnail` | File Upload | Ảnh đại diện |
-| Category | `categoryId` | Select | Danh mục |
-| Level | `level` | Select | Basic/Intermediate/Advanced |
-| Price | `price` | Input | Giá (0 = Free) |
-| Modules | `modules` | Dynamic List | Danh sách modules |
-| Lessons | `lessons` | Dynamic List | Bài học trong mỗi module |
-
----
-
-## 4. ADMIN PAGES
-
-### 4.1 Admin Dashboard `/admin`
-
-**Mô tả:** Dashboard quản trị
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Stats** |
-| | Users | Number | Tổng users |
-| | Courses | Number | Tổng khóa |
-| | Revenue | Number | Doanh thu |
-| | Active Users | Number | User hoạt động |
-| **Charts** |
-| | User Growth | Chart | Biểu đồ user mới |
-| | Revenue | Chart | Biểu đồ doanh thu |
-
----
-
-### 4.2 User Management `/admin/users`
-
-**Mô tả:** Quản lý người dùng
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Search | - | Tìm user theo tên/email |
-| Filter | Role | Student/Teacher/Admin |
-| User Table | id, name, email, role, status, createdAt | Danh sách users |
-| Actions | Edit, Delete, Ban | Thao tác |
-
----
-
-## 5. MISSING PAGES (Cần bổ sung)
-
-### 5.1 Forgot Password `/auth/forgot-password`
+### 3.1 Forgot Password `/auth/forgot-password`
 
 **Mô tả:** Trang yêu cầu reset mật khẩu
 
@@ -930,7 +854,7 @@
 
 ---
 
-### 5.2 My Courses `/app/my-courses`
+### 3.2 My Courses `/app/my-courses`
 
 **Mô tả:** Danh sách khóa học đã đăng ký
 
@@ -998,7 +922,7 @@
 
 ---
 
-### 5.3 Search Results `/app/search`
+### 3.3 Search Results `/app/search`
 
 **Mô tả:** Kết quả tìm kiếm khóa học
 
@@ -1039,7 +963,7 @@
 
 ---
 
-### 5.4 Notifications Panel
+### 3.4 Notifications Panel
 
 **Mô tả:** Panel thông báo (dropdown từ navbar)
 
@@ -1083,7 +1007,7 @@
 
 ---
 
-### 5.5 Settings Page `/app/profile/settings`
+### 3.5 Settings Page `/app/profile/settings`
 
 **Mô tả:** Cài đặt tài khoản
 
@@ -1135,7 +1059,7 @@
 
 ---
 
-### 5.6 Certificates `/app/profile/certificates`
+### 3.6 Certificates `/app/profile/certificates`
 
 **Mô tả:** Danh sách chứng chỉ
 
@@ -1177,7 +1101,7 @@
 
 ---
 
-### 5.7 Review/Rating Modal
+### 3.7 Review/Rating Modal
 
 **Mô tả:** Modal đánh giá khóa học
 
@@ -1220,7 +1144,7 @@
 
 ---
 
-### 5.8 Quiz Result (Enhanced)
+### 3.8 Quiz Result (Enhanced)
 
 **Mô tả:** Kết quả quiz chi tiết
 
@@ -1262,7 +1186,7 @@
 
 ---
 
-### 5.9 Payment Page `/app/checkout/:courseId`
+### 3.9 Payment Page `/app/checkout/:courseId`
 
 **Mô tả:** Thanh toán khóa học
 
@@ -1311,7 +1235,7 @@
 
 ---
 
-### 5.10 Error Pages
+### 3.10 Error Pages
 
 #### 404 Not Found
 ```
@@ -1345,7 +1269,7 @@
 
 ---
 
-## 6. ENHANCEMENTS (Cải tiến)
+## 4. ENHANCEMENTS (Cải tiến)
 
 ### 6.1 Video Player Controls
 
@@ -1382,7 +1306,7 @@
 
 ---
 
-## 7. RESPONSIVE BREAKPOINTS
+## 5. RESPONSIVE BREAKPOINTS
 
 | Device | Width | Layout |
 |--------|-------|--------|
@@ -1398,4 +1322,4 @@
 
 ---
 
-*Version: 1.1 - Updated: 2026-02-27*
+*Version: 1.2 - Updated: 2026-02-27*

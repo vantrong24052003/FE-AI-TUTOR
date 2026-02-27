@@ -31,7 +31,6 @@ export const ROUTES = {
   QUIZ: '/app/quiz/:quizId',
   PROFILE: '/app/profile',
   AI_TUTOR: '/app/ai-tutor',
-  ADMIN: '/admin',
 } as const
 
 // Course levels
@@ -51,8 +50,6 @@ export const LESSON_TYPES = {
 // User roles
 export const USER_ROLES = {
   STUDENT: 'student',
-  INSTRUCTOR: 'instructor',
-  ADMIN: 'admin',
 } as const
 
 // Quiz

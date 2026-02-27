@@ -85,14 +85,11 @@ export function Navbar() {
 | My Learning | Link | → /app/my-courses |
 | AI Tutor | Link | → /app/ai-tutor |
 | Profile | Link | → /app/profile |
-| Admin | Link | → /admin (nếu admin) |
 
 **Code Structure:**
 ```tsx
 // components/layout/Sidebar.tsx
 export function Sidebar() {
-  const { user } = useAuthStore()
-
   return (
     <aside className="w-64 border-r">
       <NavItem icon={Home} label="Dashboard" href="/app/dashboard" />
@@ -100,9 +97,6 @@ export function Sidebar() {
       <NavItem icon={GraduationCap} label="My Learning" href="/app/my-courses" />
       <NavItem icon={Bot} label="AI Tutor" href="/app/ai-tutor" />
       <NavItem icon={User} label="Profile" href="/app/profile" />
-      {user?.role === 'admin' && (
-        <NavItem icon={Settings} label="Admin" href="/admin" />
-      )}
     </aside>
   )
 }

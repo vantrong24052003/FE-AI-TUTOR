@@ -26,7 +26,7 @@ export interface PaginationParams {
 // ============================================
 // User Types
 // ============================================
-export type UserRole = 'student' | 'instructor' | 'admin'
+export type UserRole = 'student'
 
 export interface User {
   id: string
