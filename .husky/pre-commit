@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# Run lint
+npm run lint
+
+echo "✅ Pre-commit checks passed"

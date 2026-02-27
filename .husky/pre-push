@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+
+# Get current branch name
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Protected branches
+protected_branches="main develop"
+
+# Check if pushing to protected branch
+for branch in $protected_branches; do
+  if [ "$current_branch" = "$branch" ]; then
+    echo ""
+    echo "❌ KHÔNG ĐƯỢC PUSH TRỰC TIẾP lên nhánh '$branch'!"
+    echo ""
+    echo "Quy trình đúng:"
+    echo "  1. Tạo nhánh từ develop: git checkout -b feat/AI-001-feature-name"
+    echo "  2. Commit và push nhánh đó"
+    echo "  3. Tạo Pull Request vào develop"
+    echo ""
+    exit 1
+  fi
+done
+
+# Validate branch name
+# Format: type/ticket-description (e.g., feat/AI-001-user-auth)
+branch_regex='^(feat|fix|refactor|style|docs|test|chore|perf|ci)/[A-Z]+-[0-9]+-[a-z0-9-]+$'
+
+if ! echo "$current_branch" | grep -qE "$branch_regex"; then
+  # Allow main and develop
+  if [ "$current_branch" != "main" ] && [ "$current_branch" != "develop" ]; then
+    echo ""
+    echo "⚠️  Tên nhánh không đúng convention: $current_branch"
+    echo ""
+    echo "Format: <type>/<ticket-id>-<description>"
+    echo ""
+    echo "Types: feat, fix, refactor, style, docs, test, chore, perf, ci"
+    echo ""
+    echo "Ví dụ đúng:"
+    echo "  feat/AI-001-user-authentication"
+    echo "  fix/AI-015-cart-total-bug"
+    echo ""
+    read -p "Bạn có muốn tiếp tục push không? (y/N) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      exit 1
+    fi
+  fi
+fi
+
+echo "✅ Pre-push checks passed"

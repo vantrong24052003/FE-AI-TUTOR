@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+# Get commit message from file
+commit_msg=$(cat "$1")
+
+# Commit message format: type(scope): subject
+# Examples: feat(auth): add login, fix: resolve bug
+commit_regex='^(feat|fix|refactor|style|docs|test|chore|perf|ci)(\(.+\))?: .{1,50}'
+
+if ! echo "$commit_msg" | grep -qE "$commit_regex"; then
+  echo ""
+  echo "❌ Commit message không đúng format!"
+  echo ""
+  echo "Format: <type>(<scope>): <subject>"
+  echo ""
+  echo "Types: feat, fix, refactor, style, docs, test, chore, perf, ci"
+  echo ""
+  echo "Ví dụ đúng:"
+  echo "  feat(auth): add JWT token refresh"
+  echo "  fix: resolve cart total bug"
+  echo "  refactor(payment): simplify checkout flow"
+  echo ""
+  echo "Commit message của bạn: $commit_msg"
+  echo ""
+  exit 1
+fi
+
+echo "✅ Commit message hợp lệ"
