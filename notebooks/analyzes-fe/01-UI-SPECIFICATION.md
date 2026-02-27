@@ -879,4 +879,523 @@
 
 ---
 
-*Version: 1.0 - Updated: 2026-02-27*
+## 5. MISSING PAGES (Cần bổ sung)
+
+### 5.1 Forgot Password `/auth/forgot-password`
+
+**Mô tả:** Trang yêu cầu reset mật khẩu
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│   ┌─────────────────────┐   ┌─────────────────────────────┐│
+│   │                     │   │         [Logo]              ││
+│   │                     │   │   "Quên mật khẩu?"          ││
+│   │     BRANDING        │   │                             ││
+│   │     IMAGE           │   │   Nhập email để nhận link   ││
+│   │                     │   │   reset mật khẩu            ││
+│   │                     │   │                             ││
+│   │                     │   │   ┌───────────────────┐    ││
+│   │                     │   │   │ Email             │    ││
+│   │                     │   │   └───────────────────┘    ││
+│   │                     │   │                             ││
+│   │                     │   │   ┌───────────────────┐    ││
+│   │                     │   │   │   Gửi link reset  │    ││
+│   │                     │   │   └───────────────────┘    ││
+│   │                     │   │                             ││
+│   │                     │   │   ← Quay lại đăng nhập     ││
+│   └─────────────────────┘   └─────────────────────────────┘│
+└─────────────────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Loại | Field | Validation | Mô tả |
+|---------|------|-------|------------|-------|
+| Email | Input | `email` | Required, Email | Email đã đăng ký |
+| Submit | Button | - | - | Gửi link reset |
+| Back | Link | - | - | → /auth/login |
+
+**Success State:**
+```
+┌─────────────────────────────────────┐
+│  ✅ Email đã được gửi!              │
+│                                     │
+│  Kiểm tra hộp thư của bạn để        │
+│  nhận link đặt lại mật khẩu         │
+│                                     │
+│  [Gửi lại email] (sau 60s)          │
+└─────────────────────────────────────┘
+```
+
+---
+
+### 5.2 My Courses `/app/my-courses`
+
+**Mô tả:** Danh sách khóa học đã đăng ký
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         HEADER                               │
+├────────────┬────────────────────────────────────────────────┤
+│            │                                                │
+│  Dashboard │   Khóa học của tôi                            │
+│  Khóa học  │                                                │
+│  Học tập   │   [Tất cả] [Đang học] [Hoàn thành]            │
+│  AI Tutor  │                                                │
+│  Hồ sơ     │   ┌──────────────────────────────────────────┐│
+│            │   │ [Thumb]  React Basics                    ││
+│            │   │          ████████████░░ 65%              ││
+│            │   │          23/45 bài | Tiếp tục học        ││
+│            │   └──────────────────────────────────────────┘│
+│            │                                                │
+│            │   ┌──────────────────────────────────────────┐│
+│            │   │ [Thumb]  TypeScript Advanced             ││
+│            │   │          ██████████████████ 100% ✓       ││
+│            │   │          Đã hoàn thành | Xem chứng chỉ   ││
+│            │   └──────────────────────────────────────────┘│
+│            │                                                │
+│            │   ┌──────────────────────────────────────────┐│
+│            │   │ [Thumb]  Node.js Backend                 ││
+│            │   │          ████░░░░░░░░░░░░ 20%            ││
+│            │   │          5/30 bài | Tiếp tục học         ││
+│            │   └──────────────────────────────────────────┘│
+│            │                                                │
+└────────────┴────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Section | Element | Field | Mô tả |
+|---------|---------|-------|-------|
+| **Tabs** |
+| | All | Tab | Tất cả khóa |
+| | In Progress | Tab | Đang học |
+| | Completed | Tab | Hoàn thành |
+| **Course Card** |
+| | Thumbnail | Image | Ảnh khóa |
+| | Title | Text | Tên khóa |
+| | Progress Bar | Progress | % hoàn thành |
+| | Stats | Text | X/Y bài |
+| | Action | Button | Tiếp tục / Xem chứng chỉ |
+
+**Data cần thiết:**
+```typescript
+{
+  courses: Array<{
+    id: string
+    title: string
+    thumbnail: string
+    progress: number
+    completedLessons: number
+    totalLessons: number
+    status: 'in_progress' | 'completed'
+    certificateId?: string
+  }>
+}
+```
+
+---
+
+### 5.3 Search Results `/app/search`
+
+**Mô tả:** Kết quả tìm kiếm khóa học
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         HEADER                               │
+├────────────┬────────────────────────────────────────────────┤
+│            │                                                │
+│  ...       │   Kết quả tìm kiếm: "react hooks"             │
+│            │   Tìm thấy 15 khóa học                         │
+│            │                                                │
+│            │   Sắp xếp: [Relevance ▼] [Newest] [Popular]   │
+│            │                                                │
+│            │   ┌─────────────────────────────────────────┐ │
+│            │   │ [Thumb] React Hooks Complete Guide      │ │
+│            │   │ ⭐ 4.8 | 👥 1,234 | $49                  │ │
+│            │   └─────────────────────────────────────────┘ │
+│            │                                                │
+│            │   ┌─────────────────────────────────────────┐ │
+│            │   │ [Thumb] Advanced Hooks Patterns         │ │
+│            │   │ ⭐ 4.6 | 👥 856 | $39                    │ │
+│            │   └─────────────────────────────────────────┘ │
+│            │                                                │
+│            │   [1] [2] [3] ...                             │
+│            │                                                │
+└────────────┴────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Search Query | `q` | Từ khóa tìm kiếm |
+| Result Count | `total` | Số kết quả |
+| Sort | Select | Relevance/Newest/Popular |
+| Course Card | Course | Card khóa học |
+
+---
+
+### 5.4 Notifications Panel
+
+**Mô tả:** Panel thông báo (dropdown từ navbar)
+
+**UI Layout:**
+```
+┌─────────────────────────────┐
+│  Thông báo        [Đọc tất cả] │
+├─────────────────────────────┤
+│  ● Khóa học mới: React 19   │
+│    2 phút trước             │
+├─────────────────────────────┤
+│  ● Bạn đã hoàn thành bài 5  │
+│    1 giờ trước              │
+├─────────────────────────────┤
+│  ○ Nhắc nhở học bài hôm nay │
+│    3 giờ trước              │
+├─────────────────────────────┤
+│  ○ Certificate đã sẵn sàng  │
+│    Hôm qua                  │
+├─────────────────────────────┤
+│        [Xem tất cả →]       │
+└─────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Unread Dot | `isRead` | Chấm xanh = chưa đọc |
+| Title | `title` | Tiêu đề thông báo |
+| Message | `message` | Nội dung |
+| Time | `createdAt` | Thời gian |
+| Type Icon | `type` | Icon theo loại |
+
+**Notification Types:**
+- `new_course`: Khóa học mới
+- `lesson_complete`: Hoàn thành bài
+- `reminder`: Nhắc nhở
+- `certificate`: Chứng chỉ
+- `promotion`: Khuyến mãi
+
+---
+
+### 5.5 Settings Page `/app/profile/settings`
+
+**Mô tả:** Cài đặt tài khoản
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         HEADER                               │
+├────────────┬────────────────────────────────────────────────┤
+│            │                                                │
+│  Profile   │   Cài đặt                                     │
+│  Settings  │                                                │
+│            │   [Tài khoản] [Thông báo] [Bảo mật] [Giao diện]│
+│            │                                                │
+│            │   ### Đổi mật khẩu ###                         │
+│            │   ┌───────────────────────────────┐           │
+│            │   │ Mật khẩu hiện tại             │           │
+│            │   └───────────────────────────────┘           │
+│            │   ┌───────────────────────────────┐           │
+│            │   │ Mật khẩu mới                  │           │
+│            │   └───────────────────────────────┘           │
+│            │   ┌───────────────────────────────┐           │
+│            │   │ Xác nhận mật khẩu mới         │           │
+│            │   └───────────────────────────────┘           │
+│            │                                    [Cập nhật]  │
+│            │                                                │
+│            │   ### Phiên đăng nhập ###                      │
+│            │   🖥️ Chrome on Windows - Active now           │
+│            │   📱 Mobile App - 2 days ago    [Đăng xuất]    │
+│            │                                                │
+└────────────┴────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Tab | Element | Field | Mô tả |
+|-----|---------|-------|-------|
+| **Security** |
+| | Current Password | `currentPassword` | Mật khẩu hiện tại |
+| | New Password | `newPassword` | Mật khẩu mới |
+| | Confirm Password | `confirmPassword` | Xác nhận |
+| | Sessions | `sessions[]` | Danh sách phiên đăng nhập |
+| **Notifications** |
+| | Email Notifications | Toggle | Bật/tắt email |
+| | Push Notifications | Toggle | Bật/tắt push |
+| | Learning Reminders | Toggle | Nhắc nhở học |
+| **Appearance** |
+| | Theme | Select | Light/Dark/System |
+| | Language | Select | Ngôn ngữ |
+
+---
+
+### 5.6 Certificates `/app/profile/certificates`
+
+**Mô tả:** Danh sách chứng chỉ
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         HEADER                               │
+├────────────┬────────────────────────────────────────────────┤
+│            │                                                │
+│  Profile   │   Chứng chỉ của tôi                           │
+│  ...       │                                                │
+│            │   ┌─────────────────────────────────────────┐ │
+│            │   │  📜 CERTIFICATE                         │ │
+│            │   │  React Basics                           │ │
+│            │   │  Hoàn thành: 15/02/2026                 │ │
+│            │   │  [Xem] [Tải PDF] [Chia sẻ]              │ │
+│            │   └─────────────────────────────────────────┘ │
+│            │                                                │
+│            │   ┌─────────────────────────────────────────┐ │
+│            │   │  📜 CERTIFICATE                         │ │
+│            │   │  TypeScript Advanced                    │ │
+│            │   │  Hoàn thành: 20/02/2026                 │ │
+│            │   │  [Xem] [Tải PDF] [Chia sẻ]              │ │
+│            │   └─────────────────────────────────────────┘ │
+│            │                                                │
+└────────────┴────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Certificate Icon | - | Icon chứng chỉ |
+| Course Name | `courseName` | Tên khóa |
+| Completed Date | `completedAt` | Ngày hoàn thành |
+| View | Button | Xem chứng chỉ |
+| Download | Button | Tải PDF |
+| Share | Button | Chia sẻ (LinkedIn, etc.) |
+
+---
+
+### 5.7 Review/Rating Modal
+
+**Mô tả:** Modal đánh giá khóa học
+
+**UI Layout:**
+```
+┌─────────────────────────────────────┐
+│  Đánh giá khóa học            [✕]  │
+├─────────────────────────────────────┤
+│                                     │
+│  React Cơ Bản Đến Nâng Cao         │
+│                                     │
+│  Đánh giá của bạn:                  │
+│  ⭐ ⭐ ⭐ ⭐ ⭐                       │
+│                                     │
+│  Tiêu đề đánh giá:                  │
+│  ┌─────────────────────────────┐   │
+│  │                             │   │
+│  └─────────────────────────────┘   │
+│                                     │
+│  Nhận xét chi tiết:                 │
+│  ┌─────────────────────────────┐   │
+│  │                             │   │
+│  │                             │   │
+│  │                             │   │
+│  └─────────────────────────────┘   │
+│                                     │
+│           [Hủy]  [Gửi đánh giá]    │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Star Rating | `rating` | 1-5 sao |
+| Title | `title` | Tiêu đề review |
+| Comment | `comment` | Nội dung review |
+| Submit | Button | Gửi đánh giá |
+
+---
+
+### 5.8 Quiz Result (Enhanced)
+
+**Mô tả:** Kết quả quiz chi tiết
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🎉 Chúc mừng! Bạn đã PASS                                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│           ┌───────────────────────────┐                     │
+│           │      Điểm: 85/100        │                     │
+│           │   ████████████████░░░░   │                     │
+│           └───────────────────────────┘                     │
+│                                                              │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │ Thống kê:                                           │  │
+│   │ ✅ Correct: 8                                        │  │
+│   │ ❌ Wrong: 2                                          │  │
+│   │ ⏱️ Time: 8:45 / 15:00                               │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                              │
+│   [Xem đáp án] [Làm lại] [Bài tiếp theo]                   │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Pass/Fail | `passed` | Trạng thái |
+| Score | `score` | Điểm số |
+| Correct | `correctAnswers` | Số câu đúng |
+| Wrong | `wrongAnswers` | Số câu sai |
+| Time | `timeSpent` | Thời gian làm |
+| View Answers | Button | Xem đáp án chi tiết |
+| Retry | Button | Làm lại |
+| Next | Button | Bài tiếp |
+
+---
+
+### 5.9 Payment Page `/app/checkout/:courseId`
+
+**Mô tả:** Thanh toán khóa học
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         HEADER                               │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│   Thanh toán                                                │
+│                                                              │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │ [Thumb] React Cơ Bản Đến Nâng Cao                   │  │
+│   │                                                      │  │
+│   │ Giá: $49.00                                         │  │
+│   │ Giảm giá: -$10.00 (Code: NEWYEAR)                   │  │
+│   │ ────────────────────────────                        │  │
+│   │ Tổng: $39.00                                        │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                              │
+│   Phương thức thanh toán:                                   │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │ ○ 💳 Credit Card                                    │  │
+│   │ ○ 🏦 Bank Transfer                                   │  │
+│   │ ○ 📱 Momo/ZaloPay                                    │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                              │
+│   Mã giảm giá: [________] [Áp dụng]                        │
+│                                                              │
+│   [Hủy]                          [Thanh toán $39.00]       │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Field | Mô tả |
+|---------|-------|-------|
+| Course Info | `course` | Thông tin khóa |
+| Original Price | `originalPrice` | Giá gốc |
+| Discount | `discount` | Giảm giá |
+| Total | `totalPrice` | Tổng tiền |
+| Payment Method | `paymentMethod` | card/bank/momo |
+| Coupon | `couponCode` | Mã giảm giá |
+| Pay Button | - | Thanh toán |
+
+---
+
+### 5.10 Error Pages
+
+#### 404 Not Found
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                              │
+│                         404                                 │
+│                                                              │
+│              Trang không tồn tại                            │
+│                                                              │
+│         Xin lỗi, trang bạn tìm không tồn tại               │
+│                                                              │
+│                    [Về trang chủ]                           │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+#### 500 Server Error
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                              │
+│                         500                                 │
+│                                                              │
+│              Lỗi máy chủ                                    │
+│                                                              │
+│         Đã có lỗi xảy ra, vui lòng thử lại sau             │
+│                                                              │
+│                    [Thử lại] [Về trang chủ]                │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 6. ENHANCEMENTS (Cải tiến)
+
+### 6.1 Video Player Controls
+
+| Control | Mô tả |
+|---------|-------|
+| Play/Pause | Phát/dừng video |
+| Volume | Điều chỉnh âm lượng |
+| Progress Bar | Tua video |
+| Fullscreen | Toàn màn hình |
+| Speed | 0.5x, 0.75x, 1x, 1.25x, 1.5x, 2x |
+| Quality | 360p, 480p, 720p, 1080p |
+| Captions | Phụ đề (nếu có) |
+| Picture-in-Picture | Xem trong cửa sổ nhỏ |
+
+### 6.2 AI Chat Enhancements
+
+| Feature | Mô tả |
+|---------|-------|
+| Multi-line Input | Shift+Enter để xuống dòng |
+| Code Block | Hỗ trợ paste code với syntax highlight |
+| File Upload | Upload ảnh/screenshot để hỏi |
+| Voice Input | Nhập bằng giọng nói (optional) |
+| History | Xem lại lịch sử chat cũ |
+
+### 6.3 Progress Tracking
+
+| Feature | Mô tả |
+|---------|-------|
+| Learning Path | Biểu đồ đường học |
+| Achievement Badges | Huy hiệu thành tích |
+| Weekly Goals | Mục tiêu hàng tuần |
+| Streak Calendar | Lịch học liên tiếp |
+| Time Tracking | Thống kê thời gian học |
+
+---
+
+## 7. RESPONSIVE BREAKPOINTS
+
+| Device | Width | Layout |
+|--------|-------|--------|
+| Mobile | < 640px | Single column, bottom nav |
+| Tablet | 640px - 1024px | Collapsed sidebar |
+| Desktop | > 1024px | Full sidebar |
+
+### Mobile Adaptations
+- Sidebar → Drawer/Bottom Sheet
+- Course Grid → 1 column
+- Video Player → Full width
+- Tabs → Scrollable pills
+
+---
+
+*Version: 1.1 - Updated: 2026-02-27*
