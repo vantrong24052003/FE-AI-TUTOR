@@ -56,22 +56,6 @@
 | 11 | Profile | `/app/profile` | Student | Thông tin cá nhân |
 | 12 | My Courses | `/app/my-courses` | Student | Khóa đã đăng ký |
 
-### Teacher Pages
-
-| STT | Màn hình | Route | Mô tả |
-|-----|----------|-------|-------|
-| 13 | Teacher Dashboard | `/teacher/dashboard` | Quản lý khóa học |
-| 14 | Create Course | `/teacher/courses/create` | Tạo khóa mới |
-| 15 | Manage Course | `/teacher/courses/:id` | Sửa khóa học |
-
-### Admin Pages
-
-| STT | Màn hình | Route | Mô tả |
-|-----|----------|-------|-------|
-| 16 | Admin Dashboard | `/admin` | Thống kê |
-| 17 | User Management | `/admin/users` | Quản lý user |
-| 18 | Course Management | `/admin/courses` | Quản lý khóa |
-
 ---
 
 ## 👥 User Roles & Permissions
@@ -79,8 +63,6 @@
 | Role | Quyền hạn |
 |------|-----------|
 | **Student** | Xem khóa học, học bài, làm quiz, chat AI |
-| **Teacher** | Tất cả Student + Tạo/quản lý khóa học |
-| **Admin** | Tất cả Teacher + Quản lý users, hệ thống |
 
 ---
 

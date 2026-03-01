@@ -24,16 +24,7 @@
 │   ├── /ai-tutor              → AI Chat
 │   └── /profile               → Profile
 │
-├── /teacher                   → Teacher (Protected + Teacher Role)
-│   ├── /dashboard             → Teacher Dashboard
-│   ├── /courses               → My Courses
-│   ├── /courses/create        → Create Course
-│   └── /courses/:id           → Edit Course
-│
-└── /admin                     → Admin (Protected + Admin Role)
-    ├── /                      → Admin Dashboard
-    ├── /users                 → User Management
-    └── /courses               → Course Management
+└── *                          → 404 Not Found
 ```
 
 ---
@@ -67,29 +58,6 @@ const routes = [
     ],
   },
 
-  // Protected - Teacher
-  {
-    path: '/teacher',
-    element: <ProtectedRoute requiredRole="teacher"><MainLayout /></ProtectedRoute>,
-    children: [
-      { path: 'dashboard', element: <TeacherDashboard /> },
-      { path: 'courses', element: <TeacherCourses /> },
-      { path: 'courses/create', element: <CreateCourse /> },
-      { path: 'courses/:id', element: <EditCourse /> },
-    ],
-  },
-
-  // Protected - Admin
-  {
-    path: '/admin',
-    element: <ProtectedRoute requiredRole="admin"><AdminLayout /></ProtectedRoute>,
-    children: [
-      { index: true, element: <AdminDashboard /> },
-      { path: 'users', element: <UserManagement /> },
-      { path: 'courses', element: <CourseManagement /> },
-    ],
-  },
-
   // 404
   { path: '*', element: <NotFoundPage /> },
 ]
@@ -103,22 +71,14 @@ const routes = [
 // components/auth/ProtectedRoute.tsx
 interface ProtectedRouteProps {
   children: React.ReactNode
-  requiredRole?: 'student' | 'teacher' | 'admin'
 }
 
-export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
-  const { isAuthenticated, user } = useAuthStore()
+export function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { isAuthenticated } = useAuthStore()
   const location = useLocation()
 
   if (!isAuthenticated) {
     return <Navigate to="/auth/login" state={{ from: location }} />
-  }
-
-  if (requiredRole) {
-    const roleHierarchy = { student: 1, teacher: 2, admin: 3 }
-    if (roleHierarchy[user.role] < roleHierarchy[requiredRole]) {
-      return <Navigate to="/app/dashboard" />
-    }
   }
 
   return <>{children}</>
@@ -146,17 +106,6 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 - [ ] AITutorPage
 - [ ] ProfilePage
 
-### Teacher Pages
-- [ ] TeacherDashboard
-- [ ] TeacherCourses
-- [ ] CreateCourse
-- [ ] EditCourse
-
-### Admin Pages
-- [ ] AdminDashboard
-- [ ] UserManagement
-- [ ] CourseManagement
-
 ---
 
-*Version: 1.0 - Updated: 2026-02-27*
+*Version: 1.1 - Updated: 2026-02-27*

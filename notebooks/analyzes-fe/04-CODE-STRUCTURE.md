@@ -28,9 +28,7 @@ src/
 ├── pages/                # Page components
 │   ├── public/
 │   ├── auth/
-│   ├── app/
-│   ├── teacher/
-│   └── admin/
+│   └── app/
 │
 ├── hooks/                # Global hooks
 ├── lib/                  # Utilities
