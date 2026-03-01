@@ -1,6 +1,8 @@
 # FE AI TUTOR - Components Library
 
 > Danh sách components cần build cho FE
+>
+> **Version**: 3.0 - Full Feature Set
 
 ---
 
@@ -8,37 +10,68 @@
 
 | STT | Category | Component | Dùng ở đâu | Mô tả |
 |-----|----------|-----------|------------|-------|
-| **LAYOUT** |
+| **LAYOUT (5)** |
 | 1 | Layout | `Navbar` | Tất cả pages | Thanh nav trên |
 | 2 | Layout | `Sidebar` | App pages | Sidebar bên trái |
 | 3 | Layout | `Footer` | Landing page | Chân trang |
 | 4 | Layout | `MainLayout` | App pages | Layout chính |
 | 5 | Layout | `AuthLayout` | Auth pages | Layout auth |
-| **COMMON** |
+| **COMMON (5)** |
 | 6 | Common | `PageLoader` | Tất cả | Loading spinner |
 | 7 | Common | `EmptyState` | List pages | Không có data |
 | 8 | Common | `ErrorMessage` | Tất cả | Hiển thị lỗi |
 | 9 | Common | `ConfirmDialog` | Tất cả | Dialog xác nhận |
 | 10 | Common | `StatsCard` | Dashboard | Card thống kê |
-| **AUTH** |
+| **AUTH (2)** |
 | 11 | Auth | `LoginForm` | Login page | Form đăng nhập |
 | 12 | Auth | `RegisterForm` | Register page | Form đăng ký |
-| **COURSES** |
+| **COURSES (4)** |
 | 13 | Courses | `CourseCard` | Course list | Card khóa học |
 | 14 | Courses | `CourseFilters` | Course list | Bộ lọc |
 | 15 | Courses | `Curriculum` | Course detail | Danh sách bài |
-| **LEARNING** |
-| 16 | Learning | `VideoPlayer` | Learning page | Player video |
-| 17 | Learning | `CourseSidebar` | Learning page | Sidebar bài học |
-| 18 | Learning | `NotePanel` | Learning page | Ghi chú |
-| **QUIZ** |
-| 19 | Quiz | `QuizPlayer` | Quiz page | Làm quiz |
-| 20 | Quiz | `QuestionCard` | Quiz page | Câu hỏi |
-| 21 | Quiz | `QuizResult` | Quiz page | Kết quả |
-| **AI** |
-| 22 | AI | `ChatWindow` | AI page | Cửa sổ chat |
-| 23 | AI | `ChatMessage` | AI page | Tin nhắn |
-| 24 | AI | `ChatInput` | AI page | Input chat |
+| 16 | Courses | `CourseForm` | Create/Edit course | Form tạo/sửa course |
+| **LEARNING (4)** |
+| 17 | Learning | `VideoPlayer` | Learning page | Player video |
+| 18 | Learning | `CourseSidebar` | Learning page | Sidebar bài học |
+| 19 | Learning | `NotePanel` | Learning page | Ghi chú |
+| 20 | Learning | `LessonContent` | Learning page | Nội dung bài học |
+| **QUIZ (4)** |
+| 21 | Quiz | `QuizPlayer` | Quiz page | Làm quiz |
+| 22 | Quiz | `QuestionCard` | Quiz page | Câu hỏi |
+| 23 | Quiz | `QuizResult` | Quiz page | Kết quả |
+| 24 | Quiz | `QuizTimer` | Quiz page | Đếm ngược |
+| **EXERCISES (4)** |
+| 25 | Exercise | `ExerciseCard` | Lesson page | Card bài tập |
+| 26 | Exercise | `ExerciseSubmitForm` | Exercise page | Form nộp bài |
+| 27 | Exercise | `ExerciseFeedback` | Exercise page | AI feedback |
+| 28 | Exercise | `ExerciseHistory` | Exercise page | Lịch sử nộp |
+| **FLASHCARDS (5)** |
+| 29 | Flashcard | `FlashcardCard` | Flashcard list | Card flashcard |
+| 30 | Flashcard | `FlashcardReview` | Review page | Review UI (flip) |
+| 31 | Flashcard | `FlashcardProgress` | Progress page | Tiến độ SRS |
+| 32 | Flashcard | `FlashcardDeck` | Review page | Bộ cards |
+| 33 | Flashcard | `FlashcardStats` | Dashboard | Thống kê |
+| **NOTES & BOOKMARKS (4)** |
+| 34 | Note | `NoteEditor` | Learning page | Tạo/sửa ghi chú |
+| 35 | Note | `NoteList` | Lesson page | Danh sách ghi chú |
+| 36 | Bookmark | `BookmarkButton` | Lesson page | Nút bookmark |
+| 37 | Bookmark | `BookmarkList` | Bookmarks page | Danh sách bookmark |
+| **AI CHAT (5)** |
+| 38 | AI | `ChatWindow` | AI page | Cửa sổ chat |
+| 39 | AI | `ChatMessage` | AI page | Tin nhắn |
+| 40 | AI | `ChatInput` | AI page | Input chat |
+| 41 | AI | `ConversationList` | AI page | Danh sách hội thoại |
+| 42 | AI | `ContextSelector` | AI page | Chọn context |
+| **AI SERVICES (4)** |
+| 43 | AI | `SummarizePanel` | Lesson page | AI tóm tắt |
+| 44 | AI | `GenerateQuizButton` | Lesson page | Tạo quiz AI |
+| 45 | AI | `AIFeedbackDisplay` | Exercise page | Feedback AI |
+| 46 | AI | `GenerateFlashcardsButton` | Lesson page | Tạo flashcard AI |
+| **PROGRESS (2)** |
+| 47 | Progress | `ProgressOverview` | Dashboard | Tiến độ tổng quan |
+| 48 | Progress | `CourseProgressCard` | Course detail | Tiến độ khóa |
+
+**Total: 48 Components**
 
 ---
 
@@ -56,7 +89,6 @@
 | Notification | Icon + Badge | Thông báo |
 | Avatar | Image + Dropdown | Menu: Profile, Settings, Logout |
 
-**Code Structure:**
 ```tsx
 // components/layout/Navbar.tsx
 export function Navbar() {
@@ -83,10 +115,12 @@ export function Navbar() {
 | Dashboard | Link | → /app/dashboard |
 | Courses | Link | → /app/courses |
 | My Learning | Link | → /app/my-courses |
+| Flashcards | Link | → /app/flashcards |
+| Bookmarks | Link | → /app/bookmarks |
 | AI Tutor | Link | → /app/ai-tutor |
+| Progress | Link | → /app/progress |
 | Profile | Link | → /app/profile |
 
-**Code Structure:**
 ```tsx
 // components/layout/Sidebar.tsx
 export function Sidebar() {
@@ -95,7 +129,10 @@ export function Sidebar() {
       <NavItem icon={Home} label="Dashboard" href="/app/dashboard" />
       <NavItem icon={Book} label="Courses" href="/app/courses" />
       <NavItem icon={GraduationCap} label="My Learning" href="/app/my-courses" />
+      <NavItem icon={Layers} label="Flashcards" href="/app/flashcards" />
+      <NavItem icon={Bookmark} label="Bookmarks" href="/app/bookmarks" />
       <NavItem icon={Bot} label="AI Tutor" href="/app/ai-tutor" />
+      <NavItem icon={BarChart3} label="Progress" href="/app/progress" />
       <NavItem icon={User} label="Profile" href="/app/profile" />
     </aside>
   )
@@ -104,20 +141,89 @@ export function Sidebar() {
 
 ---
 
-## 3. COMMON COMPONENTS
+## 3. FLASHCARD COMPONENTS
 
-### 3.1 PageLoader
+### 3.1 FlashcardReview
 
-**Vị trí:** Route transitions, data loading
+**Vị trí:** Flashcard review page
 
-**UI:** Spinner toàn trang
+**UI Elements:**
+| Element | Loại | Mô tả |
+|---------|------|-------|
+| Card Front | Card | Mặt trước (câu hỏi) |
+| Card Back | Card | Mặt sau (câu trả lời) - hidden initially |
+| Flip Button | Button | Lật card |
+| Quality Buttons | Button Group | 0-5 rating |
+| Progress | Text | X/Y cards |
 
 ```tsx
-// components/common/PageLoader.tsx
-export function PageLoader() {
+// features/flashcards/components/FlashcardReview.tsx
+interface FlashcardReviewProps {
+  flashcard: {
+    id: number
+    front: string
+    back: string
+    hint?: string
+  }
+  onReview: (quality: number) => void
+  currentIndex: number
+  totalCards: number
+}
+
+export function FlashcardReview({
+  flashcard,
+  onReview,
+  currentIndex,
+  totalCards
+}: FlashcardReviewProps) {
+  const [isFlipped, setIsFlipped] = useState(false)
+
   return (
-    <div className="flex h-[50vh] items-center justify-center">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    <div className="flex flex-col items-center">
+      <div className="text-sm text-muted-foreground mb-4">
+        {currentIndex + 1} / {totalCards}
+      </div>
+
+      <div
+        className={cn(
+          "w-full max-w-lg h-64 cursor-pointer transition-transform duration-500",
+          isFlipped && "[transform:rotateY(180deg)]"
+        )}
+        onClick={() => setIsFlipped(!isFlipped)}
+      >
+        <Card className="w-full h-full">
+          <CardContent className="flex items-center justify-center h-full">
+            {!isFlipped ? (
+              <p className="text-xl text-center">{flashcard.front}</p>
+            ) : (
+              <p className="text-xl text-center">{flashcard.back}</p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
+      {flashcard.hint && (
+        <p className="text-sm text-muted-foreground mt-2">
+          Hint: {flashcard.hint}
+        </p>
+      )}
+
+      {isFlipped && (
+        <div className="mt-6">
+          <p className="text-sm text-center mb-2">How well did you remember?</p>
+          <div className="flex gap-2">
+            {[0, 1, 2, 3, 4, 5].map((q) => (
+              <Button
+                key={q}
+                variant={q < 3 ? "destructive" : q < 4 ? "secondary" : "default"}
+                onClick={() => onReview(q)}
+              >
+                {q}
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -125,79 +231,62 @@ export function PageLoader() {
 
 ---
 
-### 3.2 EmptyState
+### 3.2 FlashcardProgress
 
-**Vị trí:** List pages khi không có data
+**Vị trí:** Flashcard progress page, Dashboard
 
 **UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Icon | Icon | Icon minh họa |
-| Title | Text | Tiêu đề |
-| Description | Text | Mô tả |
-| Action | Button | Nút hành động (optional) |
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Total Cards | Text | total_cards | Tổng số flashcard |
+| Learned | Text | learned | Đã học |
+| New | Text | new | Chưa học |
+| Due Today | Text | due_today | Cần review hôm nay |
+| Mastery Rate | Progress | mastery_rate | % đã thuộc |
 
 ```tsx
-// components/common/EmptyState.tsx
-interface EmptyStateProps {
-  icon?: React.ComponentType
-  title: string
-  description?: string
-  action?: {
-    label: string
-    onClick: () => void
+// features/flashcards/components/FlashcardProgress.tsx
+interface FlashcardProgressProps {
+  stats: {
+    total_cards: number
+    learned: number
+    new: number
+    due_today: number
+    mastery_rate: number
   }
 }
 
-export function EmptyState({ icon: Icon, title, description, action }: EmptyStateProps) {
-  return (
-    <div className="flex flex-col items-center py-12">
-      {Icon && <Icon className="h-12 w-12 text-muted-foreground" />}
-      <h3 className="mt-4 text-lg font-semibold">{title}</h3>
-      {description && <p className="text-muted-foreground">{description}</p>}
-      {action && <Button onClick={action.onClick}>{action.label}</Button>}
-    </div>
-  )
-}
-```
-
----
-
-### 3.3 StatsCard
-
-**Vị trí:** Dashboard
-
-**UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Icon | Icon | Icon |
-| Title | Text | Tiêu đề stat |
-| Value | Text | Giá trị |
-| Trend | Text + Icon | Xu hướng (optional) |
-
-```tsx
-// components/common/StatsCard.tsx
-interface StatsCardProps {
-  title: string
-  value: string | number
-  icon?: React.ComponentType
-  trend?: { value: number; isPositive: boolean }
-}
-
-export function StatsCard({ title, value, icon: Icon, trend }: StatsCardProps) {
+export function FlashcardProgress({ stats }: FlashcardProgressProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
+      <CardHeader>
+        <CardTitle>Flashcard Progress</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        {trend && (
-          <p className={trend.isPositive ? 'text-green-600' : 'text-red-600'}>
-            {trend.isPositive ? '+' : '-'}{trend.value}%
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="text-2xl font-bold">{stats.total_cards}</p>
+            <p className="text-sm text-muted-foreground">Total Cards</p>
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-green-600">{stats.learned}</p>
+            <p className="text-sm text-muted-foreground">Learned</p>
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
+            <p className="text-sm text-muted-foreground">New</p>
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-orange-600">{stats.due_today}</p>
+            <p className="text-sm text-muted-foreground">Due Today</p>
+          </div>
+        </div>
+        <div className="mt-4">
+          <Progress value={stats.mastery_rate * 100} />
+          <p className="text-sm text-muted-foreground mt-1">
+            Mastery: {Math.round(stats.mastery_rate * 100)}%
           </p>
-        )}
+        </div>
       </CardContent>
     </Card>
   )
@@ -206,57 +295,60 @@ export function StatsCard({ title, value, icon: Icon, trend }: StatsCardProps) {
 
 ---
 
-## 4. COURSE COMPONENTS
+## 4. EXERCISE COMPONENTS
 
-### 4.1 CourseCard
+### 4.1 ExerciseCard
 
-**Vị trí:** Course list, Dashboard
+**Vị trí:** Lesson page
 
 **UI Elements:**
-| Element | Loại | Field | Mô tả |
-|---------|------|-------|-------|
-| Thumbnail | Image | `thumbnail` | Ảnh khóa |
-| Title | Text | `title` | Tên khóa |
-| Instructor | Text | `instructor.name` | Tên GV |
-| Rating | Stars + Text | `rating` | Đánh giá |
-| Students | Text | `studentsCount` | Số HV |
-| Price | Text | `price` | Giá |
-| Progress | Bar | `progress` | Tiến độ (optional) |
-| Button | Button | - | Enroll/Continue |
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Title | Text | title | Tiêu đề bài tập |
+| Type Badge | Badge | type | Loại: text/code/file |
+| Max Score | Text | max_score | Điểm tối đa |
+| Status | Badge | status | pending/submitted/graded |
+| Best Score | Text | best_score | Điểm cao nhất |
 
 ```tsx
-// features/courses/components/CourseCard.tsx
-interface CourseCardProps {
-  course: {
-    id: string
+// features/exercises/components/ExerciseCard.tsx
+interface ExerciseCardProps {
+  exercise: {
+    id: number
     title: string
-    thumbnail: string
-    instructor: { name: string }
-    rating: number
-    studentsCount: number
-    price: number
-    isEnrolled?: boolean
-    progress?: number
+    type: 'text' | 'code' | 'file'
+    max_score: number
+    has_submitted: boolean
+    best_score?: number
   }
 }
 
-export function CourseCard({ course }: CourseCardProps) {
+export function ExerciseCard({ exercise }: ExerciseCardProps) {
   return (
     <Card>
-      <img src={course.thumbnail} className="h-48 w-full object-cover" />
-      <CardContent>
-        <h3 className="font-semibold">{course.title}</h3>
-        <p className="text-sm text-muted-foreground">{course.instructor.name}</p>
-        <div className="flex items-center gap-2">
-          <StarRating value={course.rating} />
-          <span>({course.studentsCount})</span>
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between">
+          <div>
+            <Badge variant="outline">{exercise.type}</Badge>
+            <h3 className="font-semibold mt-2">{exercise.title}</h3>
+            <p className="text-sm text-muted-foreground">
+              Max score: {exercise.max_score}
+            </p>
+          </div>
+          {exercise.has_submitted && (
+            <div className="text-right">
+              <p className="text-sm text-muted-foreground">Best Score</p>
+              <p className="text-xl font-bold text-green-600">
+                {exercise.best_score}/{exercise.max_score}
+              </p>
+            </div>
+          )}
         </div>
-        {course.isEnrolled && <Progress value={course.progress} />}
       </CardContent>
-      <CardFooter>
-        <Button asChild>
-          <Link to={`/courses/${course.id}`}>
-            {course.isEnrolled ? 'Continue' : course.price === 0 ? 'Free' : `$${course.price}`}
+      <CardFooter className="p-4 pt-0">
+        <Button asChild className="w-full">
+          <Link to={`/app/exercises/${exercise.id}`}>
+            {exercise.has_submitted ? 'View / Resubmit' : 'Start'}
           </Link>
         </Button>
       </CardFooter>
@@ -267,242 +359,79 @@ export function CourseCard({ course }: CourseCardProps) {
 
 ---
 
-### 4.2 Curriculum
+### 4.2 ExerciseFeedback
 
-**Vị trí:** Course detail
-
-**UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Module | Accordion | Tiêu đề module |
-| Lesson | List Item | Tên bài + duration |
-| Status | Icon | Completed/In Progress/Locked |
-
-```tsx
-// features/courses/components/Curriculum.tsx
-interface CurriculumProps {
-  modules: Array<{
-    id: string
-    title: string
-    lessons: Array<{
-      id: string
-      title: string
-      duration: number
-      isCompleted: boolean
-    }>
-  }>
-}
-
-export function Curriculum({ modules }: CurriculumProps) {
-  return (
-    <div className="space-y-4">
-      {modules.map(module => (
-        <Accordion key={module.id} type="single">
-          <AccordionItem value={module.id}>
-            <AccordionTrigger>{module.title}</AccordionTrigger>
-            <AccordionContent>
-              {module.lessons.map(lesson => (
-                <LessonItem key={lesson.id} lesson={lesson} />
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      ))}
-    </div>
-  )
-}
-```
-
----
-
-## 5. LEARNING COMPONENTS
-
-### 5.1 VideoPlayer
-
-**Vị trí:** Learning page
+**Vị trí:** Exercise detail page
 
 **UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Video | HTML5 Video | Player video |
-| Controls | Custom | Play, Pause, Volume, Progress, Fullscreen |
-| Progress | Bar | Tiến độ video |
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Score | Text | score | Điểm AI chấm |
+| Overall Comment | Text | overall_comment | Nhận xét chung |
+| Strengths | List | strengths | Điểm tốt |
+| Improvements | List | improvements | Cần cải thiện |
+| Suggestions | List | suggestions | Gợi ý |
 
 ```tsx
-// features/learning/components/VideoPlayer.tsx
-interface VideoPlayerProps {
-  src: string
-  poster?: string
-  onComplete?: () => void
-  onProgress?: (progress: number) => void
-}
-
-export function VideoPlayer({ src, poster, onComplete, onProgress }: VideoPlayerProps) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  return (
-    <div className="relative aspect-video bg-black">
-      <video
-        ref={videoRef}
-        src={src}
-        poster={poster}
-        className="h-full w-full"
-        controls
-      />
-    </div>
-  )
-}
-```
-
----
-
-### 5.2 CourseSidebar
-
-**Vị trí:** Learning page
-
-**UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Course Info | Header | Tên khóa |
-| Progress | Bar | Tiến độ tổng |
-| Module List | Accordion | Danh sách modules |
-| Lesson | List Item | Click để chuyển bài |
-
-```tsx
-// features/learning/components/CourseSidebar.tsx
-interface CourseSidebarProps {
-  course: Course
-  currentLessonId: string
-  onLessonSelect: (lessonId: string) => void
-}
-
-export function CourseSidebar({ course, currentLessonId, onLessonSelect }: CourseSidebarProps) {
-  return (
-    <aside className="w-80 border-l">
-      <div className="p-4">
-        <h2 className="font-semibold">{course.title}</h2>
-        <Progress value={course.progress} className="mt-2" />
-      </div>
-      <ScrollArea>
-        {course.modules.map(module => (
-          <ModuleSection
-            key={module.id}
-            module={module}
-            currentLessonId={currentLessonId}
-            onLessonSelect={onLessonSelect}
-          />
-        ))}
-      </ScrollArea>
-    </aside>
-  )
-}
-```
-
----
-
-## 6. QUIZ COMPONENTS
-
-### 6.1 QuizPlayer
-
-**Vị trí:** Quiz page
-
-**UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Header | Bar | Title, Timer, Progress |
-| Question | Card | Câu hỏi + options |
-| Navigation | Buttons | Prev, Next, Submit |
-| Progress | Dots | Trạng thái từng câu |
-
-```tsx
-// features/quiz/components/QuizPlayer.tsx
-interface QuizPlayerProps {
-  quiz: {
-    id: string
-    title: string
-    timeLimit: number
-    questions: Question[]
+// features/exercises/components/ExerciseFeedback.tsx
+interface ExerciseFeedbackProps {
+  feedback: {
+    score: number
+    overall_comment: string
+    strengths: string[]
+    improvements: string[]
+    suggestions: string[]
   }
-  onComplete: (answers: Answers) => void
+  maxScore: number
 }
 
-export function QuizPlayer({ quiz, onComplete }: QuizPlayerProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [answers, setAnswers] = useState<Record<string, string[]>>({})
-
-  return (
-    <div>
-      <QuizHeader title={quiz.title} timeLimit={quiz.timeLimit} />
-      <QuestionCard
-        question={quiz.questions[currentIndex]}
-        selectedAnswer={answers[quiz.questions[currentIndex].id]}
-        onAnswer={(options) => setAnswers(prev => ({ ...prev, [quiz.questions[currentIndex].id]: options }))}
-      />
-      <QuizNavigation
-        currentIndex={currentIndex}
-        total={quiz.questions.length}
-        onPrev={() => setCurrentIndex(i => i - 1)}
-        onNext={() => setCurrentIndex(i => i + 1)}
-        onSubmit={() => onComplete(answers)}
-      />
-    </div>
-  )
-}
-```
-
----
-
-### 6.2 QuestionCard
-
-**Vị trí:** Quiz page
-
-**UI Elements:**
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Question Text | Text | Nội dung câu hỏi |
-| Options | Radio/Checkbox | A, B, C, D |
-| Result | Icon + Color | Đúng/Sai (khi show result) |
-
-```tsx
-// features/quiz/components/QuestionCard.tsx
-interface QuestionCardProps {
-  question: {
-    id: string
-    text: string
-    type: 'single' | 'multiple'
-    options: Array<{ id: string; text: string }>
-  }
-  selectedAnswer?: string[]
-  onAnswer: (optionIds: string[]) => void
-  showResult?: boolean
-  correctOptions?: string[]
-}
-
-export function QuestionCard({ question, selectedAnswer, onAnswer, showResult, correctOptions }: QuestionCardProps) {
-  const handleSelect = (optionId: string) => {
-    if (question.type === 'single') {
-      onAnswer([optionId])
-    } else {
-      // Multiple - toggle selection
-    }
-  }
-
+export function ExerciseFeedback({ feedback, maxScore }: ExerciseFeedbackProps) {
   return (
     <Card>
-      <CardContent>
-        <p className="text-lg font-medium">{question.text}</p>
-        <div className="mt-4 space-y-2">
-          {question.options.map(option => (
-            <OptionButton
-              key={option.id}
-              option={option}
-              selected={selectedAnswer?.includes(option.id)}
-              onClick={() => handleSelect(option.id)}
-              showResult={showResult}
-              isCorrect={correctOptions?.includes(option.id)}
-            />
-          ))}
+      <CardHeader>
+        <CardTitle>AI Feedback</CardTitle>
+        <div className="text-3xl font-bold">
+          {feedback.score}/{maxScore}
         </div>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div>
+          <p className="font-medium">Overall</p>
+          <p className="text-muted-foreground">{feedback.overall_comment}</p>
+        </div>
+
+        {feedback.strengths.length > 0 && (
+          <div>
+            <p className="font-medium text-green-600">Strengths</p>
+            <ul className="list-disc list-inside">
+              {feedback.strengths.map((s, i) => (
+                <li key={i} className="text-sm">{s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {feedback.improvements.length > 0 && (
+          <div>
+            <p className="font-medium text-orange-600">Improvements</p>
+            <ul className="list-disc list-inside">
+              {feedback.improvements.map((i, idx) => (
+                <li key={idx} className="text-sm">{i}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {feedback.suggestions.length > 0 && (
+          <div>
+            <p className="font-medium text-blue-600">Suggestions</p>
+            <ul className="list-disc list-inside">
+              {feedback.suggestions.map((s, i) => (
+                <li key={i} className="text-sm">{s}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </CardContent>
     </Card>
   )
@@ -511,9 +440,9 @@ export function QuestionCard({ question, selectedAnswer, onAnswer, showResult, c
 
 ---
 
-## 7. AI CHAT COMPONENTS
+## 5. AI CHAT COMPONENTS
 
-### 7.1 ChatWindow
+### 5.1 ChatWindow
 
 **Vị trí:** AI Tutor page
 
@@ -532,21 +461,40 @@ interface ChatWindowProps {
   messages: ChatMessage[]
   onSend: (message: string) => void
   isLoading?: boolean
+  contextOptions?: { id: number; title: string }[]
+  selectedContext?: number
+  onSelectContext?: (id: number) => void
 }
 
-export function ChatWindow({ messages, onSend, isLoading }: ChatWindowProps) {
+export function ChatWindow({
+  messages,
+  onSend,
+  isLoading,
+  contextOptions,
+  selectedContext,
+  onSelectContext
+}: ChatWindowProps) {
   const [input, setInput] = useState('')
 
   return (
     <div className="flex h-full flex-col">
       <ChatHeader />
-      <ContextSelector />
+
+      {contextOptions && (
+        <ContextSelector
+          options={contextOptions}
+          selected={selectedContext}
+          onSelect={onSelectContext}
+        />
+      )}
+
       <ScrollArea className="flex-1">
         {messages.map(msg => (
           <ChatMessage key={msg.id} message={msg} />
         ))}
         {isLoading && <TypingIndicator />}
       </ScrollArea>
+
       <SuggestionChips onSelect={setInput} />
       <ChatInput
         value={input}
@@ -555,6 +503,7 @@ export function ChatWindow({ messages, onSend, isLoading }: ChatWindowProps) {
           onSend(input)
           setInput('')
         }}
+        disabled={isLoading}
       />
     </div>
   )
@@ -563,7 +512,7 @@ export function ChatWindow({ messages, onSend, isLoading }: ChatWindowProps) {
 
 ---
 
-### 7.2 ChatMessage
+### 5.2 ChatMessage
 
 **Vị trí:** Trong ChatWindow
 
@@ -578,10 +527,10 @@ export function ChatWindow({ messages, onSend, isLoading }: ChatWindowProps) {
 // features/ai-tutor/components/ChatMessage.tsx
 interface ChatMessageProps {
   message: {
-    id: string
+    id: number
     role: 'user' | 'assistant'
     content: string
-    createdAt: string
+    created_at: string
   }
 }
 
@@ -593,9 +542,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
       <Avatar>
         {isUser ? <UserAvatar /> : <AIAvatar />}
       </Avatar>
-      <div className={cn('rounded-lg p-3', isUser ? 'bg-primary text-white' : 'bg-muted')}>
+      <div className={cn('rounded-lg p-3 max-w-[70%]', isUser ? 'bg-primary text-white' : 'bg-muted')}>
         <Markdown content={message.content} />
       </div>
+      <span className="text-xs text-muted-foreground">
+        {formatTime(message.created_at)}
+      </span>
     </div>
   )
 }
@@ -603,7 +555,95 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
 ---
 
-## 8. FILE STRUCTURE
+## 6. AI SERVICES COMPONENTS
+
+### 6.1 SummarizePanel
+
+**Vị trí:** Lesson page
+
+**UI Elements:**
+| Element | Loại | Mô tả |
+|---------|------|-------|
+| Length Select | Select | short/medium/long |
+| Summarize Button | Button | Gọi AI |
+| Summary | Card | Kết quả tóm tắt |
+| Key Points | List | Các ý chính |
+| Keywords | Chips | Từ khóa |
+
+```tsx
+// features/ai-services/components/SummarizePanel.tsx
+interface SummarizePanelProps {
+  lessonId: number
+}
+
+export function SummarizePanel({ lessonId }: SummarizePanelProps) {
+  const [length, setLength] = useState<'short' | 'medium' | 'long'>('medium')
+  const [summary, setSummary] = useState<SummaryResult | null>(null)
+
+  const { mutate: summarize, isPending } = useSummarize()
+
+  const handleSummarize = () => {
+    summarize({ lesson_id: lessonId, length }, {
+      onSuccess: (data) => setSummary(data)
+    })
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>AI Summary</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <Select value={length} onValueChange={setLength}>
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="short">Short (~100 words)</SelectItem>
+            <SelectItem value="medium">Medium (~200 words)</SelectItem>
+            <SelectItem value="long">Long (~400 words)</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Button onClick={handleSummarize} disabled={isPending}>
+          {isPending ? 'Summarizing...' : 'Generate Summary'}
+        </Button>
+
+        {summary && (
+          <div className="space-y-4">
+            <div>
+              <p className="font-medium">Summary</p>
+              <p className="text-muted-foreground">{summary.summary}</p>
+            </div>
+
+            <div>
+              <p className="font-medium">Key Points</p>
+              <ul className="list-disc list-inside">
+                {summary.key_points.map((point, i) => (
+                  <li key={i}>{point}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="font-medium">Keywords</p>
+              <div className="flex flex-wrap gap-2">
+                {summary.keywords.map((keyword, i) => (
+                  <Badge key={i} variant="secondary">{keyword}</Badge>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+```
+
+---
+
+## 7. FILE STRUCTURE
 
 ```
 src/
@@ -626,24 +666,97 @@ src/
 │   ├── auth/components/
 │   │   ├── LoginForm.tsx
 │   │   └── RegisterForm.tsx
+│   │
 │   ├── courses/components/
 │   │   ├── CourseCard.tsx
 │   │   ├── CourseFilters.tsx
+│   │   ├── CourseForm.tsx
 │   │   └── Curriculum.tsx
+│   │
 │   ├── learning/components/
 │   │   ├── VideoPlayer.tsx
 │   │   ├── CourseSidebar.tsx
+│   │   ├── LessonContent.tsx
 │   │   └── NotePanel.tsx
+│   │
 │   ├── quiz/components/
 │   │   ├── QuizPlayer.tsx
 │   │   ├── QuestionCard.tsx
-│   │   └── QuizResult.tsx
-│   └── ai-tutor/components/
-│       ├── ChatWindow.tsx
-│       ├── ChatMessage.tsx
-│       └── ChatInput.tsx
+│   │   ├── QuizResult.tsx
+│   │   └── QuizTimer.tsx
+│   │
+│   ├── exercises/components/
+│   │   ├── ExerciseCard.tsx
+│   │   ├── ExerciseSubmitForm.tsx
+│   │   ├── ExerciseFeedback.tsx
+│   │   └── ExerciseHistory.tsx
+│   │
+│   ├── flashcards/components/
+│   │   ├── FlashcardCard.tsx
+│   │   ├── FlashcardReview.tsx
+│   │   ├── FlashcardProgress.tsx
+│   │   ├── FlashcardDeck.tsx
+│   │   └── FlashcardStats.tsx
+│   │
+│   ├── notes/components/
+│   │   ├── NoteEditor.tsx
+│   │   └── NoteList.tsx
+│   │
+│   ├── bookmarks/components/
+│   │   ├── BookmarkButton.tsx
+│   │   └── BookmarkList.tsx
+│   │
+│   ├── ai-tutor/components/
+│   │   ├── ChatWindow.tsx
+│   │   ├── ChatMessage.tsx
+│   │   ├── ChatInput.tsx
+│   │   ├── ConversationList.tsx
+│   │   └── ContextSelector.tsx
+│   │
+│   ├── ai-services/components/
+│   │   ├── SummarizePanel.tsx
+│   │   ├── GenerateQuizButton.tsx
+│   │   ├── AIFeedbackDisplay.tsx
+│   │   └── GenerateFlashcardsButton.tsx
+│   │
+│   └── progress/components/
+│       ├── ProgressOverview.tsx
+│       └── CourseProgressCard.tsx
+│
+├── pages/
+│   ├── public/
+│   │   ├── LandingPage.tsx
+│   │   └── NotFoundPage.tsx
+│   ├── auth/
+│   │   ├── LoginPage.tsx
+│   │   ├── RegisterPage.tsx
+│   │   └── ForgotPasswordPage.tsx
+│   ├── app/
+│   │   ├── DashboardPage.tsx
+│   │   ├── CoursesPage.tsx
+│   │   ├── CourseDetailPage.tsx
+│   │   ├── CreateCoursePage.tsx
+│   │   ├── EditCoursePage.tsx
+│   │   ├── MyCoursesPage.tsx
+│   │   ├── LearningPage.tsx
+│   │   ├── LessonDetailPage.tsx
+│   │   ├── QuizPage.tsx
+│   │   ├── ExerciseDetailPage.tsx
+│   │   ├── FlashcardReviewPage.tsx
+│   │   ├── FlashcardsByLessonPage.tsx
+│   │   ├── FlashcardProgressPage.tsx
+│   │   ├── BookmarksPage.tsx
+│   │   ├── AITutorPage.tsx
+│   │   ├── ProgressPage.tsx
+│   │   └── ProfilePage.tsx
+│   └── admin/
+│       ├── AdminDashboardPage.tsx
+│       ├── UsersPage.tsx
+│       ├── CategoriesPage.tsx
+│       └── AllCoursesPage.tsx
 ```
 
 ---
 
-*Version: 1.0 - Updated: 2026-02-27*
+*Version: 3.0 - Updated: 2026-03-01*
+*48 Components, 31 Pages, Full Feature Set*

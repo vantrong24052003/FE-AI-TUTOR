@@ -1,6 +1,54 @@
-# FE AI TUTOR - UI Specification Chi Tiết
+# FE AI TUTOR - UI Specification
 
-> Mô tả chi tiết từng màn hình UI: Elements, Fields, Data cần thiết
+> Mô tả chi tiết từng màn hình UI
+>
+> **Version**: 3.0 - 31 Screens
+
+---
+
+## 📋 Screens Index
+
+| # | Page | Route | Type | Mô tả |
+|---|------|-------|------|-------|
+| **PUBLIC (4)** |
+| 1 | Landing | `/` | Public | Trang chủ |
+| 2 | Login | `/auth/login` | Public | Đăng nhập |
+| 3 | Register | `/auth/register` | Public | Đăng ký |
+| 4 | Forgot Password | `/auth/forgot-password` | Public | Quên mật khẩu |
+| **USER - DASHBOARD (1)** |
+| 5 | Dashboard | `/app/dashboard` | Protected | Trang chính |
+| **USER - COURSES (5)** |
+| 6 | Course List | `/app/courses` | Protected | Danh sách khóa |
+| 7 | Course Detail | `/app/courses/:id` | Protected | Chi tiết khóa |
+| 8 | Create Course | `/app/courses/create` | Protected | Tạo khóa mới |
+| 9 | Edit Course | `/app/courses/:id/edit` | Protected | Sửa khóa |
+| 10 | My Courses | `/app/my-courses` | Protected | Khóa đã đăng ký |
+| **USER - LEARNING (2)** |
+| 11 | Learning | `/app/learn/:courseId/lesson/:lessonId` | Protected | Học bài |
+| 12 | Lesson Detail | `/app/lessons/:id` | Protected | Chi tiết bài |
+| **USER - QUIZ (1)** |
+| 13 | Quiz | `/app/quiz/:quizId` | Protected | Làm quiz |
+| **USER - EXERCISES (2)** |
+| 14 | Exercise Detail | `/app/exercises/:id` | Protected | Chi tiết bài tập |
+| 15 | Exercise Submit | `/app/exercises/:id/submit` | Protected | Nộp bài |
+| **USER - FLASHCARDS (3)** |
+| 16 | Flashcard Review | `/app/flashcards` | Protected | Review hôm nay |
+| 17 | Flashcards by Lesson | `/app/flashcards/:lessonId` | Protected | Cards theo bài |
+| 18 | Flashcard Progress | `/app/flashcards/progress` | Protected | Tiến độ SRS |
+| **USER - BOOKMARKS (1)** |
+| 19 | Bookmarks | `/app/bookmarks` | Protected | Danh sách bookmark |
+| **USER - AI TUTOR (2)** |
+| 20 | AI Chat | `/app/ai-tutor` | Protected | Chat với AI |
+| 21 | AI Conversation | `/app/ai-tutor/:conversationId` | Protected | Hội thoại cụ thể |
+| **USER - PROGRESS (1)** |
+| 22 | Progress | `/app/progress` | Protected | Tiến độ học tập |
+| **USER - PROFILE (1)** |
+| 23 | Profile | `/app/profile` | Protected | Thông tin cá nhân |
+| **ADMIN (4)** |
+| 24 | Admin Dashboard | `/admin/dashboard` | Admin | Thống kê admin |
+| 25 | User Management | `/admin/users` | Admin | Quản lý users |
+| 26 | Category Management | `/admin/categories` | Admin | Quản lý danh mục |
+| 27 | All Courses | `/admin/courses` | Admin | Tất cả khóa học |
 
 ---
 
@@ -8,1318 +56,606 @@
 
 ### 1.1 Landing Page `/`
 
-**Mô tả:** Trang chủ giới thiệu sản phẩm
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        HEADER                                │
-│  [Logo] [Features] [Courses] [Pricing] [Login] [Sign Up]    │
-├─────────────────────────────────────────────────────────────┤
-│                       HERO SECTION                           │
-│                                                              │
-│        "Học tập thông minh với AI Tutor"                    │
-│        "Mô tả ngắn về sản phẩm..."                          │
-│                    [Bắt đầu ngay]                            │
-│                    [Xem khóa học]                            │
-│                                                              │
-├─────────────────────────────────────────────────────────────┤
-│                     FEATURES SECTION                         │
-│   ┌─────────┐   ┌─────────┐   ┌─────────┐                  │
-│   │ Icon 1  │   │ Icon 2  │   │ Icon 3  │                  │
-│   │ Title 1 │   │ Title 2 │   │ Title 3 │                  │
-│   │ Desc 1  │   │ Desc 2  │   │ Desc 3  │                  │
-│   └─────────┘   └─────────┘   └─────────┘                  │
-├─────────────────────────────────────────────────────────────┤
-│                    POPULAR COURSES                           │
-│   ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐   │
-│   │ Course1 │   │ Course2 │   │ Course3 │   │ Course4 │   │
-│   └─────────┘   └─────────┘   └─────────┘   └─────────┘   │
-├─────────────────────────────────────────────────────────────┤
-│                     TESTIMONIALS                             │
-│   "Review từ user..."                    - User Name        │
-├─────────────────────────────────────────────────────────────┤
-│                        CTA                                   │
-│         "Sẵn sàng bắt đầu hành trình học tập?"              │
-│                    [Đăng ký ngay]                            │
-├─────────────────────────────────────────────────────────────┤
-│                       FOOTER                                 │
-│   [About] [Contact] [Privacy] [Terms]    © 2026 AI TUTOR    │
-└─────────────────────────────────────────────────────────────┘
-```
-
 **UI Elements:**
 
-| Element | Loại | Field/Data | Mô tả |
-|---------|------|------------|-------|
-| **Header** |
-| Logo | Image/Link | - | Logo app, click về home |
-| Nav Links | Links | - | Features, Courses, Pricing |
-| Login | Button | - | Link đến /auth/login |
-| Sign Up | Button | - | Link đến /auth/register |
-| **Hero** |
-| Title | Heading | `headline` | "Học tập thông minh với AI Tutor" |
-| Subtitle | Text | `subheadline` | Mô tả ngắn |
-| CTA Primary | Button | - | "Bắt đầu ngay" → /auth/register |
-| CTA Secondary | Button | - | "Xem khóa học" → /courses |
-| **Features** |
-| Feature Card | Card | `features[]` | Icon + Title + Description |
-| **Courses** |
-| Course Card | Card | `courses[]` | Thumbnail + Title + Price |
-| View All | Link | - | → /courses |
-| **Testimonials** |
-| Quote | Text | `quote` | Nội dung review |
-| Author | Text | `author` | Tên người review |
-| Avatar | Image | `avatar` | Ảnh người review |
-| **Footer** |
-| Links | Links | - | About, Contact, Privacy, Terms |
-| Copyright | Text | - | © 2026 AI TUTOR |
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Header** | Logo, Nav Links, Login, Sign Up | Navigation bar |
+| **Hero** | Headline, Subheadline, CTA buttons | Main banner |
+| **Features** | 3-4 feature cards | Icon + Title + Description |
+| **Courses** | 4 popular course cards | Preview courses |
+| **CTA** | Final call to action | "Bắt đầu ngay" |
+| **Footer** | Links, Copyright | Footer info |
 
-**Data cần thiết:**
-```typescript
-// Static data (hardcode hoặc từ CMS)
-{
-  headline: string
-  subheadline: string
-  features: Array<{
-    icon: string
-    title: string
-    description: string
-  }>
-  testimonials: Array<{
-    quote: string
-    author: string
-    avatar: string
-  }>
-  // Popular courses từ API
-  courses: Course[] // GET /courses?limit=4
-}
-```
+**API Calls:**
+- `GET /api/courses?limit=4` - Popular courses
 
 ---
 
 ### 1.2 Login Page `/auth/login`
 
-**Mô tả:** Trang đăng nhập
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│   ┌─────────────────────┐   ┌─────────────────────────────┐│
-│   │                     │   │                             ││
-│   │                     │   │         [Logo]              ││
-│   │                     │   │                             ││
-│   │                     │   │    "Chào mừng trở lại"      ││
-│   │                     │   │                             ││
-│   │     BRANDING        │   │   ┌───────────────────┐    ││
-│   │     IMAGE/TEXT      │   │   │ Email             │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Password          │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   [ ] Remember me          ││
-│   │                     │   │                             ││
-│   │                     │   │   Quên mật khẩu?           ││
-│   │                     │   │                             ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │     Đăng nhập     │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   ────── Hoặc ──────        ││
-│   │                     │   │                             ││
-│   │                     │   │   [G] [F]  Social login     ││
-│   │                     │   │                             ││
-│   │                     │   │   Chưa có tài khoản?       ││
-│   │                     │   │   Đăng ký ngay             ││
-│   └─────────────────────┘   └─────────────────────────────┘│
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
 **UI Elements:**
 
-| Element | Loại | Field | Validation | Mô tả |
-|---------|------|-------|------------|-------|
-| Email | Input | `email` | Required, Email format | Nhập email |
-| Password | Input | `password` | Required, min 8 chars | Nhập mật khẩu, có toggle hiện/ẩn |
-| Remember Me | Checkbox | `rememberMe` | Optional | Ghi nhớ đăng nhập |
-| Quên mật khẩu? | Link | - | - | → /auth/forgot-password |
-| Đăng nhập | Button | - | - | Submit form |
-| Google | Button | - | - | Social login |
-| Facebook | Button | - | - | Social login |
-| Đăng ký | Link | - | - | → /auth/register |
+| Element | Type | Validation | Mô tả |
+|---------|------|------------|-------|
+| Email | Input | Required, Email | Email đăng nhập |
+| Password | Input | Required, min 8 | Mật khẩu |
+| Remember Me | Checkbox | Optional | Ghi nhớ đăng nhập |
+| Login | Button | - | Submit form |
+| Forgot Password | Link | - | → /auth/forgot-password |
+| Register | Link | - | → /auth/register |
 
-**Data gửi đi:**
-```typescript
-{
-  email: string
-  password: string
-  rememberMe?: boolean
-}
-```
+**API Calls:**
+- `POST /api/auth/login` - Login
 
 ---
 
 ### 1.3 Register Page `/auth/register`
 
-**Mô tả:** Trang đăng ký tài khoản
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│   ┌─────────────────────┐   ┌─────────────────────────────┐│
-│   │                     │   │         [Logo]              ││
-│   │                     │   │    "Tạo tài khoản"          ││
-│   │     BRANDING        │   │                             ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Họ và tên         │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Email             │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Mật khẩu          │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Xác nhận mật khẩu │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   [ ] Tôi đồng ý điều khoản ││
-│   │                     │   │                             ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │     Đăng ký       │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   Đã có tài khoản? Đăng nhập││
-│   └─────────────────────┘   └─────────────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
-
 **UI Elements:**
 
-| Element | Loại | Field | Validation | Mô tả |
-|---------|------|-------|------------|-------|
-| Họ tên | Input | `name` | Required, min 2 chars | Tên người dùng |
-| Email | Input | `email` | Required, Email format | Email đăng ký |
-| Mật khẩu | Input | `password` | Required, min 8 chars, có chữ + số | Password |
-| Xác nhận MK | Input | `confirmPassword` | Must match password | Nhập lại password |
-| Đồng ý điều khoản | Checkbox | `agreeTerms` | Required | Phải check mới được đăng ký |
-| Đăng ký | Button | - | - | Submit form |
-| Đăng nhập | Link | - | - | → /auth/login |
+| Element | Type | Validation | Mô tả |
+|---------|------|------------|-------|
+| Name | Input | Required, min 2 | Họ tên |
+| Email | Input | Required, Email | Email |
+| Password | Input | Required, min 8 | Mật khẩu |
+| Confirm Password | Input | Must match | Xác nhận mật khẩu |
+| Agree Terms | Checkbox | Required | Đồng ý điều khoản |
+| Register | Button | - | Submit form |
+| Login | Link | - | → /auth/login |
 
-**Data gửi đi:**
-```typescript
-{
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-}
-```
+**API Calls:**
+- `POST /api/auth/register` - Register
 
 ---
 
-## 2. STUDENT PAGES
+## 2. DASHBOARD
 
 ### 2.1 Dashboard `/app/dashboard`
-
-**Mô tả:** Trang chính sau khi student đăng nhập
 
 **UI Layout:**
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  [Logo]     [Search...]           [🔔] [👤 Avatar ▼]        │
 ├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  Dashboard │   Chào [Tên],                                 │
-│  Khóa học  │   Hôm nay bạn muốn học gì?                    │
-│  Học tập   │                                                │
-│  AI Tutor  │   ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────┐│
-│  Hồ sơ     │   │ Courses │ │ Hours   │ │ Done    │ │🔥7  ││
-│            │   │   12    │ │  45     │ │  23     │ │days ││
-│            │   └─────────┘ └─────────┘ └─────────┘ └─────┘│
-│            │                                                │
-│            │   Tiếp tục học                                │
-│            │   ┌──────────────────────────────────────┐   │
-│            │   │ [Thumb]  React Basics - Bài 5       │   │
-│            │   │          ████████░░ 65%             │   │
-│            │   │          [Tiếp tục]                 │   │
-│            │   └──────────────────────────────────────┘   │
-│            │                                                │
-│            │   Khóa học đề xuất                            │
-│            │   ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐│
-│            │   │Course 1│ │Course 2│ │Course 3│ │Course 4││
-│            │   └────────┘ └────────┘ └────────┘ └────────┘│
-│            │                                                │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field/Data | Mô tả |
-|---------|---------|------------|-------|
-| **Header** |
-| | Search | Input | Tìm kiếm khóa học |
-| | Bell | Icon | Thông báo |
-| | Avatar | Image + Dropdown | Menu: Profile, Settings, Logout |
-| **Stats Cards** |
-| | Courses | Number | Số khóa đã đăng ký |
-| | Hours | Number | Tổng giờ học |
-| | Completed | Number | Bài đã hoàn thành |
-| | Streak | Number + Flame Icon | Số ngày học liên tiếp |
-| **Continue Learning** |
-| | Thumbnail | Image | Ảnh khóa học |
-| | Course Name | Text | Tên khóa đang học |
-| | Lesson Name | Text | Bài tiếp theo |
-| | Progress Bar | Progress | % hoàn thành |
-| | Continue Button | Button | → Learning page |
-| **Recommended** |
-| | Course Cards | Cards | 4 khóa học đề xuất |
-
-**Data cần thiết:**
-```typescript
-{
-  user: {
-    name: string
-    avatar: string
-  }
-  stats: {
-    totalCourses: number
-    learningHours: number
-    completedLessons: number
-    streak: number
-  }
-  continueLearning: {
-    courseId: string
-    courseName: string
-    lessonId: string
-    lessonName: string
-    thumbnail: string
-    progress: number
-  }
-  recommended: Course[] // 4 items
-}
-```
-
----
-
-### 2.2 Course List `/app/courses`
-
-**Mô tả:** Danh sách tất cả khóa học
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │  Khóa học                                     │
-│            │                                                │
-│  Filters:  │  [Search...........................] [🔍]      │
-│  □ Free    │                                                │
-│  □ Paid    │  Category: [All ▼]  Level: [All ▼]            │
-│            │                                                │
-│  Categories│  ──────────────────────────────────────────    │
-│  - All     │                                                │
-│  - Code    │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ │
-│  - Design  │  │Course 1│ │Course 2│ │Course 3│ │Course 4│ │
-│  - Business│  └────────┘ └────────┘ └────────┘ └────────┘ │
-│            │                                                │
-│  Level:    │  ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐ │
-│  - All     │  │Course 5│ │Course 6│ │Course 7│ │Course 8│ │
-│  - Basic   │  └────────┘ └────────┘ └────────┘ └────────┘ │
-│  - Med     │                                                │
-│  - Adv     │  ──────────────────────────────────────────    │
-│            │                                                │
-│            │  [1] [2] [3] ... [10]  Pagination              │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Filters** |
-| | Search | Input | Tìm theo tên khóa học |
-| | Category | Select | Lọc theo danh mục |
-| | Level | Select | Basic/Intermediate/Advanced |
-| | Price | Radio | Free/Paid |
-| **Course Card** |
-| | Thumbnail | Image | Ảnh đại diện khóa |
-| | Title | Text | Tên khóa học |
-| | Instructor | Text | Tên giảng viên |
-| | Rating | Stars + Number | Đánh giá trung bình |
-| | Students | Number | Số người đăng ký |
-| | Price | Text | Free hoặc giá tiền |
-| | Level | Badge | Basic/Intermediate/Advanced |
-| **Pagination** |
-| | Pages | Buttons | 1, 2, 3... |
-
-**Data cần thiết:**
-```typescript
-{
-  courses: Array<{
-    id: string
-    title: string
-    thumbnail: string
-    instructor: {
-      name: string
-      avatar: string
-    }
-    rating: number
-    studentsCount: number
-    price: number // 0 = Free
-    level: 'beginner' | 'intermediate' | 'advanced'
-    category: string
-  }>
-  pagination: {
-    page: number
-    totalPages: number
-    total: number
-  }
-  categories: Array<{ id: string, name: string }>
-}
-```
-
----
-
-### 2.3 Course Detail `/app/courses/:id`
-
-**Mô tả:** Chi tiết một khóa học
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├─────────────────────────────────────────────────────────────┤
-│  ┌────────────────────────────────────────────────────┐     │
-│  │ [Thumbnail lớn - 16:9]                             │     │
-│  └────────────────────────────────────────────────────┘     │
-│                                                              │
-│  React Cơ Bản Đến Nâng Cao                                  │
-│  Bởi Nguyễn Văn A  ⭐ 4.8 (256 reviews)  👥 1,234 students │
-│                                                              │
-│  [Đăng ký miễn phí]  [Thêm vào wishlist ❤️]                │
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│  [Tổng quan] [Nội dung] [Giảng viên] [Đánh giá]             │
-│                                                              │
-│  ### Tổng quan ###                                           │
-│  Mô tả chi tiết về khóa học...                              │
-│  - Bạn sẽ học được gì                                       │
-│  - Yêu cầu đầu vào                                          │
-│                                                              │
-│  ### Nội dung khóa học ###                                  │
-│  ▼ Module 1: Giới thiệu (3 bài | 45p)                       │
-│    ✓ 1.1 React là gì (15p)                                  │
-│    ✓ 1.2 Cài đặt (20p)                                      │
-│    ○ 1.3 Quiz (10p)                                         │
-│  ▶ Module 2: React Basics (5 bài | 1h)                      │
-│  ▶ Module 3: Hooks (8 bài | 2h)                             │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Header** |
-| | Thumbnail | Image | Ảnh khóa học |
-| | Title | Heading | Tên khóa học |
-| | Instructor | Text + Avatar | Tên + ảnh giảng viên |
-| | Rating | Stars + Number | ⭐ 4.8 (256) |
-| | Students | Number | Số học viên |
-| | Enroll Button | Button | Đăng ký khóa |
-| | Wishlist | Icon Button | Thêm vào yêu thích |
-| **Tabs** |
-| | Overview | Tab | Mô tả khóa học |
-| | Content | Tab | Curriculum |
-| | Instructor | Tab | Thông tin GV |
-| | Reviews | Tab | Đánh giá |
-| **Curriculum** |
-| | Module | Accordion | Tiêu đề module + số bài |
-| | Lesson | List Item | Tên bài + duration + status |
-
-**Data cần thiết:**
-```typescript
-{
-  id: string
-  title: string
-  description: string
-  thumbnail: string
-  instructor: {
-    id: string
-    name: string
-    avatar: string
-    bio: string
-  }
-  rating: number
-  reviewsCount: number
-  studentsCount: number
-  price: number
-  level: string
-  duration: number // minutes
-  lessonsCount: number
-  isEnrolled: boolean
-  curriculum: Array<{
-    id: string
-    title: string
-    lessons: Array<{
-      id: string
-      title: string
-      type: 'video' | 'article' | 'quiz'
-      duration: number
-      isCompleted: boolean
-      isLocked: boolean
-    }>
-  }>
-}
-```
-
----
-
-### 2.4 Learning Page `/app/learn/:courseId/lesson/:lessonId`
-
-**Mô tả:** Giao diện học bài
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  [← Quay lại]  React Basics - Bài 5        [📖 Ghi chú] [🤖 AI]│
-├────────────────────────┬────────────────────────────────────┤
-│                        │                                    │
-│   ┌────────────────┐   │   ▼ Module 1: Giới thiệu          │
-│   │                │   │     ✓ 1.1 React là gì              │
-│   │   VIDEO        │   │     ✓ 1.2 Cài đặt                  │
-│   │   PLAYER       │   │     ● 1.3 JSX Basics ← Current     │
-│   │                │   │   ▶ Module 2: Components           │
-│   │                │   │     ○ 2.1 Functional Components    │
-│   │                │   │     ○ 2.2 Class Components         │
-│   └────────────────┘   │     ○ 2.3 Props                    │
-│                        │   ▶ Module 3: Hooks                │
-│   ████████████░░ 65%   │     ...                            │
-│   [⏮] [⏯] [⏭]  12:34  │                                    │
-│                        │   ─────────────────────────────    │
-│   ──────────────────   │   Tiến độ: 12/45 bài (27%)        │
-│                        │   ████████░░░░░░░░░░░░              │
-│   ### Nội dung bài ### │                                    │
-│   JSX là cú pháp...    │                                    │
-│                        │                                    │
-├────────────────────────┴────────────────────────────────────┤
-│  [Đánh dấu hoàn thành ✓]                    [Bài sau →]     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Header** |
-| | Back | Button | Quay lại course detail |
-| | Course Name | Text | Tên khóa học |
-| | Notes | Button | Mở panel ghi chú |
-| | AI Chat | Button | Mở chat với AI |
-| **Video** |
-| | Player | Video | Player video bài học |
-| | Progress | Bar | Tiến độ video |
-| | Controls | Buttons | Play, Pause, Next, Prev |
-| **Content** |
-| | Lesson Content | Markdown/HTML | Nội dung bài học |
-| **Sidebar** |
-| | Modules | Accordion List | Danh sách modules/bài |
-| | Current | Highlight | Bài đang học |
-| | Completed | Checkmark | Bài đã xong |
-| | Progress | Bar + Text | Tiến độ tổng |
-| **Footer** |
-| | Complete | Button | Đánh dấu hoàn thành |
-| | Next | Button | Bài tiếp theo |
-
-**Data cần thiết:**
-```typescript
-{
-  lesson: {
-    id: string
-    title: string
-    type: 'video' | 'article' | 'quiz'
-    videoUrl: string
-    content: string // Markdown/HTML
-    duration: number
-    isCompleted: boolean
-  }
-  course: {
-    id: string
-    title: string
-    progress: number
-    modules: Array<{
-      id: string
-      title: string
-      lessons: Array<{
-        id: string
-        title: string
-        type: string
-        duration: number
-        isCompleted: boolean
-      }>
-    }>
-  }
-  navigation: {
-    prevLessonId: string | null
-    nextLessonId: string | null
-  }
-}
-```
-
----
-
-### 2.5 Quiz Page `/app/quiz/:quizId`
-
-**Mô tả:** Làm bài kiểm tra
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Quiz: React Basics              ⏱️ Thời gian: 12:35       │
-│  Câu 3/10                                                   │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│  JSX là viết tắt của什么?                                   │
-│                                                              │
-│  ○ A. JavaScript XML                                        │
-│  ○ B. Java Syntax Extension                                 │
-│  ○ C. JavaScript Extension                                  │
-│  ○ D. JSON XML                                              │
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│  [⏮ Câu trước]                              [Câu sau ⏭]    │
-│                                                              │
-│  Progress: ●●●○○○○○○○                                       │
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│                    [NỘP BÀI]                                │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Header** |
-| | Quiz Title | Text | Tên bài kiểm tra |
-| | Timer | Text | Đếm ngược thời gian |
-| | Progress | Text | Câu 3/10 |
-| **Question** |
-| | Question Text | Text | Nội dung câu hỏi |
-| | Options | Radio/Checkbox | A, B, C, D |
-| **Navigation** |
-| | Prev | Button | Câu trước |
-| | Next | Button | Câu sau |
-| | Progress Dots | Dots | Trạng thái từng câu |
-| **Submit** |
-| | Submit | Button | Nộp bài |
-
-**Data cần thiết:**
-```typescript
-{
-  quiz: {
-    id: string
-    title: string
-    timeLimit: number // minutes, 0 = unlimited
-    questions: Array<{
-      id: string
-      text: string
-      type: 'single' | 'multiple' // radio or checkbox
-      options: Array<{
-        id: string
-        text: string
-      }>
-    }>
-  }
-}
-```
-
----
-
-### 2.6 AI Chat `/app/ai-tutor`
-
-**Mô tả:** Chat với AI Tutor
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  🤖 AI Tutor                                    [New Chat]  │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  Context: [React Basics ▼]                                  │
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│  👤 React hooks là gì?                                      │
-│                                                              │
-│  🤖 React Hooks là các hàm đặc biệt cho phép bạn           │
-│     sử dụng state và các tính năng khác của React          │
-│     mà không cần viết class components...                   │
-│                                                              │
-│     Các hooks phổ biến:                                     │
-│     - useState: quản lý state                               │
-│     - useEffect: side effects                               │
-│     - useContext: chia sẻ data                              │
-│                                                              │
-│  👤 Cho ví dụ về useState                                   │
-│                                                              │
-│  🤖 Đây là ví dụ về useState:                               │
-│     ```javascript                                           │
-│     const [count, setCount] = useState(0)                   │
-│     ```                                                     │
-│                                                              │
-│  ──────────────────────────────────────────────────────     │
-│                                                              │
-│  Gợi ý: [Hooks là gì?] [Ví dụ] [Best practices]            │
-│                                                              │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ Nhập tin nhắn...                           [Send ➤] │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Header** |
-| | Title | Text | AI Tutor |
-| | New Chat | Button | Tạo chat mới |
-| **Context** |
-| | Course Select | Select | Chọn ngữ cảnh khóa học |
-| **Messages** |
-| | User Message | Bubble | Tin nhắn của user |
-| | AI Message | Bubble | Tin nhắn của AI, có code highlight |
-| **Suggestions** |
-| | Chips | Buttons | Gợi ý câu hỏi nhanh |
-| **Input** |
-| | Text Input | Input | Nhập tin nhắn |
-| | Send | Button | Gửi tin nhắn |
-
-**Data cần thiết:**
-```typescript
-{
-  context: {
-    courseId: string | null
-    courseName: string
-  }
-  messages: Array<{
-    id: string
-    role: 'user' | 'assistant'
-    content: string
-    createdAt: string
-  }>
-  suggestions: string[]
-}
-```
-
----
-
-### 2.7 Profile `/app/profile`
-
-**Mô tả:** Thông tin cá nhân
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  Dashboard │   [Avatar lớn]                                 │
-│  Khóa học  │   Nguyễn Văn A                                 │
-│  Học tập   │   student@email.com                            │
-│  AI Tutor  │   [Chỉnh sửa profile]                          │
-│  Hồ sơ     │                                                │
-│            │   ─────────────────────────────────────────    │
-│            │                                                │
-│            │   [Thông tin] [Khóa học] [Chứng chỉ] [Cài đặt]│
-│            │                                                │
-│            │   ### Thông tin cá nhân ###                    │
-│            │   Họ tên:     Nguyễn Văn A                     │
-│            │   Email:      student@email.com                │
-│            │   Ngày tham gia: 01/01/2026                    │
-│            │                                                │
-│            │   ### Thống kê học tập ###                     │
-│            │   ┌─────────┐ ┌─────────┐ ┌─────────┐         │
-│            │   │ Courses │ │ Hours   │ │Certificates│       │
-│            │   │   12    │ │  45     │ │    3     │         │
-│            │   └─────────┘ └─────────┘ └─────────┘         │
-│            │                                                │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Profile Card** |
-| | Avatar | Image | Ảnh đại diện |
-| | Name | Text | Tên user |
-| | Email | Text | Email |
-| | Edit | Button | Chỉnh sửa profile |
-| **Tabs** |
-| | Info | Tab | Thông tin cá nhân |
-| | Courses | Tab | Khóa đã đăng ký |
-| | Certificates | Tab | Chứng chỉ |
-| | Settings | Tab | Cài đặt tài khoản |
-| **Info Tab** |
-| | Name | Text | Họ tên |
-| | Email | Text | Email |
-| | Joined | Text | Ngày tham gia |
-| **Stats** |
-| | Courses | Number | Số khóa học |
-| | Hours | Number | Giờ học |
-| | Certificates | Number | Số chứng chỉ |
-
-**Data cần thiết:**
-```typescript
-{
-  user: {
-    id: string
-    name: string
-    email: string
-    avatar: string
-    createdAt: string
-  }
-  stats: {
-    totalCourses: number
-    learningHours: number
-    certificates: number
-  }
-}
-```
-
----
-
-## 3. MISSING PAGES (Cần bổ sung)
-
-### 3.1 Forgot Password `/auth/forgot-password`
-
-**Mô tả:** Trang yêu cầu reset mật khẩu
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│   ┌─────────────────────┐   ┌─────────────────────────────┐│
-│   │                     │   │         [Logo]              ││
-│   │                     │   │   "Quên mật khẩu?"          ││
-│   │     BRANDING        │   │                             ││
-│   │     IMAGE           │   │   Nhập email để nhận link   ││
-│   │                     │   │   reset mật khẩu            ││
-│   │                     │   │                             ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │ Email             │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   ┌───────────────────┐    ││
-│   │                     │   │   │   Gửi link reset  │    ││
-│   │                     │   │   └───────────────────┘    ││
-│   │                     │   │                             ││
-│   │                     │   │   ← Quay lại đăng nhập     ││
-│   └─────────────────────┘   └─────────────────────────────┘│
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Loại | Field | Validation | Mô tả |
-|---------|------|-------|------------|-------|
-| Email | Input | `email` | Required, Email | Email đã đăng ký |
-| Submit | Button | - | - | Gửi link reset |
-| Back | Link | - | - | → /auth/login |
-
-**Success State:**
-```
-┌─────────────────────────────────────┐
-│  ✅ Email đã được gửi!              │
-│                                     │
-│  Kiểm tra hộp thư của bạn để        │
-│  nhận link đặt lại mật khẩu         │
-│                                     │
-│  [Gửi lại email] (sau 60s)          │
-└─────────────────────────────────────┘
-```
-
----
-
-### 3.2 My Courses `/app/my-courses`
-
-**Mô tả:** Danh sách khóa học đã đăng ký
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  Dashboard │   Khóa học của tôi                            │
-│  Khóa học  │                                                │
-│  Học tập   │   [Tất cả] [Đang học] [Hoàn thành]            │
+│            │   Chào [Tên], hôm nay bạn muốn học gì?         │
+│  Dashboard │                                                │
+│  Courses   │   ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────┐ │
+│  My Learn  │   │ Courses │ │ Hours   │ │ Done    │ │🔥7  │ │
+│  Flashcards│   │   12    │ │  45     │ │  23     │ │days │ │
+│  Bookmarks │   └─────────┘ └─────────┘ └─────────┘ └─────┘ │
 │  AI Tutor  │                                                │
-│  Hồ sơ     │   ┌──────────────────────────────────────────┐│
-│            │   │ [Thumb]  React Basics                    ││
-│            │   │          ████████████░░ 65%              ││
-│            │   │          23/45 bài | Tiếp tục học        ││
-│            │   └──────────────────────────────────────────┘│
+│  Progress  │   Tiếp tục học                                │
+│  Profile   │   ┌──────────────────────────────────────┐    │
+│            │   │ [Thumb] Course - Lesson       65%    │    │
+│            │   └──────────────────────────────────────┘    │
 │            │                                                │
-│            │   ┌──────────────────────────────────────────┐│
-│            │   │ [Thumb]  TypeScript Advanced             ││
-│            │   │          ██████████████████ 100% ✓       ││
-│            │   │          Đã hoàn thành | Xem chứng chỉ   ││
-│            │   └──────────────────────────────────────────┘│
-│            │                                                │
-│            │   ┌──────────────────────────────────────────┐│
-│            │   │ [Thumb]  Node.js Backend                 ││
-│            │   │          ████░░░░░░░░░░░░ 20%            ││
-│            │   │          5/30 bài | Tiếp tục học         ││
-│            │   └──────────────────────────────────────────┘│
-│            │                                                │
+│            │   Flashcards cần review hôm nay (5)           │
+│            │   ┌──────────────────────────────────────┐    │
+│            │   │ [Front] → [Back]    [0][1][2][3][4][5]│   │
+│            │   └──────────────────────────────────────┘    │
 └────────────┴────────────────────────────────────────────────┘
 ```
 
 **UI Elements:**
 
-| Section | Element | Field | Mô tả |
-|---------|---------|-------|-------|
-| **Tabs** |
-| | All | Tab | Tất cả khóa |
-| | In Progress | Tab | Đang học |
-| | Completed | Tab | Hoàn thành |
-| **Course Card** |
-| | Thumbnail | Image | Ảnh khóa |
-| | Title | Text | Tên khóa |
-| | Progress Bar | Progress | % hoàn thành |
-| | Stats | Text | X/Y bài |
-| | Action | Button | Tiếp tục / Xem chứng chỉ |
+| Section | Element | Data Field | Mô tả |
+|---------|---------|------------|-------|
+| **Stats** | Courses | `total_courses` | Số khóa đã đăng ký |
+| | Hours | `total_time_spent` | Tổng giờ học |
+| | Done | `completed_lessons` | Bài đã hoàn thành |
+| | Streak | `streak_days` | Số ngày học liên tiếp |
+| **Continue Learning** | Course Card | `continue_learning` | Khóa đang học |
+| **Flashcard Review** | Quick Review | `due_flashcards` | Cards cần review |
+| **Recommended** | Course Grid | `recommended_courses` | Khóa đề xuất |
 
-**Data cần thiết:**
-```typescript
+**API Calls:**
+- `GET /api/learning-progress` - Stats
+- `GET /api/flashcards/review` - Due flashcards
+- `GET /api/courses?enrolled=true&limit=4` - Continue learning
+
+---
+
+## 3. COURSES PAGES
+
+### 3.1 Course List `/app/courses`
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Filters** | Search, Category, Level | Bộ lọc |
+| **Course Grid** | Course Cards | Danh sách khóa |
+| **Pagination** | Page numbers | Phân trang |
+
+**Course Card:**
+
+| Element | Data Field | Mô tả |
+|---------|------------|-------|
+| Thumbnail | `thumbnail` | Ảnh khóa |
+| Title | `title` | Tên khóa |
+| Creator | `creator.name` | Người tạo |
+| Category | `category.name` | Danh mục |
+| Level | `level` | Badge level |
+| Lessons | `lessons_count` | Số bài |
+| Students | `enrolled_count` | Số HV |
+| Progress | `progress` | Nếu đã enrolled |
+| Button | - | Enroll/Continue/Edit |
+
+**API Calls:**
+- `GET /api/courses` - Course list with filters
+- `GET /api/categories` - Category filter
+
+---
+
+### 3.2 Course Detail `/app/courses/:id`
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Header** | Thumbnail, Title, Meta | Thông tin chính |
+| **Actions** | Enroll/Continue/Edit | Nút hành động |
+| **Tabs** | Overview, Curriculum, Reviews | Tab nội dung |
+| **Curriculum** | Modules + Lessons | Danh sách bài |
+
+**Curriculum Item:**
+
+| Element | Mô tả |
+|---------|-------|
+| Module | Accordion header |
+| Lesson | Title, Duration, Status (✓/○) |
+| Quiz | Badge "Quiz" |
+| Exercise | Badge "Exercise" |
+
+**API Calls:**
+- `GET /api/courses/:id` - Course detail
+- `POST /api/courses/:id/enroll` - Enroll
+
+---
+
+## 4. LEARNING PAGE
+
+### 4.1 Learning Page `/app/learn/:courseId/lesson/:lessonId`
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  [← Back]  Course Name - Lesson Name    [📝] [🤖 AI]       │
+├────────────────────────┬────────────────────────────────────┤
+│   ┌────────────────┐   │   ▼ Module 1                     │
+│   │   VIDEO        │   │     ✓ 1.1 Intro                   │
+│   │   PLAYER       │   │     ✓ 1.2 Setup                   │
+│   │                │   │     ● 1.3 Current ←               │
+│   │                │   │   ▶ Module 2                     │
+│   └────────────────┘   │     ○ 2.1 Next                    │
+│                        │     ○ 2.2 ...                     │
+│   [Mark Complete ✓]    │                                   │
+│                        │                                   │
+│   Lesson Content...    │                                   │
+│                        │                                   │
+│   ──────────────────   │                                   │
+│   📝 Ghi chú của bạn   │                                   │
+│   ┌────────────────┐   │                                   │
+│   │ Add note...    │   │                                   │
+│   └────────────────┘   │                                   │
+│                        │                                   │
+│   ──────────────────   │                                   │
+│   🎴 Flashcards (5)    │                                   │
+│   [Review Now]         │                                   │
+│                        │                                   │
+│   ──────────────────   │                                   │
+│   📝 Bài tập (3)       │                                   │
+│   [View Exercises]     │                                   │
+└────────────────────────┴────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Video** | Player | Video bài học |
+| **Actions** | Mark Complete | Đánh dấu hoàn thành |
+| **Content** | Text/Markdown | Nội dung bài |
+| **Notes** | Note Editor | Ghi chú cá nhân |
+| **Flashcards** | Quick link | → Flashcard review |
+| **Exercises** | Quick link | → Exercise list |
+| **Sidebar** | Course Navigation | Danh sách bài |
+
+**API Calls:**
+- `GET /api/lessons/:id` - Lesson detail
+- `POST /api/lesson-completions` - Mark complete
+- `GET /api/lessons/:id/notes` - Notes
+- `POST /api/lessons/:id/notes` - Create note
+- `POST /api/lessons/:id/bookmark` - Toggle bookmark
+
+---
+
+## 5. QUIZ PAGE
+
+### 5.1 Quiz Page `/app/quiz/:quizId`
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Quiz Title                          ⏱ 15:00    5/10       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   Câu 5: Python là gì?                                     │
+│                                                             │
+│   ○ A. Ngôn ngữ lập trình                                  │
+│   ○ B. Hệ điều hành                                        │
+│   ○ C. Phần mềm                                            │
+│   ○ D. Cơ sở dữ liệu                                       │
+│                                                             │
+│   ─────────────────────────────────────────────────────     │
+│                                                             │
+│   ● ● ● ○ ○ ○ ○ ○ ○ ○    Question progress                │
+│                                                             │
+│   [← Previous]                        [Next →]  [Submit]   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Mô tả |
+|---------|-------|
+| Timer | Đếm ngược thời gian |
+| Progress | Số câu đã trả lời |
+| Question | Nội dung câu hỏi |
+| Options | Radio/Checkbox |
+| Navigation | Prev/Next/Submit |
+| Progress Dots | Trạng thái từng câu |
+
+**API Calls:**
+- `GET /api/quizzes/:id` - Quiz detail
+- `POST /api/quizzes/:id/submit` - Submit answers
+
+---
+
+## 6. EXERCISE PAGES
+
+### 6.1 Exercise Detail `/app/exercises/:id`
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Header** | Title, Type, Max Score | Thông tin bài tập |
+| **Description** | Markdown | Mô tả yêu cầu |
+| **Submission Form** | Textarea/File | Form nộp bài |
+| **History** | List | Lịch sử nộp bài |
+| **AI Feedback** | Card | Feedback từ AI (nếu đã chấm) |
+
+**AI Feedback Display:**
+
+| Element | Data Field | Mô tả |
+|---------|------------|-------|
+| Score | `score` | Điểm số |
+| Overall Comment | `overall_comment` | Nhận xét chung |
+| Strengths | `strengths[]` | Điểm tốt |
+| Improvements | `improvements[]` | Cần cải thiện |
+| Suggestions | `suggestions[]` | Gợi ý |
+
+**API Calls:**
+- `GET /api/exercises/:id` - Exercise detail
+- `POST /api/exercises/:id/submit` - Submit
+- `GET /api/exercises/:id/submissions` - History
+- `POST /api/ai/solve-exercise` - AI hints
+
+---
+
+## 7. FLASHCARD PAGES
+
+### 7.1 Flashcard Review `/app/flashcards`
+
+**Mô tả:** Trang review flashcard theo Spaced Repetition (SRS)
+
+**UI Layout:**
+```
+┌─────────────────────────────────────────────────────────────┐
+│  Flashcard Review - Hôm nay                    🔥 5 cards   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐   │
+│   │                                                     │   │
+│   │              [Front] Variable là gì?                │   │
+│   │                                                     │   │
+│   │         👆 Click để lật thẻ                         │   │
+│   │                                                     │   │
+│   └─────────────────────────────────────────────────────┘   │
+│                         ↓ Sau khi lật ↓                     │
+│   ┌─────────────────────────────────────────────────────┐   │
+│   │                                                     │   │
+│   │              [Back] Nơi lưu trữ dữ liệu...          │   │
+│   │                                                     │   │
+│   │              💡 Hint: Think of a box                │   │
+│   │                                                     │   │
+│   └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│   Đánh giá mức độ nhớ:                                     │
+│   [0]  [1]  [2]  [3]  [4]  [5]                             │
+│   😵   😕   🤔   🙂   😊   🎉                               │
+│   Quên  Sai  Khó   Đúng Dễ  Hoàn hảo                       │
+│                                                             │
+│   Progress: 2/5 (40%)  ████████░░░░░░░░                    │
+│   Lesson: Python Cơ bản - Bài 1                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**UI Elements:**
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Card Front | Card | `front` | Mặt trước (câu hỏi) |
+| Card Back | Card | `back` | Mặt sau (câu trả lời) - hiện sau khi lật |
+| Hint | Text | `hint` | Gợi ý (optional) |
+| Lesson Info | Text | `lesson.title` | Bài học thuộc về |
+| Quality Rating | Buttons | 0-5 | Đánh giá mức độ nhớ |
+| Progress Bar | Progress | - | Tiến độ review |
+| Stats | Badges | `total_due`, `total_new`, `total_review` | Thống kê |
+
+**Quality Rating (SM-2 Algorithm):**
+
+| Rating | Label | Meaning | Effect on Interval |
+|--------|-------|---------|-------------------|
+| 0 | 😵 Quên hoàn toàn | Complete blackout | Reset to 1 day |
+| 1 | 😕 Sai nhưng nhớ | Incorrect, recognized | Reset to 1 day |
+| 2 | 🤔 Sai nhưng dễ nhớ | Incorrect, easy recall | Reset to 1 day |
+| 3 | 🙂 Đúng nhưng khó | Correct with difficulty | Increase |
+| 4 | 😊 Đúng sau suy nghĩ | Correct after hesitation | Increase |
+| 5 | 🎉 Hoàn hảo | Perfect response | Increase more |
+
+**API Calls:**
+- `GET /api/flashcards/review` - Lấy cards cần review hôm nay
+- `POST /api/flashcards/:id/review` - Submit rating (quality: 0-5)
+
+**Response sau review:**
+```json
 {
-  courses: Array<{
-    id: string
-    title: string
-    thumbnail: string
-    progress: number
-    completedLessons: number
-    totalLessons: number
-    status: 'in_progress' | 'completed'
-    certificateId?: string
-  }>
+  "flashcard_id": 1,
+  "next_review_at": "2026-03-03T10:00:00Z",
+  "interval": 2,
+  "ease_factor": 2.5,
+  "cards_due_today": 4
 }
 ```
 
 ---
 
-### 3.3 Search Results `/app/search`
+### 7.2 Flashcards by Lesson `/app/flashcards/:lessonId`
 
-**Mô tả:** Kết quả tìm kiếm khóa học
+**Mô tả:** Xem/tạo flashcard theo bài học
+
+**UI Elements:**
+
+| Element | Loại | Mô tả |
+|---------|------|-------|
+| Flashcard List | Cards | Danh sách flashcard của bài |
+| Create Button | Button | Tạo flashcard mới |
+| AI Generate | Button | AI tạo flashcard từ nội dung |
+| Edit/Delete | Actions | Sửa/xóa flashcard |
+
+**API Calls:**
+- `GET /api/lessons/:id/flashcards` - Danh sách flashcard
+- `POST /api/lessons/:id/flashcards` - Tạo flashcard mới
+- `PUT /api/flashcards/:id` - Cập nhật
+- `DELETE /api/flashcards/:id` - Xóa
+- `POST /api/ai/generate-flashcards` - AI tạo flashcard
+
+---
+
+### 7.3 Flashcard Progress `/app/flashcards/progress`
+
+**Mô tả:** Thống kê tiến độ học flashcard
+
+**UI Elements:**
+
+| Element | Data Field | Mô tả |
+|---------|------------|-------|
+| Total Cards | `total` | Tổng số cards |
+| Learned | `learned` | Đã học |
+| New | `new` | Chưa học |
+| Due Today | `due_today` | Cần review hôm nay |
+| Mastery Rate | `mastery_rate` | Tỷ lệ nhớ tốt (0-100%) |
+| Chart | - | Biểu đồ tiến độ theo thời gian |
+
+**API Calls:**
+- `GET /api/flashcards/progress` - Progress stats
+
+**Response:**
+```json
+{
+  "total_cards": 100,
+  "learned": 45,
+  "new": 30,
+  "due_today": 15,
+  "mastery_rate": 0.45
+}
+```
+
+---
+
+## 8. BOOKMARKS PAGE
+
+### 8.1 Bookmarks `/app/bookmarks`
+
+**UI Elements:**
+
+| Element | Data Field | Mô tả |
+|---------|------------|-------|
+| Lesson Title | `lesson.title` | Tên bài |
+| Course Title | `lesson.course.title` | Tên khóa |
+| Note | `note` | Ghi chú bookmark |
+| Created At | `created_at` | Thời gian tạo |
+| Remove | Button | Xóa bookmark |
+
+**API Calls:**
+- `GET /api/bookmarks` - List bookmarks
+- `DELETE /api/bookmarks/:id` - Remove
+
+---
+
+## 9. AI TUTOR PAGES
+
+### 9.1 AI Chat `/app/ai-tutor`
 
 **UI Layout:**
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  ...       │   Kết quả tìm kiếm: "react hooks"             │
-│            │   Tìm thấy 15 khóa học                         │
-│            │                                                │
-│            │   Sắp xếp: [Relevance ▼] [Newest] [Popular]   │
-│            │                                                │
-│            │   ┌─────────────────────────────────────────┐ │
-│            │   │ [Thumb] React Hooks Complete Guide      │ │
-│            │   │ ⭐ 4.8 | 👥 1,234 | $49                  │ │
-│            │   └─────────────────────────────────────────┘ │
-│            │                                                │
-│            │   ┌─────────────────────────────────────────┐ │
-│            │   │ [Thumb] Advanced Hooks Patterns         │ │
-│            │   │ ⭐ 4.6 | 👥 856 | $39                    │ │
-│            │   └─────────────────────────────────────────┘ │
-│            │                                                │
-│            │   [1] [2] [3] ...                             │
-│            │                                                │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Search Query | `q` | Từ khóa tìm kiếm |
-| Result Count | `total` | Số kết quả |
-| Sort | Select | Relevance/Newest/Popular |
-| Course Card | Course | Card khóa học |
-
----
-
-### 3.4 Notifications Panel
-
-**Mô tả:** Panel thông báo (dropdown từ navbar)
-
-**UI Layout:**
-```
-┌─────────────────────────────┐
-│  Thông báo        [Đọc tất cả] │
-├─────────────────────────────┤
-│  ● Khóa học mới: React 19   │
-│    2 phút trước             │
-├─────────────────────────────┤
-│  ● Bạn đã hoàn thành bài 5  │
-│    1 giờ trước              │
-├─────────────────────────────┤
-│  ○ Nhắc nhở học bài hôm nay │
-│    3 giờ trước              │
-├─────────────────────────────┤
-│  ○ Certificate đã sẵn sàng  │
-│    Hôm qua                  │
-├─────────────────────────────┤
-│        [Xem tất cả →]       │
-└─────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Unread Dot | `isRead` | Chấm xanh = chưa đọc |
-| Title | `title` | Tiêu đề thông báo |
-| Message | `message` | Nội dung |
-| Time | `createdAt` | Thời gian |
-| Type Icon | `type` | Icon theo loại |
-
-**Notification Types:**
-- `new_course`: Khóa học mới
-- `lesson_complete`: Hoàn thành bài
-- `reminder`: Nhắc nhở
-- `certificate`: Chứng chỉ
-- `promotion`: Khuyến mãi
-
----
-
-### 3.5 Settings Page `/app/profile/settings`
-
-**Mô tả:** Cài đặt tài khoản
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  Profile   │   Cài đặt                                     │
-│  Settings  │                                                │
-│            │   [Tài khoản] [Thông báo] [Bảo mật] [Giao diện]│
-│            │                                                │
-│            │   ### Đổi mật khẩu ###                         │
-│            │   ┌───────────────────────────────┐           │
-│            │   │ Mật khẩu hiện tại             │           │
-│            │   └───────────────────────────────┘           │
-│            │   ┌───────────────────────────────┐           │
-│            │   │ Mật khẩu mới                  │           │
-│            │   └───────────────────────────────┘           │
-│            │   ┌───────────────────────────────┐           │
-│            │   │ Xác nhận mật khẩu mới         │           │
-│            │   └───────────────────────────────┘           │
-│            │                                    [Cập nhật]  │
-│            │                                                │
-│            │   ### Phiên đăng nhập ###                      │
-│            │   🖥️ Chrome on Windows - Active now           │
-│            │   📱 Mobile App - 2 days ago    [Đăng xuất]    │
-│            │                                                │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Tab | Element | Field | Mô tả |
-|-----|---------|-------|-------|
-| **Security** |
-| | Current Password | `currentPassword` | Mật khẩu hiện tại |
-| | New Password | `newPassword` | Mật khẩu mới |
-| | Confirm Password | `confirmPassword` | Xác nhận |
-| | Sessions | `sessions[]` | Danh sách phiên đăng nhập |
-| **Notifications** |
-| | Email Notifications | Toggle | Bật/tắt email |
-| | Push Notifications | Toggle | Bật/tắt push |
-| | Learning Reminders | Toggle | Nhắc nhở học |
-| **Appearance** |
-| | Theme | Select | Light/Dark/System |
-| | Language | Select | Ngôn ngữ |
-
----
-
-### 3.6 Certificates `/app/profile/certificates`
-
-**Mô tả:** Danh sách chứng chỉ
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
-├────────────┬────────────────────────────────────────────────┤
-│            │                                                │
-│  Profile   │   Chứng chỉ của tôi                           │
-│  ...       │                                                │
-│            │   ┌─────────────────────────────────────────┐ │
-│            │   │  📜 CERTIFICATE                         │ │
-│            │   │  React Basics                           │ │
-│            │   │  Hoàn thành: 15/02/2026                 │ │
-│            │   │  [Xem] [Tải PDF] [Chia sẻ]              │ │
-│            │   └─────────────────────────────────────────┘ │
-│            │                                                │
-│            │   ┌─────────────────────────────────────────┐ │
-│            │   │  📜 CERTIFICATE                         │ │
-│            │   │  TypeScript Advanced                    │ │
-│            │   │  Hoàn thành: 20/02/2026                 │ │
-│            │   │  [Xem] [Tải PDF] [Chia sẻ]              │ │
-│            │   └─────────────────────────────────────────┘ │
-│            │                                                │
-└────────────┴────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Certificate Icon | - | Icon chứng chỉ |
-| Course Name | `courseName` | Tên khóa |
-| Completed Date | `completedAt` | Ngày hoàn thành |
-| View | Button | Xem chứng chỉ |
-| Download | Button | Tải PDF |
-| Share | Button | Chia sẻ (LinkedIn, etc.) |
-
----
-
-### 3.7 Review/Rating Modal
-
-**Mô tả:** Modal đánh giá khóa học
-
-**UI Layout:**
-```
-┌─────────────────────────────────────┐
-│  Đánh giá khóa học            [✕]  │
-├─────────────────────────────────────┤
-│                                     │
-│  React Cơ Bản Đến Nâng Cao         │
-│                                     │
-│  Đánh giá của bạn:                  │
-│  ⭐ ⭐ ⭐ ⭐ ⭐                       │
-│                                     │
-│  Tiêu đề đánh giá:                  │
-│  ┌─────────────────────────────┐   │
-│  │                             │   │
-│  └─────────────────────────────┘   │
-│                                     │
-│  Nhận xét chi tiết:                 │
-│  ┌─────────────────────────────┐   │
-│  │                             │   │
-│  │                             │   │
-│  │                             │   │
-│  └─────────────────────────────┘   │
-│                                     │
-│           [Hủy]  [Gửi đánh giá]    │
-│                                     │
-└─────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Star Rating | `rating` | 1-5 sao |
-| Title | `title` | Tiêu đề review |
-| Comment | `comment` | Nội dung review |
-| Submit | Button | Gửi đánh giá |
-
----
-
-### 3.8 Quiz Result (Enhanced)
-
-**Mô tả:** Kết quả quiz chi tiết
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  🎉 Chúc mừng! Bạn đã PASS                                  │
+│  AI Tutor                    [+ New Chat]                   │
 ├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│           ┌───────────────────────────┐                     │
-│           │      Điểm: 85/100        │                     │
-│           │   ████████████████░░░░   │                     │
-│           └───────────────────────────┘                     │
-│                                                              │
-│   ┌─────────────────────────────────────────────────────┐  │
-│   │ Thống kê:                                           │  │
-│   │ ✅ Correct: 8                                        │  │
-│   │ ❌ Wrong: 2                                          │  │
-│   │ ⏱️ Time: 8:45 / 15:00                               │  │
-│   └─────────────────────────────────────────────────────┘  │
-│                                                              │
-│   [Xem đáp án] [Làm lại] [Bài tiếp theo]                   │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Pass/Fail | `passed` | Trạng thái |
-| Score | `score` | Điểm số |
-| Correct | `correctAnswers` | Số câu đúng |
-| Wrong | `wrongAnswers` | Số câu sai |
-| Time | `timeSpent` | Thời gian làm |
-| View Answers | Button | Xem đáp án chi tiết |
-| Retry | Button | Làm lại |
-| Next | Button | Bài tiếp |
-
----
-
-### 3.9 Payment Page `/app/checkout/:courseId`
-
-**Mô tả:** Thanh toán khóa học
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│                         HEADER                               │
+│  Context: [Python Cơ bản ▼]                                 │
 ├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│   Thanh toán                                                │
-│                                                              │
-│   ┌─────────────────────────────────────────────────────┐  │
-│   │ [Thumb] React Cơ Bản Đến Nâng Cao                   │  │
-│   │                                                      │  │
-│   │ Giá: $49.00                                         │  │
-│   │ Giảm giá: -$10.00 (Code: NEWYEAR)                   │  │
-│   │ ────────────────────────────                        │  │
-│   │ Tổng: $39.00                                        │  │
-│   └─────────────────────────────────────────────────────┘  │
-│                                                              │
-│   Phương thức thanh toán:                                   │
-│   ┌─────────────────────────────────────────────────────┐  │
-│   │ ○ 💳 Credit Card                                    │  │
-│   │ ○ 🏦 Bank Transfer                                   │  │
-│   │ ○ 📱 Momo/ZaloPay                                    │  │
-│   └─────────────────────────────────────────────────────┘  │
-│                                                              │
-│   Mã giảm giá: [________] [Áp dụng]                        │
-│                                                              │
-│   [Hủy]                          [Thanh toán $39.00]       │
-│                                                              │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ 👤 Variable trong Python là gì?                     │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ 🤖 Variable là nơi lưu trữ dữ liệu...               │   │
+│  │                                                     │   │
+│  │ Ví dụ: x = 5                                       │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ─────────────────────────────────────────────────────     │
+│                                                             │
+│  Gợi ý: [Giải thích thêm] [Ví dụ code] [Quiz me]           │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ [Type your message...                        ] [Send]│   │
+│  └─────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 **UI Elements:**
 
-| Element | Field | Mô tả |
-|---------|-------|-------|
-| Course Info | `course` | Thông tin khóa |
-| Original Price | `originalPrice` | Giá gốc |
-| Discount | `discount` | Giảm giá |
-| Total | `totalPrice` | Tổng tiền |
-| Payment Method | `paymentMethod` | card/bank/momo |
-| Coupon | `couponCode` | Mã giảm giá |
-| Pay Button | - | Thanh toán |
-
----
-
-### 3.10 Error Pages
-
-#### 404 Not Found
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│                         404                                 │
-│                                                              │
-│              Trang không tồn tại                            │
-│                                                              │
-│         Xin lỗi, trang bạn tìm không tồn tại               │
-│                                                              │
-│                    [Về trang chủ]                           │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
-#### 500 Server Error
-```
-┌─────────────────────────────────────────────────────────────┐
-│                                                              │
-│                         500                                 │
-│                                                              │
-│              Lỗi máy chủ                                    │
-│                                                              │
-│         Đã có lỗi xảy ra, vui lòng thử lại sau             │
-│                                                              │
-│                    [Thử lại] [Về trang chủ]                │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 4. ENHANCEMENTS (Cải tiến)
-
-### 6.1 Video Player Controls
-
-| Control | Mô tả |
+| Element | Mô tả |
 |---------|-------|
-| Play/Pause | Phát/dừng video |
-| Volume | Điều chỉnh âm lượng |
-| Progress Bar | Tua video |
-| Fullscreen | Toàn màn hình |
-| Speed | 0.5x, 0.75x, 1x, 1.25x, 1.5x, 2x |
-| Quality | 360p, 480p, 720p, 1080p |
-| Captions | Phụ đề (nếu có) |
-| Picture-in-Picture | Xem trong cửa sổ nhỏ |
+| Context Selector | Chọn khóa học context |
+| Messages | User + AI messages |
+| Suggestions | Quick action chips |
+| Input | Text input |
+| New Chat | Button tạo hội thoại mới |
 
-### 6.2 AI Chat Enhancements
-
-| Feature | Mô tả |
-|---------|-------|
-| Multi-line Input | Shift+Enter để xuống dòng |
-| Code Block | Hỗ trợ paste code với syntax highlight |
-| File Upload | Upload ảnh/screenshot để hỏi |
-| Voice Input | Nhập bằng giọng nói (optional) |
-| History | Xem lại lịch sử chat cũ |
-
-### 6.3 Progress Tracking
-
-| Feature | Mô tả |
-|---------|-------|
-| Learning Path | Biểu đồ đường học |
-| Achievement Badges | Huy hiệu thành tích |
-| Weekly Goals | Mục tiêu hàng tuần |
-| Streak Calendar | Lịch học liên tiếp |
-| Time Tracking | Thống kê thời gian học |
+**API Calls:**
+- `GET /api/chat/ai/conversations` - List conversations
+- `POST /api/chat/ai/conversations` - Create conversation
+- `GET /api/chat/ai/conversations/:id/messages` - Messages
+- `POST /api/chat/ai/conversations/:id/messages` - Send message
 
 ---
 
-## 5. RESPONSIVE BREAKPOINTS
+## 10. PROGRESS PAGE
 
-| Device | Width | Layout |
-|--------|-------|--------|
-| Mobile | < 640px | Single column, bottom nav |
-| Tablet | 640px - 1024px | Collapsed sidebar |
-| Desktop | > 1024px | Full sidebar |
+### 10.1 Learning Progress `/app/progress`
 
-### Mobile Adaptations
-- Sidebar → Drawer/Bottom Sheet
-- Course Grid → 1 column
-- Video Player → Full width
-- Tabs → Scrollable pills
+**UI Elements:**
+
+| Section | Element | Data Field | Mô tả |
+|---------|---------|------------|-------|
+| **Overview Stats** | Courses | `total_courses` | Khóa đã đăng ký |
+| | Completed | `completed_courses` | Khóa hoàn thành |
+| | Lessons | `total_lessons` / `completed_lessons` | Bài học |
+| | Time | `total_time_spent` | Giờ học |
+| | Avg Score | `average_score` | Điểm TB |
+| **Flashcards** | Stats | `flashcards.*` | Tiến độ SRS |
+| **Exercises** | Stats | `exercises.*` | Bài tập |
+| **Courses** | Progress Cards | `courses[]` | Tiến độ từng khóa |
+
+**API Calls:**
+- `GET /api/learning-progress` - Overall progress
+- `GET /api/learning-progress/courses/:id` - Per-course progress
 
 ---
 
-*Version: 1.2 - Updated: 2026-02-27*
+## 11. PROFILE PAGE
+
+### 11.1 Profile `/app/profile`
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Avatar** | Image + Upload | Ảnh đại diện |
+| **Info** | Name, Email, Created | Thông tin cơ bản |
+| **Settings** | Change Password | Đổi mật khẩu |
+| | Preferences | Cài đặt cá nhân |
+
+**API Calls:**
+- `GET /api/auth/me` - Current user
+- `PUT /api/auth/me` - Update profile
+- `PUT /api/auth/change-password` - Change password
+
+---
+
+## 12. ADMIN PAGES
+
+### 12.1 Admin Dashboard `/admin/dashboard`
+
+**UI Elements:**
+
+| Section | Element | Mô tả |
+|---------|---------|-------|
+| **Stats** | Users, Courses, Enrollments | Thống kê tổng quan |
+| **Charts** | Activity, Popular courses | Biểu đồ |
+| **Recent** | Users, Courses | Hoạt động gần đây |
+
+**API Calls:**
+- `GET /api/admin/statistics` - Admin stats
+
+---
+
+### 12.2 User Management `/admin/users`
+
+**UI Elements:**
+
+| Element | Mô tả |
+|---------|-------|
+| User Table | ID, Name, Email, Role, Status, Actions |
+| Search | Tìm user |
+| Actions | Edit role, Deactivate, Delete |
+
+**API Calls:**
+- `GET /api/users` - List users
+- `PUT /api/users/:id` - Update user
+- `DELETE /api/users/:id` - Delete user
+
+---
+
+### 12.3 Category Management `/admin/categories`
+
+**UI Elements:**
+
+| Element | Mô tả |
+|---------|-------|
+| Category List | Name, Slug, Course count |
+| Add/Edit Form | Name, Description, Icon, Color |
+| Actions | Edit, Delete |
+
+**API Calls:**
+- `GET /api/categories` - List
+- `POST /api/categories` - Create
+- `PUT /api/categories/:id` - Update
+- `DELETE /api/categories/:id` - Delete
+
+---
+
+## 13. AI SERVICES INTEGRATION
+
+### Các chỗ tích hợp AI trên UI:
+
+| Page | Feature | Trigger | Result |
+|------|---------|---------|--------|
+| Lesson | Summarize | Button click | AI summary panel |
+| Lesson | Generate Quiz | Button click | Quiz created |
+| Lesson | Generate Flashcards | Button click | Flashcards created |
+| Exercise | Hints | "Get Hint" button | AI hints |
+| Exercise | Grade | Submit | AI feedback |
+| Learning | Chat | Context menu | AI Tutor popup |
+
+---
+
+*Version: 3.0 - Updated: 2026-03-01*
+*31 Screens, Full Feature Set*
