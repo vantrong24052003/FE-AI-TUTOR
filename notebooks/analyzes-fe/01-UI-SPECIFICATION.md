@@ -1,661 +1,1307 @@
 # FE AI TUTOR - UI Specification
 
-> Mô tả chi tiết từng màn hình UI
->
-> **Version**: 3.0 - 31 Screens
+> Mô tả chi tiết từng màn hình UI - Document-RAG based
+
+**Version**: 5.1 - 20 Screens
 
 ---
 
-## 📋 Screens Index
+## Screens Index
 
-| # | Page | Route | Type | Mô tả |
-|---|------|-------|------|-------|
-| **PUBLIC (4)** |
-| 1 | Landing | `/` | Public | Trang chủ |
-| 2 | Login | `/auth/login` | Public | Đăng nhập |
-| 3 | Register | `/auth/register` | Public | Đăng ký |
-| 4 | Forgot Password | `/auth/forgot-password` | Public | Quên mật khẩu |
-| **USER - DASHBOARD (1)** |
-| 5 | Dashboard | `/app/dashboard` | Protected | Trang chính |
-| **USER - COURSES (5)** |
-| 6 | Course List | `/app/courses` | Protected | Danh sách khóa |
-| 7 | Course Detail | `/app/courses/:id` | Protected | Chi tiết khóa |
-| 8 | Create Course | `/app/courses/create` | Protected | Tạo khóa mới |
-| 9 | Edit Course | `/app/courses/:id/edit` | Protected | Sửa khóa |
-| 10 | My Courses | `/app/my-courses` | Protected | Khóa đã đăng ký |
-| **USER - LEARNING (2)** |
-| 11 | Learning | `/app/learn/:courseId/lesson/:lessonId` | Protected | Học bài |
-| 12 | Lesson Detail | `/app/lessons/:id` | Protected | Chi tiết bài |
-| **USER - QUIZ (1)** |
-| 13 | Quiz | `/app/quiz/:quizId` | Protected | Làm quiz |
-| **USER - EXERCISES (2)** |
-| 14 | Exercise Detail | `/app/exercises/:id` | Protected | Chi tiết bài tập |
-| 15 | Exercise Submit | `/app/exercises/:id/submit` | Protected | Nộp bài |
-| **USER - FLASHCARDS (3)** |
-| 16 | Flashcard Review | `/app/flashcards` | Protected | Review hôm nay |
-| 17 | Flashcards by Lesson | `/app/flashcards/:lessonId` | Protected | Cards theo bài |
-| 18 | Flashcard Progress | `/app/flashcards/progress` | Protected | Tiến độ SRS |
-| **USER - BOOKMARKS (1)** |
-| 19 | Bookmarks | `/app/bookmarks` | Protected | Danh sách bookmark |
-| **USER - AI TUTOR (2)** |
-| 20 | AI Chat | `/app/ai-tutor` | Protected | Chat với AI |
-| 21 | AI Conversation | `/app/ai-tutor/:conversationId` | Protected | Hội thoại cụ thể |
-| **USER - PROGRESS (1)** |
-| 22 | Progress | `/app/progress` | Protected | Tiến độ học tập |
-| **USER - PROFILE (1)** |
-| 23 | Profile | `/app/profile` | Protected | Thông tin cá nhân |
+| **PUBLIC (2)** |
+| 1 | Landing Page | `/` | Public | Trang chủ giới thiệu |
+| 2 | Login | `/auth/login` | Public | Đăng nhập (Google Only) |
+| **USER - CORE (2)** |
+| 3 | Dashboard | `/app/dashboard` | Protected | Tổng quan tiến độ |
+| 4 | Profile | `/app/profile` | Protected | Thông tin cá nhân |
+| **USER - DOCUMENTS (4)** |
+| 5 | Documents List | `/app/documents` | Protected | Danh sách tài liệu |
+| 6 | Document Detail | `/app/documents/:id` | Protected | Chi tiết tài liệu |
+| 7 | Upload Document | `/app/documents/upload` | Protected | Upload PDF/DOCX |
+| 8 | Processing Status | `/app/documents/:id/processing` | Protected | Trạng thái xử lý RAG |
+| **USER - LEARNING (5)** |
+| 9 | Learning Path | `/app/documents/:id/path` | Protected | Lộ trình học |
+| 10 | Lesson Progress | `/app/path/:id/lessons/:lessonId` | Protected | Nội dung bài học |
+| 11 | Quiz Interface | `/app/quizzes/:id` | Protected | Giao diện làm quiz |
+| 12 | Quiz Results | `/app/quizzes/:id/results` | Protected | Kết quả quiz |
+| 13 | Flashcard Review | `/app/flashcards` | Protected | Học flashcard (SRS) |
+| **USER - AI & TOOLS (3)** |
+| 14 | Flashcards Doc View | `/app/documents/:id/flashcards` | Protected | Xem list flashcard tài liệu |
+| 15 | AI Tutor Chat | `/app/ai-tutor` | Protected | Chat interface |
+| 16 | Homework Solver | `/app/homework` | Protected | Giải bài tập AI |
 | **ADMIN (4)** |
-| 24 | Admin Dashboard | `/admin/dashboard` | Admin | Thống kê admin |
-| 25 | User Management | `/admin/users` | Admin | Quản lý users |
-| 26 | Category Management | `/admin/categories` | Admin | Quản lý danh mục |
-| 27 | All Courses | `/admin/courses` | Admin | Tất cả khóa học |
+| 17 | Admin Dashboard | `/admin/dashboard` | Admin | Thống kê admin |
+| 18 | User Management | `/admin/users` | Admin | Quản lý users |
+| 19 | Document Management | `/admin/documents` | Admin | Quản lý tài liệu (RAG status) |
+| 20 | System Audit | `/admin/audit-logs` | Admin | Nhật ký hệ thống |
 
 ---
 
 ## 1. PUBLIC PAGES
 
-### 1.1 Landing Page `/`
+### 1.1 Landing Page
 
-**UI Elements:**
+### Route
+- `/`
 
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Header** | Logo, Nav Links, Login, Sign Up | Navigation bar |
-| **Hero** | Headline, Subheadline, CTA buttons | Main banner |
-| **Features** | 3-4 feature cards | Icon + Title + Description |
-| **Courses** | 4 popular course cards | Preview courses |
-| **CTA** | Final call to action | "Bắt đầu ngay" |
-| **Footer** | Links, Copyright | Footer info |
+### Mô tả
+- Trang chủ giới thiệu ứng dụng AI Tutor, hiển thị features và CTA đăng ký/đăng nhập.
 
-**API Calls:**
-- `GET /api/courses?limit=4` - Popular courses
-
----
-
-### 1.2 Login Page `/auth/login`
-
-**UI Elements:**
-
-| Element | Type | Validation | Mô tả |
-|---------|------|------------|-------|
-| Email | Input | Required, Email | Email đăng nhập |
-| Password | Input | Required, min 8 | Mật khẩu |
-| Remember Me | Checkbox | Optional | Ghi nhớ đăng nhập |
-| Login | Button | - | Submit form |
-| Forgot Password | Link | - | → /auth/forgot-password |
-| Register | Link | - | → /auth/register |
-
-**API Calls:**
-- `POST /api/auth/login` - Login
-
----
-
-### 1.3 Register Page `/auth/register`
-
-**UI Elements:**
-
-| Element | Type | Validation | Mô tả |
-|---------|------|------------|-------|
-| Name | Input | Required, min 2 | Họ tên |
-| Email | Input | Required, Email | Email |
-| Password | Input | Required, min 8 | Mật khẩu |
-| Confirm Password | Input | Must match | Xác nhận mật khẩu |
-| Agree Terms | Checkbox | Required | Đồng ý điều khoản |
-| Register | Button | - | Submit form |
-| Login | Link | - | → /auth/login |
-
-**API Calls:**
-- `POST /api/auth/register` - Register
-
----
-
-## 2. DASHBOARD
-
-### 2.1 Dashboard `/app/dashboard`
-
-**UI Layout:**
+### UI Layout
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  [Logo]     [Search...]           [🔔] [👤 Avatar ▼]        │
-├────────────┬────────────────────────────────────────────────┤
-│            │   Chào [Tên], hôm nay bạn muốn học gì?         │
-│  Dashboard │                                                │
-│  Courses   │   ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────┐ │
-│  My Learn  │   │ Courses │ │ Hours   │ │ Done    │ │🔥7  │ │
-│  Flashcards│   │   12    │ │  45     │ │  23     │ │days │ │
-│  Bookmarks │   └─────────┘ └─────────┘ └─────────┘ └─────┘ │
-│  AI Tutor  │                                                │
-│  Progress  │   Tiếp tục học                                │
-│  Profile   │   ┌──────────────────────────────────────┐    │
-│            │   │ [Thumb] Course - Lesson       65%    │    │
-│            │   └──────────────────────────────────────┘    │
-│            │                                                │
-│            │   Flashcards cần review hôm nay (5)           │
-│            │   ┌──────────────────────────────────────┐    │
-│            │   │ [Front] → [Back]    [0][1][2][3][4][5]│   │
-│            │   └──────────────────────────────────────┘    │
-└────────────┴────────────────────────────────────────────────┘
++---------------------------------------------------------------+
+|  [Logo]        Features    Pricing    About    [Login] [Sign Up]|
++---------------------------------------------------------------+
+|                                                               |
+|              Học Thông Minh Với AI Tutor                      |
+|              Upload tài liệu - AI tạo flashcard, quiz         |
+|              [Get Started Free]    [Watch Demo]               |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+|   Features:                                                   |
+|   +-------------+  +-------------+  +-------------+           |
+|   |   Upload    |  |    AI       |  |   Spaced    |           |
+|   |   Documents |  |  Generation |  | Repetition  |           |
+|   +-------------+  +-------------+  +-------------+           |
+|                                                               |
++---------------------------------------------------------------+
+|                                                               |
+|   How it works:                                               |
+|   1. Upload PDF/DOCX  ->  2. AI Processes  ->  3. Learn!     |
+|                                                               |
++---------------------------------------------------------------+
+|                         Footer                                |
++---------------------------------------------------------------+
 ```
 
-**UI Elements:**
-
-| Section | Element | Data Field | Mô tả |
-|---------|---------|------------|-------|
-| **Stats** | Courses | `total_courses` | Số khóa đã đăng ký |
-| | Hours | `total_time_spent` | Tổng giờ học |
-| | Done | `completed_lessons` | Bài đã hoàn thành |
-| | Streak | `streak_days` | Số ngày học liên tiếp |
-| **Continue Learning** | Course Card | `continue_learning` | Khóa đang học |
-| **Flashcard Review** | Quick Review | `due_flashcards` | Cards cần review |
-| **Recommended** | Course Grid | `recommended_courses` | Khóa đề xuất |
-
-**API Calls:**
-- `GET /api/learning-progress` - Stats
-- `GET /api/flashcards/review` - Due flashcards
-- `GET /api/courses?enrolled=true&limit=4` - Continue learning
-
----
-
-## 3. COURSES PAGES
-
-### 3.1 Course List `/app/courses`
-
-**UI Elements:**
-
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Filters** | Search, Category, Level | Bộ lọc |
-| **Course Grid** | Course Cards | Danh sách khóa |
-| **Pagination** | Page numbers | Phân trang |
-
-**Course Card:**
-
-| Element | Data Field | Mô tả |
-|---------|------------|-------|
-| Thumbnail | `thumbnail` | Ảnh khóa |
-| Title | `title` | Tên khóa |
-| Creator | `creator.name` | Người tạo |
-| Category | `category.name` | Danh mục |
-| Level | `level` | Badge level |
-| Lessons | `lessons_count` | Số bài |
-| Students | `enrolled_count` | Số HV |
-| Progress | `progress` | Nếu đã enrolled |
-| Button | - | Enroll/Continue/Edit |
-
-**API Calls:**
-- `GET /api/courses` - Course list with filters
-- `GET /api/categories` - Category filter
-
----
-
-### 3.2 Course Detail `/app/courses/:id`
-
-**UI Elements:**
-
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Header** | Thumbnail, Title, Meta | Thông tin chính |
-| **Actions** | Enroll/Continue/Edit | Nút hành động |
-| **Tabs** | Overview, Curriculum, Reviews | Tab nội dung |
-| **Curriculum** | Modules + Lessons | Danh sách bài |
-
-**Curriculum Item:**
-
-| Element | Mô tả |
-|---------|-------|
-| Module | Accordion header |
-| Lesson | Title, Duration, Status (✓/○) |
-| Quiz | Badge "Quiz" |
-| Exercise | Badge "Exercise" |
-
-**API Calls:**
-- `GET /api/courses/:id` - Course detail
-- `POST /api/courses/:id/enroll` - Enroll
-
----
-
-## 4. LEARNING PAGE
-
-### 4.1 Learning Page `/app/learn/:courseId/lesson/:lessonId`
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  [← Back]  Course Name - Lesson Name    [📝] [🤖 AI]       │
-├────────────────────────┬────────────────────────────────────┤
-│   ┌────────────────┐   │   ▼ Module 1                     │
-│   │   VIDEO        │   │     ✓ 1.1 Intro                   │
-│   │   PLAYER       │   │     ✓ 1.2 Setup                   │
-│   │                │   │     ● 1.3 Current ←               │
-│   │                │   │   ▶ Module 2                     │
-│   └────────────────┘   │     ○ 2.1 Next                    │
-│                        │     ○ 2.2 ...                     │
-│   [Mark Complete ✓]    │                                   │
-│                        │                                   │
-│   Lesson Content...    │                                   │
-│                        │                                   │
-│   ──────────────────   │                                   │
-│   📝 Ghi chú của bạn   │                                   │
-│   ┌────────────────┐   │                                   │
-│   │ Add note...    │   │                                   │
-│   └────────────────┘   │                                   │
-│                        │                                   │
-│   ──────────────────   │                                   │
-│   🎴 Flashcards (5)    │                                   │
-│   [Review Now]         │                                   │
-│                        │                                   │
-│   ──────────────────   │                                   │
-│   📝 Bài tập (3)       │                                   │
-│   [View Exercises]     │                                   │
-└────────────────────────┴────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Video** | Player | Video bài học |
-| **Actions** | Mark Complete | Đánh dấu hoàn thành |
-| **Content** | Text/Markdown | Nội dung bài |
-| **Notes** | Note Editor | Ghi chú cá nhân |
-| **Flashcards** | Quick link | → Flashcard review |
-| **Exercises** | Quick link | → Exercise list |
-| **Sidebar** | Course Navigation | Danh sách bài |
-
-**API Calls:**
-- `GET /api/lessons/:id` - Lesson detail
-- `POST /api/lesson-completions` - Mark complete
-- `GET /api/lessons/:id/notes` - Notes
-- `POST /api/lessons/:id/notes` - Create note
-- `POST /api/lessons/:id/bookmark` - Toggle bookmark
-
----
-
-## 5. QUIZ PAGE
-
-### 5.1 Quiz Page `/app/quiz/:quizId`
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Quiz Title                          ⏱ 15:00    5/10       │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   Câu 5: Python là gì?                                     │
-│                                                             │
-│   ○ A. Ngôn ngữ lập trình                                  │
-│   ○ B. Hệ điều hành                                        │
-│   ○ C. Phần mềm                                            │
-│   ○ D. Cơ sở dữ liệu                                       │
-│                                                             │
-│   ─────────────────────────────────────────────────────     │
-│                                                             │
-│   ● ● ● ○ ○ ○ ○ ○ ○ ○    Question progress                │
-│                                                             │
-│   [← Previous]                        [Next →]  [Submit]   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
-
-| Element | Mô tả |
-|---------|-------|
-| Timer | Đếm ngược thời gian |
-| Progress | Số câu đã trả lời |
-| Question | Nội dung câu hỏi |
-| Options | Radio/Checkbox |
-| Navigation | Prev/Next/Submit |
-| Progress Dots | Trạng thái từng câu |
-
-**API Calls:**
-- `GET /api/quizzes/:id` - Quiz detail
-- `POST /api/quizzes/:id/submit` - Submit answers
-
----
-
-## 6. EXERCISE PAGES
-
-### 6.1 Exercise Detail `/app/exercises/:id`
-
-**UI Elements:**
-
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Header** | Title, Type, Max Score | Thông tin bài tập |
-| **Description** | Markdown | Mô tả yêu cầu |
-| **Submission Form** | Textarea/File | Form nộp bài |
-| **History** | List | Lịch sử nộp bài |
-| **AI Feedback** | Card | Feedback từ AI (nếu đã chấm) |
-
-**AI Feedback Display:**
-
-| Element | Data Field | Mô tả |
-|---------|------------|-------|
-| Score | `score` | Điểm số |
-| Overall Comment | `overall_comment` | Nhận xét chung |
-| Strengths | `strengths[]` | Điểm tốt |
-| Improvements | `improvements[]` | Cần cải thiện |
-| Suggestions | `suggestions[]` | Gợi ý |
-
-**API Calls:**
-- `GET /api/exercises/:id` - Exercise detail
-- `POST /api/exercises/:id/submit` - Submit
-- `GET /api/exercises/:id/submissions` - History
-- `POST /api/ai/solve-exercise` - AI hints
-
----
-
-## 7. FLASHCARD PAGES
-
-### 7.1 Flashcard Review `/app/flashcards`
-
-**Mô tả:** Trang review flashcard theo Spaced Repetition (SRS)
-
-**UI Layout:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Flashcard Review - Hôm nay                    🔥 5 cards   │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│   ┌─────────────────────────────────────────────────────┐   │
-│   │                                                     │   │
-│   │              [Front] Variable là gì?                │   │
-│   │                                                     │   │
-│   │         👆 Click để lật thẻ                         │   │
-│   │                                                     │   │
-│   └─────────────────────────────────────────────────────┘   │
-│                         ↓ Sau khi lật ↓                     │
-│   ┌─────────────────────────────────────────────────────┐   │
-│   │                                                     │   │
-│   │              [Back] Nơi lưu trữ dữ liệu...          │   │
-│   │                                                     │   │
-│   │              💡 Hint: Think of a box                │   │
-│   │                                                     │   │
-│   └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│   Đánh giá mức độ nhớ:                                     │
-│   [0]  [1]  [2]  [3]  [4]  [5]                             │
-│   😵   😕   🤔   🙂   😊   🎉                               │
-│   Quên  Sai  Khó   Đúng Dễ  Hoàn hảo                       │
-│                                                             │
-│   Progress: 2/5 (40%)  ████████░░░░░░░░                    │
-│   Lesson: Python Cơ bản - Bài 1                            │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-**UI Elements:**
+### UI Elements
 
 | Element | Loại | Data Field | Mô tả |
 |---------|------|------------|-------|
+| Logo | Image | - | Logo ứng dụng |
+| Nav Links | Link | - | Features, Pricing, About |
+| Login Button | Button | - | Navigate to /auth/login |
+| Sign Up Button | Button | - | Navigate to /auth/register |
+| Hero Title | Text | - | Headline chính |
+| Hero Subtitle | Text | - | Mô tả ngắn |
+| CTA Primary | Button | - | Get Started Free |
+| CTA Secondary | Button | - | Watch Demo |
+| Feature Cards | Card[] | - | 3-4 feature highlights |
+
+### User Actions
+- Click Login -> Navigate to Login page
+- Click Sign Up -> Navigate to Register page
+- Click CTA -> Navigate to Register page
+- Scroll to view features
+
+### Data Cần Thiết
+- Static content (không cần API)
+
+### API Calls
+- Không có
+
+---
+
+### 1.2 Login Page
+
+### Route
+- `/auth/login`
+
+### Mô tả
+- Trang đăng nhập duy nhất sử dụng Google OAuth.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|                         [Logo]                                |
++---------------------------------------------------------------+
+|                                                               |
+|                    Welcome to AI Tutor                        |
+|                    Sign in with your Google account           |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |             [ G ]  Sign in with Google                |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   By continuing, you agree to our Terms and Conditions       |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Google Login | Button | - | Trigger Google OAuth 2.0 flow |
+
+### User Actions
+- Click Google Login -> Chuyển hướng đến trang login của Google
+
+### API Calls
+- `GET /api/v1/auth/google` - Khởi tạo OAuth
+- `POST /api/v1/auth/callback` - Nhận token từ Google
+
+---
+
+---
+
+## 2. USER - DOCUMENTS
+
+### 2.1 Documents List
+
+### Route
+- `/app/documents`
+
+### Mô tả
+- Hiển thị danh sách tài liệu đã upload của user với filter và search.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   My Documents                              [+ Upload New]    |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [Search documents...]                     [Status v]   |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------+  +-------------+  +-------------+           |
+|   | [Thumbnail] |  | [Thumbnail] |  | [Thumbnail] |           |
+|   | Python 101  |  | ML Basics   |  | Data Sci    |           |
+|   | PDF - 25pg  |  | DOCX - 15pg |  | PDF - 40pg  |           |
+|   | 15 flashcards|  | 10 flashcards|  | 20 flashcards|          |
+|   | 3 quizzes   |  | 2 quizzes   |  | 5 quizzes   |           |
+|   | Status: Ready|  | Status: Proc.|  | Status: Ready|          |
+|   +-------------+  +-------------+  +-------------+           |
+|                                                               |
+|   Showing 1-10 of 25 documents   [1] [2] [3] [>]              |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Search Input | Input | - | Tìm kiếm tài liệu |
+| Status Filter | Select | - | Filter theo status |
+| Upload Button | Button | - | Navigate to upload |
+| Document Cards | Card[] | `documents[]` | Danh sách tài liệu |
+| Card Title | Text | `title` | Tiêu đề tài liệu |
+| Card Type | Badge | `file_type` | PDF/DOCX |
+| Card Pages | Text | `page_count` | Số trang |
+| Card Stats | Text | `flashcards_count`, `quizzes_count` | Thống kê |
+| Card Status | Badge | `status` | pending/processing/ready/failed |
+| Pagination | Nav | `meta` | Phân trang |
+
+### User Actions
+- Search documents
+- Filter by status
+- Click Upload -> Navigate to Upload page
+- Click Card -> Navigate to Document Detail
+- Pagination
+
+### Data Cần Thiết
+- documents: id, title, filename, file_type, file_size, page_count, status, flashcards_count, quizzes_count, created_at
+- meta: total, page, limit
+
+### API Calls
+- `GET /api/v1/documents` - Lấy danh sách tài liệu
+
+---
+
+### 2.2 Document Detail
+
+### Route
+- `/app/documents/:id`
+
+### Mô tả
+- Chi tiết tài liệu với stats, flashcards, quizzes, notes, bookmarks.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [<- Back]                                                    |
++---------------------------------------------------------------+
+|                                                               |
+|   Python Tutorial                                             |
+|   PDF - 25 pages - 2.5MB                                      |
+|   Uploaded: 2026-03-01                                        |
+|   Status: Ready                                               |
+|                                                               |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|   | 15 Cards    | | 3 Quizzes   | | 5 Notes     | | 8 Books | |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|                                                               |
+|   [Generate Flashcards] [Generate Quiz] [Summarize] [Chat AI]|
+|                                                               |
++---------------------------------------------------------------+
+|   Tabs: [Overview] [Flashcards] [Quizzes] [Notes] [Bookmarks]|
++---------------------------------------------------------------+
+|                                                               |
+|   Overview Tab:                                               |
+|   +-------------------------------------------------------+   |
+|   | AI Summary                                            |   |
+|   | This document covers Python basics including...       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Recent Flashcards:                                          |
+|   +-----------------------+ +-----------------------+         |
+|   | What is Python?       | | Variables in Python   |         |
+|   | -> Python is...       | | -> Variables are...   |         |
+|   +-----------------------+ +-----------------------+         |
+|                                                               |
+|   Recent Quizzes:                                             |
+|   - Python Basics Quiz (10 questions)                         |
+|   - Variables Quiz (5 questions)                              |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Back Button | Button | - | Navigate back |
+| Title | Text | `title` | Tiêu đề tài liệu |
+| File Info | Text | `file_type`, `page_count`, `file_size` | Thông tin file |
+| Status | Badge | `status` | Trạng thái xử lý |
+| Stats Cards | Card[] | `stats.*` | Flashcards, quizzes, notes, bookmarks |
+| Generate Buttons | Button[] | - | AI generation actions |
+| Tabs | TabNav | - | Overview, Flashcards, Quizzes, Notes, Bookmarks |
+| AI Summary | Card | `summary` | Tóm tắt AI (nếu có) |
+| Recent Items | List | `recent_*` | Flashcards/quizzes gần đây |
+
+### User Actions
+- Click Back -> Navigate back
+- Click Generate Flashcards -> Gọi AI generate
+- Click Generate Quiz -> Gọi AI generate
+- Click Summarize -> Gọi AI summarize
+- Click Chat AI -> Navigate to AI Chat với context
+- Switch tabs
+- View/Edit/Delete flashcards, quizzes
+
+### Data Cần Thiết
+- document: id, title, filename, file_type, file_size, page_count, status, created_at
+- stats: flashcards_count, quizzes_count, notes_count, bookmarks_count
+- summary: AI summary (optional)
+- recent_flashcards: flashcard[]
+- recent_quizzes: quiz[]
+
+### API Calls
+- `GET /api/v1/documents/:id` - Chi tiết tài liệu
+- `GET /api/v1/documents/:id/flashcards` - Flashcards của tài liệu
+- `GET /api/v1/documents/:id/quizzes` - Quizzes của tài liệu
+- `POST /api/v1/ai/generate-flashcards` - AI tạo flashcards
+- `POST /api/v1/ai/generate-quiz` - AI tạo quiz
+- `POST /api/v1/ai/summarize` - AI tóm tắt
+
+---
+
+### 2.3 Upload Document
+
+### Route
+- `/app/documents/upload`
+
+### Mô tả
+- Form upload tài liệu PDF/DOCX với progress tracking.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [<- Back]                                    Upload Document |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                                                       |   |
+|   |              Drag & Drop your file here               |   |
+|   |                                                       |   |
+|   |              or click to browse                       |   |
+|   |                                                       |   |
+|   |              Supported: PDF, DOCX                     |   |
+|   |              Max size: 10MB                           |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Title (optional):                                           |
+|   +-------------------------------------------------------+   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                      Upload                           |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
+
+After selecting file:
++---------------------------------------------------------------+
+|                                                               |
+|   Uploading...                                                |
+|   +-------------------------------------------------------+   |
+|   | python_tutorial.pdf                     [X]            |   |
+|   | [=============================>              ] 75%     |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Drop Zone | DropZone | - | Khu vực drag-drop file |
+| File Input | Input | `file` | Input file ẩn |
+| Title Input | Input | `title` | Tiêu đề (optional) |
+| Upload Button | Button | - | Submit upload |
+| Progress Bar | Progress | `progress` | Tiến độ upload |
+| File Preview | Card | `file.name`, `file.size` | Thông tin file đã chọn |
+| Cancel Button | Button | - | Hủy upload |
+
+### User Actions
+- Drag & drop file
+- Click to browse file
+- Enter title (optional)
+- Click Upload -> Upload file
+- Cancel upload
+
+### Data Cần Thiết
+- Form data: file, title
+
+### API Calls
+- `POST /api/v1/documents` - Upload tài liệu
+- `GET /api/v1/documents/:id/status` - Kiểm tra trạng thái xử lý
+
+---
+
+## 3. USER - LEARNING
+
+### 3.1 Flashcard Review
+
+### Route
+- `/app/flashcards`
+
+### Mô tả
+- Giao diện học flashcard hôm nay theo thuật toán Spaced Repetition (SM-2).
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   Flashcard Review - Today                        5 cards    |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                                                       |   |
+|   |                                                       |   |
+|   |              What is Python?                          |   |
+|   |                                                       |   |
+|   |              (Click to flip)                          |   |
+|   |                                                       |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Progress: 2/5 (40%)  [=========>                   ]        |
+|                                                               |
+|   Document: Python Tutorial                                  |
+|                                                               |
++---------------------------------------------------------------+
+
+After flipping:
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                                                       |   |
+|   |                                                       |   |
+|   |              Python is a high-level                   |   |
+|   |              programming language...                  |   |
+|   |                                                       |   |
+|   |              Hint: Created by Guido van Rossum        |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   How well did you know?                                      |
+|                                                               |
+|   [0]   [1]   [2]   [3]   [4]   [5]                          |
+|   😵    😕    🤔    🙂    😊    🎉                            |
+|   Again Hard  Good   Easy                                    |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Card Count | Badge | `total_due` | Số cards cần review |
 | Card Front | Card | `front` | Mặt trước (câu hỏi) |
-| Card Back | Card | `back` | Mặt sau (câu trả lời) - hiện sau khi lật |
+| Card Back | Card | `back` | Mặt sau (đáp án) |
 | Hint | Text | `hint` | Gợi ý (optional) |
-| Lesson Info | Text | `lesson.title` | Bài học thuộc về |
-| Quality Rating | Buttons | 0-5 | Đánh giá mức độ nhớ |
-| Progress Bar | Progress | - | Tiến độ review |
-| Stats | Badges | `total_due`, `total_new`, `total_review` | Thống kê |
+| Document Info | Text | `document.title` | Tài liệu gốc |
+| Progress Bar | Progress | `current/total` | Tiến độ review |
+| Rating Buttons | Button[] | 0-5 | Đánh giá mức độ nhớ |
 
-**Quality Rating (SM-2 Algorithm):**
+### User Actions
+- Click card -> Flip card
+- Click rating (0-5) -> Submit review, next card
+- Review complete -> Show summary
 
-| Rating | Label | Meaning | Effect on Interval |
-|--------|-------|---------|-------------------|
-| 0 | 😵 Quên hoàn toàn | Complete blackout | Reset to 1 day |
-| 1 | 😕 Sai nhưng nhớ | Incorrect, recognized | Reset to 1 day |
-| 2 | 🤔 Sai nhưng dễ nhớ | Incorrect, easy recall | Reset to 1 day |
-| 3 | 🙂 Đúng nhưng khó | Correct with difficulty | Increase |
-| 4 | 😊 Đúng sau suy nghĩ | Correct after hesitation | Increase |
-| 5 | 🎉 Hoàn hảo | Perfect response | Increase more |
+### Data Cần Thiết
+- flashcards: id, front, back, hint, document_id
+- document: id, title
+- meta: total_due, current_index
 
-**API Calls:**
-- `GET /api/flashcards/review` - Lấy cards cần review hôm nay
-- `POST /api/flashcards/:id/review` - Submit rating (quality: 0-5)
+### API Calls
+- `GET /api/v1/flashcards/due` - Lấy cards cần review
+- `POST /api/v1/flashcards/:id/review` - Submit rating
 
-**Response sau review:**
-```json
-{
-  "flashcard_id": 1,
-  "next_review_at": "2026-03-03T10:00:00Z",
-  "interval": 2,
-  "ease_factor": 2.5,
-  "cards_due_today": 4
-}
+---
+
+### 3.2 Flashcard Progress
+
+### Route
+- `/app/flashcards/progress`
+
+### Mô tả
+- Biểu đồ tiến độ học flashcard và thống kê SRS.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   Flashcard Progress                                          |
+|                                                               |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|   | 100 Total   | | 45 Learned  | | 30 New      | | 15 Due  | |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|                                                               |
+|   Mastery Rate: 45%                                           |
+|                                                               |
+|   Filter: [All Documents v]   Period: [Week v]               |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                  Review Activity Chart                |   |
+|   |                                                       |   |
+|   |     |                                                 |   |
+|   |  20 |        *                                         |   |
+|   |   15 |    *       *                                    |   |
+|   |   10 | *               *                               |   |
+|   |    5 |                    *                            |   |
+|   |     +----------------------------------------------    |   |
+|   |       Mon  Tue  Wed  Thu  Fri  Sat  Sun              |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Retention Rate: 85.5%                                       |
+|   Average Ease Factor: 2.4                                    |
+|                                                               |
++---------------------------------------------------------------+
 ```
 
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Stats Cards | Card[] | `summary.*` | Total, Learned, New, Due |
+| Mastery Rate | Text | `mastery_rate` | Tỷ lệ nhớ tốt |
+| Document Filter | Select | - | Filter theo tài liệu |
+| Period Filter | Select | - | Day/Week/Month |
+| Activity Chart | Chart | `chart_data[]` | Biểu đồ review activity |
+| Retention Rate | Text | `retention_rate` | Tỷ lệ ghi nhớ |
+| Ease Factor | Text | `average_ease_factor` | Hệ số dễ trung bình |
+
+### User Actions
+- Filter by document
+- Change period
+- View chart
+
+### Data Cần Thiết
+- summary: total_cards, new_cards, learning_cards, mastered_cards, due_today
+- chart_data: date, reviews, correct
+- retention_rate: float
+- average_ease_factor: float
+
+### API Calls
+- `GET /api/v1/flashcards/progress` - Lấy progress stats
+
 ---
 
-### 7.2 Flashcards by Lesson `/app/flashcards/:lessonId`
+### 3.3 Quiz
 
-**Mô tả:** Xem/tạo flashcard theo bài học
+### Route
+- `/app/quiz/:quizId`
 
-**UI Elements:**
+### Mô tả
+- Giao diện làm quiz với timer và progress tracking.
 
-| Element | Loại | Mô tả |
-|---------|------|-------|
-| Flashcard List | Cards | Danh sách flashcard của bài |
-| Create Button | Button | Tạo flashcard mới |
-| AI Generate | Button | AI tạo flashcard từ nội dung |
-| Edit/Delete | Actions | Sửa/xóa flashcard |
-
-**API Calls:**
-- `GET /api/lessons/:id/flashcards` - Danh sách flashcard
-- `POST /api/lessons/:id/flashcards` - Tạo flashcard mới
-- `PUT /api/flashcards/:id` - Cập nhật
-- `DELETE /api/flashcards/:id` - Xóa
-- `POST /api/ai/generate-flashcards` - AI tạo flashcard
-
----
-
-### 7.3 Flashcard Progress `/app/flashcards/progress`
-
-**Mô tả:** Thống kê tiến độ học flashcard
-
-**UI Elements:**
-
-| Element | Data Field | Mô tả |
-|---------|------------|-------|
-| Total Cards | `total` | Tổng số cards |
-| Learned | `learned` | Đã học |
-| New | `new` | Chưa học |
-| Due Today | `due_today` | Cần review hôm nay |
-| Mastery Rate | `mastery_rate` | Tỷ lệ nhớ tốt (0-100%) |
-| Chart | - | Biểu đồ tiến độ theo thời gian |
-
-**API Calls:**
-- `GET /api/flashcards/progress` - Progress stats
-
-**Response:**
-```json
-{
-  "total_cards": 100,
-  "learned": 45,
-  "new": 30,
-  "due_today": 15,
-  "mastery_rate": 0.45
-}
+### UI Layout
+```
++---------------------------------------------------------------+
+|  Python Basics Quiz                    Timer: 12:35    5/10   |
++---------------------------------------------------------------+
+|                                                               |
+|   Question 5:                                                 |
+|                                                               |
+|   What is a variable in Python?                               |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |  A. A named storage location for data                 |   |
+|   +-------------------------------------------------------+   |
+|   |  B. A type of function                                |   |
+|   +-------------------------------------------------------+   |
+|   |  C. A Python keyword                                  |   |
+|   +-------------------------------------------------------+   |
+|   |  D. A built-in module                                 |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Progress:                                                   |
+|   [O] [O] [O] [O] [X] [ ] [ ] [ ] [ ] [ ]                    |
+|                                                               |
+|   +-----------------------+       +-----------------------+   |
+|   |      Previous         |       |         Next          |   |
+|   +-----------------------+       +-----------------------+   |
+|                                                               |
++---------------------------------------------------------------+
 ```
 
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Quiz Title | Text | `quiz.title` | Tiêu đề quiz |
+| Timer | Text | `time_remaining` | Thời gian còn lại |
+| Progress | Text | `current/total` | Câu hiện tại/tổng |
+| Question | Text | `question.content` | Nội dung câu hỏi |
+| Options | Radio[] | `answers[]` | Các đáp án |
+| Progress Dots | Indicator | - | Trạng thái từng câu |
+| Previous Button | Button | - | Câu trước |
+| Next Button | Button | - | Câu tiếp |
+| Submit Button | Button | - | Nộp bài (hiện khi cuối) |
+
+### User Actions
+- Select answer
+- Click Previous -> Câu trước
+- Click Next -> Câu tiếp
+- Click Submit -> Nộp bài
+
+### Data Cần Thiết
+- attempt: id, started_at, expires_at
+- questions: id, content, points, answers[]
+- answers: id, content
+
+### API Calls
+- `POST /api/v1/quizzes/:id/start` - Bắt đầu làm quiz
+- `POST /api/v1/attempts/:id/answer` - Lưu câu trả lời
+- `POST /api/v1/attempts/:id/submit` - Nộp bài
+
 ---
 
-## 8. BOOKMARKS PAGE
+### 3.4 Quiz Result
 
-### 8.1 Bookmarks `/app/bookmarks`
+### Route
+- `/app/quiz/:quizId/result/:attemptId`
 
-**UI Elements:**
+### Mô tả
+- Hiển thị kết quả quiz với điểm số và review câu hỏi.
 
-| Element | Data Field | Mô tả |
-|---------|------------|-------|
-| Lesson Title | `lesson.title` | Tên bài |
-| Course Title | `lesson.course.title` | Tên khóa |
-| Note | `note` | Ghi chú bookmark |
-| Created At | `created_at` | Thời gian tạo |
-| Remove | Button | Xóa bookmark |
-
-**API Calls:**
-- `GET /api/bookmarks` - List bookmarks
-- `DELETE /api/bookmarks/:id` - Remove
-
----
-
-## 9. AI TUTOR PAGES
-
-### 9.1 AI Chat `/app/ai-tutor`
-
-**UI Layout:**
+### UI Layout
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  AI Tutor                    [+ New Chat]                   │
-├─────────────────────────────────────────────────────────────┤
-│  Context: [Python Cơ bản ▼]                                 │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ 👤 Variable trong Python là gì?                     │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ 🤖 Variable là nơi lưu trữ dữ liệu...               │   │
-│  │                                                     │   │
-│  │ Ví dụ: x = 5                                       │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  ─────────────────────────────────────────────────────     │
-│                                                             │
-│  Gợi ý: [Giải thích thêm] [Ví dụ code] [Quiz me]           │
-│                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ [Type your message...                        ] [Send]│   │
-│  └─────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────┘
++---------------------------------------------------------------+
+|  Quiz Complete!                                               |
++---------------------------------------------------------------+
+|                                                               |
+|                    +-------------+                            |
+|                    |    80%      |                            |
+|                    |   PASSED    |                            |
+|                    +-------------+                            |
+|                                                               |
+|   +-------------+ +-------------+ +-------------+             |
+|   | 8/10 Correct| | 8/10 Points | | 7:30 Time   |             |
+|   +-------------+ +-------------+ +-------------+             |
+|                                                               |
+|   [Review Answers]              [Try Again]                   |
+|                                                               |
++---------------------------------------------------------------+
+|   Question Review:                                            |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [V] 1. What is Python?                                |   |
+|   |     Your answer: A. Programming language (Correct)     |   |
+|   +-------------------------------------------------------+   |
+|   | [X] 2. What is a variable?                            |   |
+|   |     Your answer: B. A type of function                |   |
+|   |     Correct: A. A named storage location              |   |
+|   |     Explanation: Variables store data...              |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
 ```
 
-**UI Elements:**
+### UI Elements
 
-| Element | Mô tả |
-|---------|-------|
-| Context Selector | Chọn khóa học context |
-| Messages | User + AI messages |
-| Suggestions | Quick action chips |
-| Input | Text input |
-| New Chat | Button tạo hội thoại mới |
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Score | Text | `score` | Điểm số (%) |
+| Status | Badge | `passed` | PASSED/FAILED |
+| Stats Cards | Card[] | `results.*` | Correct, Points, Time |
+| Review Button | Button | - | Xem lại đáp án |
+| Retry Button | Button | - | Làm lại quiz |
+| Question List | List | `questions[]` | Review từng câu |
+| Correct Icon | Icon | `is_correct` | Check/X icon |
+| User Answer | Text | `user_answer` | Đáp án đã chọn |
+| Correct Answer | Text | `correct_answer` | Đáp án đúng |
+| Explanation | Text | `explanation` | Giải thích |
 
-**API Calls:**
-- `GET /api/chat/ai/conversations` - List conversations
-- `POST /api/chat/ai/conversations` - Create conversation
-- `GET /api/chat/ai/conversations/:id/messages` - Messages
-- `POST /api/chat/ai/conversations/:id/messages` - Send message
+### User Actions
+- Click Review -> Expand/collapse question detail
+- Click Retry -> Làm lại quiz
+- Navigate back
 
----
+### Data Cần Thiết
+- attempt: id, score, passed, time_spent_seconds
+- results: correct_count, total_count, points_earned, total_points
+- questions: id, content, user_answer_id, correct_answer_id, is_correct, explanation
 
-## 10. PROGRESS PAGE
-
-### 10.1 Learning Progress `/app/progress`
-
-**UI Elements:**
-
-| Section | Element | Data Field | Mô tả |
-|---------|---------|------------|-------|
-| **Overview Stats** | Courses | `total_courses` | Khóa đã đăng ký |
-| | Completed | `completed_courses` | Khóa hoàn thành |
-| | Lessons | `total_lessons` / `completed_lessons` | Bài học |
-| | Time | `total_time_spent` | Giờ học |
-| | Avg Score | `average_score` | Điểm TB |
-| **Flashcards** | Stats | `flashcards.*` | Tiến độ SRS |
-| **Exercises** | Stats | `exercises.*` | Bài tập |
-| **Courses** | Progress Cards | `courses[]` | Tiến độ từng khóa |
-
-**API Calls:**
-- `GET /api/learning-progress` - Overall progress
-- `GET /api/learning-progress/courses/:id` - Per-course progress
+### API Calls
+- `GET /api/v1/attempts/:id` - Lấy kết quả quiz
 
 ---
 
-## 11. PROFILE PAGE
+### 3.5 Bookmarks
 
-### 11.1 Profile `/app/profile`
+### Route
+- `/app/bookmarks`
 
-**UI Elements:**
+### Mô tả
+- Danh sách các bookmark đã lưu từ tài liệu.
 
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Avatar** | Image + Upload | Ảnh đại diện |
-| **Info** | Name, Email, Created | Thông tin cơ bản |
-| **Settings** | Change Password | Đổi mật khẩu |
-| | Preferences | Cài đặt cá nhân |
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   Bookmarks                                                   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [Search bookmarks...]                                 |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | Document: Python Tutorial                             |   |
+|   | Note: Important concept about variables               |   |
+|   | Created: 2026-03-01                         [Delete]  |   |
+|   +-------------------------------------------------------+   |
+|   | Document: ML Basics                                   |   |
+|   | Note: Review this section again                       |   |
+|   | Created: 2026-02-28                         [Delete]  |   |
+|   +-------------------------------------------------------+   |
+|   | Document: Data Science                                |   |
+|   | Note: Good explanation of pandas                      |   |
+|   | Created: 2026-02-27                         [Delete]  |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Showing 1-10 of 25 bookmarks   [1] [2] [3] [>]             |
+|                                                               |
++---------------------------------------------------------------+
+```
 
-**API Calls:**
-- `GET /api/auth/me` - Current user
-- `PUT /api/auth/me` - Update profile
-- `PUT /api/auth/change-password` - Change password
+### UI Elements
 
----
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Search | Input | - | Tìm kiếm bookmark |
+| Bookmark Cards | Card[] | `bookmarks[]` | Danh sách bookmark |
+| Document Title | Text | `document.title` | Tên tài liệu |
+| Note | Text | `note` | Ghi chú bookmark |
+| Created At | Text | `created_at` | Thời gian tạo |
+| Delete Button | Button | - | Xóa bookmark |
+| Pagination | Nav | `meta` | Phân trang |
 
-## 12. ADMIN PAGES
+### User Actions
+- Search bookmarks
+- Click card -> Navigate to document
+- Delete bookmark
 
-### 12.1 Admin Dashboard `/admin/dashboard`
+### Data Cần Thiết
+- bookmarks: id, document_id, note, created_at
+- document: id, title
 
-**UI Elements:**
-
-| Section | Element | Mô tả |
-|---------|---------|-------|
-| **Stats** | Users, Courses, Enrollments | Thống kê tổng quan |
-| **Charts** | Activity, Popular courses | Biểu đồ |
-| **Recent** | Users, Courses | Hoạt động gần đây |
-
-**API Calls:**
-- `GET /api/admin/statistics` - Admin stats
-
----
-
-### 12.2 User Management `/admin/users`
-
-**UI Elements:**
-
-| Element | Mô tả |
-|---------|-------|
-| User Table | ID, Name, Email, Role, Status, Actions |
-| Search | Tìm user |
-| Actions | Edit role, Deactivate, Delete |
-
-**API Calls:**
-- `GET /api/users` - List users
-- `PUT /api/users/:id` - Update user
-- `DELETE /api/users/:id` - Delete user
-
----
-
-### 12.3 Category Management `/admin/categories`
-
-**UI Elements:**
-
-| Element | Mô tả |
-|---------|-------|
-| Category List | Name, Slug, Course count |
-| Add/Edit Form | Name, Description, Icon, Color |
-| Actions | Edit, Delete |
-
-**API Calls:**
-- `GET /api/categories` - List
-- `POST /api/categories` - Create
-- `PUT /api/categories/:id` - Update
-- `DELETE /api/categories/:id` - Delete
+### API Calls
+- `GET /api/v1/bookmarks` - Lấy danh sách bookmark
+- `DELETE /api/v1/bookmarks/:id` - Xóa bookmark
 
 ---
 
-## 13. AI SERVICES INTEGRATION
+## 4. USER - AI
 
-### Các chỗ tích hợp AI trên UI:
+### 4.1 AI Chat
 
-| Page | Feature | Trigger | Result |
-|------|---------|---------|--------|
-| Lesson | Summarize | Button click | AI summary panel |
-| Lesson | Generate Quiz | Button click | Quiz created |
-| Lesson | Generate Flashcards | Button click | Flashcards created |
-| Exercise | Hints | "Get Hint" button | AI hints |
-| Exercise | Grade | Submit | AI feedback |
-| Learning | Chat | Context menu | AI Tutor popup |
+### Route
+- `/app/ai-tutor`
+
+### Mô tả
+- Chat interface với AI tutor, hiển thị danh sách sessions.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                        |                                      |
+|   Sessions             |   +-------------+                    |
+|                        |   | AI Tutor    |   [+ New Chat]     |
+|   +----------------+   |   +-------------+                    |
+|   | Python Help    |   |                                      |
+|   | 2 messages     |   |   Select a session or start new     |
+|   | Today          |   |                                      |
+|   +----------------+   |   Quick Actions:                     |
+|   | ML Concepts    |   |   [Generate Flashcards]              |
+|   | 5 messages     |   |   [Create Quiz]                      |
+|   | Yesterday      |   |   [Summarize Document]               |
+|   +----------------+   |                                      |
+|   | Data Analysis  |   |                                      |
+|   | 3 messages     |   |                                      |
+|   | Last week      |   |                                      |
+|   +----------------+   |                                      |
+|                        |                                      |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Session List | List | `sessions[]` | Danh sách chat sessions |
+| Session Title | Text | `title` | Tiêu đề session |
+| Message Count | Text | `message_count` | Số tin nhắn |
+| Last Activity | Text | `updated_at` | Hoạt động cuối |
+| New Chat Button | Button | - | Tạo session mới |
+| Quick Actions | Button[] | - | Các action nhanh |
+
+### User Actions
+- Click session -> Navigate to session
+- Click New Chat -> Tạo session mới
+- Click Quick Action -> Navigate với action
+
+### Data Cần Thiết
+- sessions: id, title, document_id, message_count, created_at, updated_at
+
+### API Calls
+- `GET /api/v1/chat/sessions` - Lấy danh sách sessions
+- `POST /api/v1/chat/sessions` - Tạo session mới
 
 ---
 
-*Version: 3.0 - Updated: 2026-03-01*
-*31 Screens, Full Feature Set*
+### 4.2 AI Chat Session
+
+### Route
+- `/app/ai-tutor/:sessionId`
+
+### Mô tả
+- Hội thoại cụ thể với AI tutor.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [<- Back]   Chat with AI Tutor - Python Help                 |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   |                                                       |   |
+|   |  USER: What is Python?                                |   |
+|   |                                                       |   |
+|   |  AI: Python is a high-level programming language...   |   |
+|   |      ```python                                        |   |
+|   |      print("Hello, World!")                           |   |
+|   |      ```                                              |   |
+|   |                                                       |   |
+|   |  USER: How do I declare a variable?                   |   |
+|   |                                                       |   |
+|   |  AI: In Python, you can declare a variable by...      |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Suggestions: [Explain more] [Show examples] [Create quiz]  |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [Type your message...]                          [Send] |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Back Button | Button | - | Navigate back |
+| Session Title | Text | `title` | Tiêu đề session |
+| Messages | List | `messages[]` | Danh sách tin nhắn |
+| Message Role | Badge | `role` | user/assistant |
+| Message Content | Text | `content` | Nội dung tin nhắn |
+| Code Blocks | Code | - | Code snippets |
+| Suggestions | Chip[] | - | Gợi ý quick actions |
+| Input | Input | - | Nhập tin nhắn |
+| Send Button | Button | - | Gửi tin nhắn |
+
+### User Actions
+- Type message
+- Click Send -> Gửi tin nhắn
+- Click Suggestion -> Quick action
+- Scroll messages
+
+### Data Cần Thiết
+- session: id, title, document_id
+- messages: id, role, content, created_at
+
+### API Calls
+- `GET /api/v1/chat/sessions/:id` - Lấy session với messages
+- `POST /api/v1/chat/sessions/:id/messages` - Gửi tin nhắn
+
+---
+
+## 5. USER - OTHER
+
+### 5.1 Progress
+
+### Route
+- `/app/progress`
+
+### Mô tả
+- Tổng quan tiến độ học tập của user.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   Learning Progress                                           |
+|                                                               |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|   | 5 Documents | | 100 Cards   | | 25 Quizzes  | | 7 Streak| |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|                                                               |
+|   Flashcard Progress                                          |
+|   +-------------------------------------------------------+   |
+|   |                  Mastery Distribution                 |   |
+|   |                                                       |   |
+|   |   New: 30      Learning: 25      Mastered: 45        |   |
+|   |   [=======>                    ]  45% mastery         |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Quiz Performance                                            |
+|   +-------------------------------------------------------+   |
+|   | Average Score: 78%                                    |   |
+|   | Quizzes Passed: 20/25                                 |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Recent Activity                                             |
+|   - Reviewed 15 flashcards (2 hours ago)                      |
+|   - Completed Python Quiz with 85% (yesterday)                |
+|   - Uploaded "ML Basics" document (2 days ago)                |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Stats Cards | Card[] | `stats.*` | Documents, Cards, Quizzes, Streak |
+| Mastery Distribution | Progress | `mastery.*` | New, Learning, Mastered |
+| Quiz Stats | Card | `quiz_stats.*` | Average score, passed |
+| Activity List | List | `recent_activity[]` | Hoạt động gần đây |
+
+### User Actions
+- View stats
+- Click document -> Navigate to document
+- View activity history
+
+### Data Cần Thiết
+- stats: total_documents, total_flashcards, total_quizzes, streak_days
+- mastery: new, learning, mastered, mastery_rate
+- quiz_stats: average_score, quizzes_passed, total_quizzes
+- recent_activity: action, description, timestamp
+
+### API Calls
+- `GET /api/v1/progress` - Lấy tổng quan tiến độ
+
+---
+
+### 5.2 Profile
+
+### Route
+- `/app/profile`
+
+### Mô tả
+- Thông tin cá nhân và cài đặt tài khoản.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  [Logo]     Documents    Flashcards    Quiz    AI Chat   [Av] |
++---------------------------------------------------------------+
+|                                                               |
+|   Profile                                                     |
+|                                                               |
+|   +-------------+                                             |
+|   |   [Avatar]  |   Name: John Doe                           |
+|   |   [Change]  |   Email: john@example.com                  |
+|   +-------------+   Joined: January 2026                     |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | Personal Information                                  |   |
+|   |                                                       |   |
+|   | Name:     +-----------------------------------------+ |   |
+|   |           | John Doe                                | |   |
+|   |           +-----------------------------------------+ |   |
+|   |                                                       |   |
+|   | Email:    john@example.com (cannot change)           |   |
+|   |                                                       |   |
+|   |           +-----------------------+                   |   |
+|   |           |    Save Changes       |                   |   |
+|   |           +-----------------------+                   |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | Change Password                                       |   |
+|   |                                                       |   |
+|   | Current:  +-----------------------------------------+ |   |
+|   |           |                                         | |   |
+|   |           +-----------------------------------------+ |   |
+|   |                                                       |   |
+|   | New:      +-----------------------------------------+ |   |
+|   |           |                                         | |   |
+|   |           +-----------------------------------------+ |   |
+|   |                                                       |   |
+|   |           +-----------------------+                   |   |
+|   |           |   Change Password     |                   |   |
+|   |           +-----------------------+                   |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Avatar | Image | `avatar` | Ảnh đại diện |
+| Change Avatar | Button | - | Đổi ảnh |
+| Name | Input | `name` | Tên hiển thị |
+| Email | Text | `email` | Email (read-only) |
+| Joined | Text | `created_at` | Ngày đăng ký |
+| Save Button | Button | - | Lưu thay đổi |
+| Current Password | Input | `current_password` | Mật khẩu hiện tại |
+| New Password | Input | `new_password` | Mật khẩu mới |
+| Change Password | Button | - | Đổi mật khẩu |
+
+### User Actions
+- Change avatar
+- Edit name
+- Save changes
+- Change password
+
+### Data Cần Thiết
+- user: id, name, email, avatar, created_at
+
+### API Calls
+- `GET /api/v1/auth/me` - Lấy thông tin user
+- `PUT /api/v1/auth/profile` - Cập nhật profile
+- `PUT /api/v1/auth/change-password` - Đổi mật khẩu
+
+---
+
+## 6. ADMIN PAGES
+
+### 6.1 Admin Dashboard
+
+### Route
+- `/admin/dashboard`
+
+### Mô tả
+- Thống kê tổng quan cho admin.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  Admin Dashboard                    [Users] [Documents] [AI]  |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|   | 150 Users   | | 500 Docs    | | 5000 Cards  | | 1000 Ch | |
+|   +-------------+ +-------------+ +-------------+ +---------+ |
+|                                                               |
+|   User Growth                                                 |
+|   +-------------------------------------------------------+   |
+|   |                  Line Chart                           |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Document Uploads                                            |
+|   +-------------------------------------------------------+   |
+|   |                  Bar Chart                            |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Recent Activity                                             |
+|   - New user: john@example.com (5 min ago)                    |
+|   - Document uploaded: "Python 101" (10 min ago)              |
+|   - Quiz completed by user #42 (15 min ago)                   |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Stats Cards | Card[] | `stats.*` | Users, Documents, Cards, Chats |
+| User Growth Chart | Chart | `user_growth[]` | Biểu đồ user growth |
+| Uploads Chart | Chart | `uploads[]` | Biểu đồ uploads |
+| Activity List | List | `recent_activity[]` | Hoạt động gần đây |
+
+### User Actions
+- View stats
+- View charts
+- Navigate to management pages
+
+### Data Cần Thiết
+- stats: total_users, total_documents, total_flashcards, total_chats
+- user_growth: date, count
+- uploads: date, count
+- recent_activity: action, entity, timestamp
+
+### API Calls
+- `GET /api/v1/admin/statistics` - Lấy thống kê admin
+
+---
+
+### 6.2 User Management
+
+### Route
+- `/admin/users`
+
+### Mô tả
+- Quản lý users của hệ thống.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  User Management                                              |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [Search users...]                      [Role v]        |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | ID | Name    | Email           | Role  | Joined | Act |   |
+|   |----|---------|-----------------|-------|--------|-----|   |
+|   | 1  | John    | john@ex.com     | user  | Jan 26 | [X] |   |
+|   | 2  | Jane    | jane@ex.com     | user  | Feb 26 | [X] |   |
+|   | 3  | Admin   | admin@ex.com    | admin | Dec 25 | [X] |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Showing 1-10 of 150 users    [1] [2] [3] [>]               |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Search | Input | - | Tìm kiếm user |
+| Role Filter | Select | - | Filter theo role |
+| User Table | Table | `users[]` | Bảng users |
+| ID | Text | `id` | User ID |
+| Name | Text | `name` | Tên user |
+| Email | Text | `email` | Email |
+| Role | Badge | `role` | user/admin |
+| Joined | Text | `created_at` | Ngày đăng ký |
+| Actions | Button[] | - | Edit, Delete |
+
+### User Actions
+- Search users
+- Filter by role
+- Edit user role
+- Delete user
+
+### Data Cần Thiết
+- users: id, name, email, role, created_at
+- meta: total, page, limit
+
+### API Calls
+- `GET /api/v1/admin/users` - Lấy danh sách users
+- `PUT /api/v1/admin/users/:id` - Cập nhật user
+- `DELETE /api/v1/admin/users/:id` - Xóa user
+
+---
+
+### 6.3 Document Management
+
+### Route
+- `/admin/documents`
+
+### Mô tả
+- Quản lý tất cả tài liệu trong hệ thống.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  Document Management                                          |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | [Search documents...]                  [Status v]      |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   +-------------------------------------------------------+   |
+|   | ID | Title       | Owner   | Type | Status   | Act    |   |
+|   |----|-------------|---------|------|----------|--------|   |
+|   | 1  | Python 101  | John    | pdf  | ready    | [View] |   |
+|   | 2  | ML Basics   | Jane    | docx | ready    | [View] |   |
+|   | 3  | Data Sci    | Bob     | pdf  | pending  | [View] |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Showing 1-10 of 500 documents   [1] [2] [3] [>]            |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Search | Input | - | Tìm kiếm tài liệu |
+| Status Filter | Select | - | Filter theo status |
+| Document Table | Table | `documents[]` | Bảng tài liệu |
+| ID | Text | `id` | Document ID |
+| Title | Text | `title` | Tiêu đề |
+| Owner | Text | `owner.name` | Chủ sở hữu |
+| Type | Badge | `file_type` | PDF/DOCX |
+| Status | Badge | `status` | pending/processing/ready/failed |
+| Actions | Button[] | - | View, Delete |
+
+### User Actions
+- Search documents
+- Filter by status
+- View document details
+- Delete document
+
+### Data Cần Thiết
+- documents: id, title, file_type, status, owner_id, created_at
+- owner: id, name
+- meta: total, page, limit
+
+### API Calls
+- `GET /api/v1/admin/documents` - Lấy danh sách tài liệu
+- `GET /api/v1/admin/documents/:id` - Chi tiết tài liệu
+- `DELETE /api/v1/admin/documents/:id` - Xóa tài liệu
+
+---
+
+### 6.4 AI Usage Stats
+
+### Route
+- `/admin/ai-usage`
+
+### Mô tả
+- Thống kê sử dụng AI services.
+
+### UI Layout
+```
++---------------------------------------------------------------+
+|  AI Usage Statistics                                          |
++---------------------------------------------------------------+
+|                                                               |
+|   +-------------+ +-------------+ +-------------+             |
+|   | 50K Tokens  | | 1K Gen Req  | | 500 Chats   |             |
+|   | This Month  | | This Month  | | This Month  |             |
+|   +-------------+ +-------------+ +-------------+             |
+|                                                               |
+|   Token Usage Over Time                                       |
+|   +-------------------------------------------------------+   |
+|   |                  Line Chart                           |   |
+|   |                                                       |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Generation Breakdown                                        |
+|   +-------------------------------------------------------+   |
+|   | Flashcards: 500 requests (50%)                        |   |
+|   | Quizzes: 300 requests (30%)                           |   |
+|   | Summaries: 200 requests (20%)                         |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
+|   Top Users by AI Usage                                       |
+|   +-------------------------------------------------------+   |
+|   | 1. John Doe - 5,000 tokens                            |   |
+|   | 2. Jane Smith - 3,500 tokens                          |   |
+|   | 3. Bob Wilson - 2,000 tokens                          |   |
+|   +-------------------------------------------------------+   |
+|                                                               |
++---------------------------------------------------------------+
+```
+
+### UI Elements
+
+| Element | Loại | Data Field | Mô tả |
+|---------|------|------------|-------|
+| Stats Cards | Card[] | `stats.*` | Tokens, Requests, Chats |
+| Token Chart | Chart | `token_usage[]` | Biểu đồ token usage |
+| Breakdown | List | `breakdown[]` | Phân bố theo loại |
+| Top Users | List | `top_users[]` | Users dùng nhiều nhất |
+
+### User Actions
+- View stats
+- View charts
+- Filter by period
+
+### Data Cần Thiết
+- stats: total_tokens, total_requests, total_chats
+- token_usage: date, tokens
+- breakdown: type, count, percentage
+- top_users: user_id, name, tokens
+
+### API Calls
+- `GET /api/v1/admin/ai-usage` - Lấy thống kê AI usage
+
+---
+
+## 7. SUMMARY
+
+### Total Screens: 20
+
+| Category | Count | Screens |
+|----------|-------|---------|
+| Public | 4 | Landing, Login, Register, Forgot Password |
+| User - Documents | 3 | List, Detail, Upload |
+| User - Learning | 5 | Flashcard Review, Progress, Quiz, Result, Bookmarks |
+| User - AI | 2 | AI Chat, Session |
+| User - Other | 2 | Progress, Profile |
+| Admin | 4 | Dashboard, Users, Documents, AI Usage |
+
+### Removed Screens (from previous version)
+- Course List, Course Detail, Create Course, Edit Course, My Courses
+- Lesson Detail, Learning Page
+- Exercise Detail, Exercise Submit
+
+### Key Changes
+1. Document-centric: Tất cả features xoay quanh Documents (PDF/DOCX)
+2. RAG-based: AI sử dụng RAG để trả lời dựa trên nội dung tài liệu
+3. Simplified: Loại bỏ Course/Lesson/Exercise, thay bằng Document trực tiếp
+4. AI Integration: Flashcard, Quiz, Summary đều được AI generate từ tài liệu
+
+---
+
+*Version: 4.0 - Updated: 2026-03-01*
+*20 Screens - Document-RAG Based*
+*Synced with BE flow-spec v3.0*

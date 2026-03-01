@@ -1,24 +1,59 @@
-# Stitch UI Prompt - AI Tutor E-Learning Platform
+# Stitch UI Prompt - AI Tutor Platform (Premium v5.1)
 
-## SINGLE COMPREHENSIVE PROMPT
+## 0. THE VISION: "A PROFESSIONAL LEARNING OPERATING SYSTEM"
+> **CRITICAL INSTRUCTION**: The UI must NOT look like a generic AI chatbot demo. It must feel like a **sophisticated, high-fidelity Productivity/Learning OS** with a **Unique Designer Identity**.
+> - **Signature Identity**: Use a unique, custom-blended color palette (Deep Ink, Washed Mint, and Warm Bone). No basic Primary-Blue-600.
+> - **Animation is the Soul**: Every interaction must have a **"Signature Velocity"**. Use Stiff-Spring animations (Stiffness: 400, Damping: 40) for a tactile, industrial feel.
+> - **Cascade & Flow**: Elements must not just "appear"; they must cascade with staggered delays. AI responses must "flow" into structured cards with layout-shift animations.
+> - **Generic AI Tropes**: ABSOLUTELY NO neon purple/blue glows, no 'Magic Sparkles'.
+> - **Backgrounds**: Instead of plain white, use high-quality architectural background patterns (Subtle Dots, Cross-hatch, or Mesh Gradients overlaid with noise). Use **Floating Textures** that drift slowly (30s loop) in the background.
 
-```
-Design a complete E-learning platform called "AI Tutor" with 27 screens. Premium, modern design with warm, approachable feel - NOT cold corporate or generic AI aesthetics.
+## 1. GLOBAL DESIGN TOKENS (Vibrant & Premium)
+
+═══════════════════════════════════════════════════════════════════════════════
+COLOR SYSTEM - "Deep Ink & Washed Mint" (Non-Generic Palette)
+═══════════════════════════════════════════════════════════════════════════════
+
+Ink (Base): HSL(222, 47%, 11%) - The foundation of professionalism.
+Mint (Primary): HSL(160, 43%, 60%) - Used for interactive elements (Buttons, Sliders).
+Bone (Surface): HSL(40, 20%, 97%) - Soft, non-glaring background.
+Accent: HSL(20, 90%, 65%) (Soft Coral) - For precise notifications/alerts.
+Glass (Overlay): rgba(255, 255, 255, 0.4) backdrop-blur(24px).
+
+Gradients:
+  - Surface: radial-gradient(at 0% 0%, HSL(160, 43%, 95%) 0%, transparent 50%), radial-gradient(at 100% 100%, HSL(222, 47%, 95%) 0%, transparent 50%)
+  - Action: linear-gradient(135deg, HSL(160, 43%, 60%) 0%, HSL(180, 43%, 50%) 100%)
+
+═══════════════════════════════════════════════════════════════════════════════
+ANIMATION GUIDELINES (Framer Motion)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **Signature Spring**: All movement uses `type: "spring", stiffness: 400, damping: 40`. It should feel snappy, not floaty.
+2. **Cascading Entrance**: Use `staggerChildren` (0.05s) for all list items and grid cards.
+3. **Floating Textures**: Background SVG patterns must have a subtle `animate={{ x: [-10, 10], y: [-10, 10] }}` loop (30s duration) for an "alive" atmosphere.
+4. **Segmented Indicators**: Tab transitions must use `layoutId` for a fluid sliding effect between modes.
+5. **AI Flow**: When AI generates content, current view must push down with `layout` prop to make room for new "Knowledge Cards".
+
+═══════════════════════════════════════════════════════════════════════════════
+Main: 'Satoshi' (Display/Headings), 'Inter' (UI/Body), 'IBM Plex Mono' (Metadata/AI snippets)
+System:
+- Headings: `Satoshi` (-2% letter-spacing, 500-700 weight for a "Designer" edge).
+- Body: `Inter` (150% line-height for maximum readability).
+- AI/Metadata: `IBM Plex Mono` (80% opacity, 12px size for technical details).
+- Support: Ensure all fonts have full Latin/Vietnamese character support.
+
+## 2. SINGLE COMPREHENSIVE PROMPT
 
 ═══════════════════════════════════════════════════════════════════════════════
 COLOR PALETTE - Warm & Professional
 ═══════════════════════════════════════════════════════════════════════════════
 
-Primary: #2563EB (Royal Blue) - trustworthy, educational
-Secondary: #0891B2 (Teal) - fresh, modern
-Accent: #F59E0B (Amber) - warm, encouraging, used for highlights & CTAs
-Success: #059669 (Emerald) - achievements, completions
-Error: #DC2626 (Red) - errors, warnings
-Dark: #0F172A (Deep Navy) - text, headers
-Light: #F8FAFC (Off-White) - backgrounds
-Card: #FFFFFF (Pure White) - cards, elevated surfaces
-Muted: #64748B (Slate Gray) - secondary text, placeholders
-Border: #E2E8F0 (Light Gray) - subtle borders
+Primary: #60c9a6 (Washed Mint) - interactive elements, progress, main action.
+Secondary: #1a2333 (Deep Ink) - foundation, headers, professional depth.
+Accent: #f48c71 (Soft Coral) - precise alerts, focus points.
+Surface: #fdfaf3 (Warm Bone) - the background "paper" layer.
+Muted: #6b7280 (Slate Gray) - subtle metadata, supportive text.
+Border: #e5e7eb - discrete boundaries.
 
 Backgrounds: Clean white/light gray with subtle texture or very light geometric patterns
 NO neon gradients, NO purple-pink-blue AI art style, NO dark mode as default
@@ -33,61 +68,42 @@ Body: 400-500 weight, Dark Slate color
 Small: 400 weight, Muted Gray color
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN INVENTORY (27 Screens)
+SCREEN INVENTORY (20 Screens)
 ═══════════════════════════════════════════════════════════════════════════════
 
-PUBLIC (4):
-1. Landing Page (/)
-2. Login (/auth/login)
-3. Register (/auth/register)
-4. Forgot Password (/auth/forgot-password)
+### 1. AUTHENTICATION & PUBLIC (2)
+- **Landing Page**: Premium hero with mesh gradient, floating document 3D assets, and "Sign in with Google" as the primary entry.
+- **Login Page**: Ultra-clean glassmorphism card. Single button: "Continue with Google".
 
-USER - DASHBOARD (1):
-5. Dashboard (/app/dashboard)
+### 2. CORE DASHBOARD & PROFILE (2)
+- **User Dashboard**: Overview of recent docs, SRS due count, and quick upload dropzone.
+- **Profile & Settings**: User profile, learning stats, and account preferences.
 
-USER - COURSES (5):
-6. Course List (/app/courses)
-7. Course Detail (/app/courses/:id)
-8. Create Course (/app/courses/create)
-9. Edit Course (/app/courses/:id/edit)
-10. My Courses (/app/my-courses)
+### 3. DOCUMENTS MODULE (4)
+- **Documents List**: Grid of document cards with 3D tilt hover and status badges.
+- **Document Detail (Main)**: The hub for a document. Tabs for Summary, Flashcards, Quizzes, and Notes.
+- **Upload Document**: Drag-and-drop zone with fluid file-selection animations.
+- **Processing Status**: Dynamic state-machine visualization (Extracting -> Chunking -> Embedding -> Ready).
 
-USER - LEARNING (2):
-11. Learning Page (/app/learn/:courseId/lesson/:lessonId)
-12. Lesson Detail (/app/lessons/:id)
+### 4. LEARNING MODULE (5)
+- **Learning Path View**: Interactive roadmap, visualizing connections between documents and concepts.
+- **Lesson Progress**: Detailed lesson content view with AI-generated explanations.
+- **Quiz Interface**: Gamified and flexible question-by-question UI.
+- **Quiz Results**: Detailed score breakdown and explanation review.
+- **Flashcard Review**: Spaced Repetition System (SRS) powered, 3D flip interface.
 
-USER - QUIZ (1):
-13. Quiz Page (/app/quiz/:quizId) - Includes result view
+### 5. AI & SPECIALIZED TOOLS (3)
+- **Flashcards Doc View**: Manage and generate flashcards for a specific document.
+- **AI Tutor Chat**: RAG-enabled chat interface for asking questions about documents.
+- **Homework Solver**: Progressive AI solving UI, showing step-by-step solutions (CoT).
 
-USER - EXERCISES (2):
-14. Exercise Detail (/app/exercises/:id) - Includes submission list
-15. Exercise Submit (/app/exercises/:id/submit) - Includes feedback view
+### 6. ADMIN (4)
+- **Admin Dashboard**: Overview of platform health, user activity, and system metrics.
+- **User Management**: CRUD operations for user accounts and roles.
+- **Document Management**: Admin view of all RAG documents and their processing status.
+- **System Audit**: Security logs and platform activity history.
 
-USER - FLASHCARDS (3):
-16. Flashcard Review (/app/flashcards)
-17. Flashcards by Lesson (/app/flashcards/:lessonId)
-18. Flashcard Progress (/app/flashcards/progress)
-
-USER - BOOKMARKS (1):
-19. Bookmarks (/app/bookmarks)
-
-USER - AI TUTOR (2):
-20. AI Chat (/app/ai-tutor)
-21. AI Conversation (/app/ai-tutor/:conversationId)
-
-USER - PROGRESS (1):
-22. Progress (/app/progress)
-
-USER - PROFILE (1):
-23. Profile (/app/profile)
-
-ADMIN (4):
-24. Admin Dashboard (/admin/dashboard)
-25. User Management (/admin/users)
-26. Category Management (/admin/categories)
-27. All Courses (/admin/courses)
-
-Note: Các màn hình con (Notes, Quiz Result, Submission Detail, AI Summaries) được tích hợp vào màn hình Detail tương ứng để tối ưu UX.
+Note: Các màn hình con (Quiz Result, Document Summary, AI Summary) được tích hợp vào màn hình Detail tương ứng để tối ưu UX.
 
 ═══════════════════════════════════════════════════════════════════════════════
 SCREEN 1: LANDING PAGE (/)
@@ -97,40 +113,40 @@ Layout: Single page scroll with sections
 
 HEADER (sticky, white background, subtle shadow):
 - Left: Logo "AI Tutor" with book + AI sparkle icon, Royal Blue
-- Center: Navigation links (Features, Courses, Pricing) - clean hover underline
-- Right: "Log in" text link, "Sign up" button (Royal Blue solid, rounded-full)
+- Center: Navigation links (Features, How It Works, Pricing) - clean hover underline
+- Right: "Log in" text link, "Sign up with Google" button (white bg, Google icon, border)
 
 HERO SECTION:
-- Background: Light cream (#FFFBF5) with subtle dot pattern
-- Left column: Large heading "Learn Smarter, Not Harder" (Deep Navy), subheading "Personalized AI-powered learning that adapts to your pace", two CTAs: Primary "Get Started Free" (Amber, rounded-full), Secondary "Watch Demo" (outline)
-- Right column: Illustration of student at laptop with friendly AI assistant character, soft shadows, modern flat illustration style
-- Small trust badges below: "Trusted by 50,000+ learners" with avatar stack
+- Background: Light cream (#FFFBF5) with subtle dot pattern, creating a soft, inviting aesthetic.
+- Left column: Large heading "Learn Smarter with AI" (Deep Navy), subheading "Upload your documents and let AI create flashcards, quizzes, and summaries automatically", two CTAs: Primary "Get Started Free" (Amber, rounded-full, with a subtle hover glow), Secondary "Watch Demo" (outline, with a smooth transition on hover)
+- Right column: Illustration of student at laptop with friendly AI assistant character, documents transforming into flashcards and quizzes, soft shadows, modern flat illustration style, conveying a sense of effortless learning.
+- Small trust badges below: "Trusted by 10,000+ students" with avatar stack, building credibility.
 
 FEATURES SECTION (white background):
-- Section title "Why Choose AI Tutor?" centered
-- 3 feature cards in row:
-  * Card 1: Brain icon (Royal Blue), "AI-Powered Tutoring", "24/7 personalized help"
-  * Card 2: Play icon (Teal), "Interactive Lessons", "Learn by doing, not just watching"
-  * Card 3: Certificate icon (Amber), "Earn Certificates", "Industry-recognized credentials"
-- Cards: White with soft shadow, rounded-xl (16px), hover lift effect
+- Section title "How AI Tutor Helps You Learn" centered
+- 4 feature cards in row:
+  * Card 1: Upload icon (Royal Blue), "Upload Documents", "PDF, DOCX supported"
+  * Card 2: Brain icon (Teal), "AI Flashcards", "Auto-generated from your materials"
+  * Card 3: Clipboard icon (Amber), "Smart Quizzes", "Test your knowledge instantly"
+  * Card 4: Chat icon (Royal Blue), "Ask AI Tutor", "Ask questions about your documents"
+- Cards: White with soft shadow, rounded-xl (16px), hover lift effect with a subtle 3D tilt, making them feel interactive and premium.
 
-POPULAR COURSES SECTION (light gray background #F1F5F9):
-- Section title "Popular Courses" with "View all →" link
-- 4 course cards in grid (2 rows on desktop):
-  * Card: White, rounded-xl, overflow hidden, shadow-sm
-  * Top: Course thumbnail image (16:9), subtle gradient overlay at bottom
-  * Content: Category pill (small, Royal Blue bg), Title (600 weight), Instructor name with avatar (small), Rating stars + count, Price (700 weight, Royal Blue or "Free" in Emerald)
-  * Hover: Subtle scale (1.02), shadow increase
+HOW IT WORKS SECTION (light gray background #F1F5F9):
+- Section title "Simple 3-Step Process"
+- 3 steps with numbers:
+  * Step 1: "Upload" - Drag & drop your study materials, with an animated upload icon.
+  * Step 2: "Process" - AI analyzes and creates learning content, with a subtle AI sparkle animation.
+  * Step 3: "Learn" - Review flashcards, take quizzes, chat with AI, emphasizing active engagement.
 
 CTA SECTION (Royal Blue background):
 - "Ready to Start Learning?" heading (white)
-- "Join thousands of learners today" subtext
-- "Create Free Account" button (Amber, rounded-full)
+- "Create your free account with Google" subtext
+- "Sign up with Google" button (white, Google icon, rounded-full, with a satisfying click animation)
 
 FOOTER (Deep Navy background):
-- 4 columns: Brand + social icons, Learn links, Company links, Legal links
+- 4 columns: Brand + social icons, Features links, Company links, Legal links
 - Copyright at bottom
-- All text in light colors
+- All text in light colors, maintaining a sophisticated and clean aesthetic.
 
 ═══════════════════════════════════════════════════════════════════════════════
 SCREEN 2: LOGIN PAGE (/auth/login)
@@ -140,20 +156,16 @@ Layout: Split screen 50/50
 
 LEFT PANEL (Royal Blue background):
 - Large "AI Tutor" logo (white)
-- Abstract illustration of learning journey (dots connected by lines, books, graduation cap)
+- Abstract illustration of learning journey (dots connected by lines, documents, AI brain), with subtle animated elements to convey dynamism.
 - "Welcome back!" text (white, large)
 - "Continue your learning journey" subtext (light blue)
 
 RIGHT PANEL (white):
-- Centered form card (max-width 400px)
+- Centered form card (max-width 400px), with soft shadows and rounded corners.
 - "Log in" heading (Deep Navy)
-- Email input (rounded-lg, border Gray, focus Royal Blue border)
-- Password input with show/hide toggle
-- "Remember me" checkbox + "Forgot password?" link (Royal Blue)
-- "Log in" button (full width, Royal Blue, rounded-lg)
-- Divider: "or continue with"
-- Google button (outline, with Google icon)
-- "Don't have an account? Sign up" link
+- "Sign in with Google" button (full width, white bg, Google icon, border, rounded-lg, with a subtle hover effect) - Google OAuth 2.0 only. No email/password fields.
+
+Note: Primary method is Google OAuth.
 
 ═══════════════════════════════════════════════════════════════════════════════
 SCREEN 3: REGISTER PAGE (/auth/register)
@@ -161,338 +173,271 @@ SCREEN 3: REGISTER PAGE (/auth/register)
 
 Same split layout as Login
 
-LEFT PANEL: Same aesthetic, different illustration (person celebrating)
+LEFT PANEL: Same aesthetic, different illustration (person celebrating with documents), conveying a sense of achievement and potential.
 - "Join AI Tutor today!"
 
 RIGHT PANEL:
 - "Create account" heading
-- Full name input
-- Email input
-- Password input with strength indicator (colored bar: red → yellow → green)
-- Terms checkbox "I agree to Terms and Privacy Policy"
-- "Create account" button (Royal Blue)
-- Google signup option
+- "Sign up with Google" button (full width, white bg, Google icon, border, rounded-lg, with a subtle hover effect) - PRIMARY
 - "Already have an account? Log in"
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 4: FORGOT PASSWORD (/auth/forgot-password)
+SCREEN 4: APP SHELL - MAIN LAYOUT
 ═══════════════════════════════════════════════════════════════════════════════
 
-Same split layout, smaller form
-
-LEFT PANEL: Illustration of envelope with letter
-
-RIGHT PANEL:
-- "Reset your password" heading
-- "Enter your email and we'll send you a reset link" subtext (Muted)
-- Email input
-- "Send reset link" button (Royal Blue)
-- "← Back to login" link
-
-SUCCESS STATE:
-- Green checkmark icon (animated)
-- "Check your email" heading
-- "We sent a reset link to email@example.com"
-- "Didn't receive it? Resend" link
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 5: APP SHELL - MAIN LAYOUT
-═══════════════════════════════════════════════════════════════════════════════
-
-SIDEBAR (fixed, 240px width, white background, right border):
+SIDEBAR (fixed, 240px width, white background, right border, with a subtle glassmorphism effect):
 - Top: Logo "AI Tutor" smaller version
 - Navigation items (with icons, left aligned, 40px height each):
-  * Dashboard (home icon) - active state: Royal Blue bg, white text
-  * Courses (book icon)
-  * My Learning (graduation cap icon)
+  * Dashboard (home icon) - active state: Royal Blue bg, white text, with a smooth background transition.
+  * Documents (file-text icon)
   * Flashcards (layers icon)
   * Bookmarks (bookmark icon)
   * AI Tutor (sparkle icon)
-  * Progress (bar-chart icon)
+  * Notes (sticky-note icon)
   * Profile (user icon)
 - Bottom: Help & Support link, Logout button
 
-TOP NAVBAR (sticky, white, subtle shadow):
+TOP NAVBAR (sticky, white, subtle shadow, with a slight glassmorphism blur):
 - Left: Breadcrumb "Dashboard"
-- Center: Search bar (rounded-full, gray background, search icon, placeholder "Search courses...")
+- Center: Search bar (rounded-full, gray background, search icon, placeholder "Search documents...", with a smooth expand on focus)
 - Right:
-  * Notification bell icon with red dot badge
+  * Notification bell icon with red dot badge, animating on new notifications.
   * User avatar (circle, 36px) with dropdown arrow
-  * Dropdown (on hover): Profile, Settings, Logout
+  * Dropdown (on hover): Profile, Settings, Logout, with a subtle fade-in animation.
 
 MAIN CONTENT AREA:
-- Background: Light gray (#F8FAFC)
+- Background: Light gray (#F8FAFC), providing a clean canvas.
 - Padding: 24px
-- Content varies by page
+- Content varies by page, with smooth transitions between views.
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 6: DASHBOARD (/app/dashboard)
+SCREEN 5: DASHBOARD (/app/dashboard)
 ═══════════════════════════════════════════════════════════════════════════════
 
 WELCOME SECTION:
 - "Good morning, Alex!" heading (time-based greeting)
-- "You're making great progress. Keep it up!" subtext
+- "Ready to learn something new today?" subtext, with a subtle encouraging tone.
 
 STATS ROW (4 cards):
-Card 1 - Courses in Progress:
-- Book icon in Royal Blue circle
-- "3" large number
-- "Courses in progress" label
+Card 1 - Documents:
+- File icon in Royal Blue circle
+- "12" large number
+- "Documents uploaded" label
 
-Card 2 - Lessons Completed:
-- Check icon in Emerald circle
-- "24" large number
-- "Lessons completed" label
+Card 2 - Flashcards Due:
+- Layers icon in Amber circle
+- "25" large number
+- "Flashcards to review" label
 
-Card 3 - Hours Learned:
-- Clock icon in Teal circle
-- "12.5h" large number
-- "Hours this week" label
+Card 3 - Quizzes Taken:
+- Clipboard icon in Teal circle
+- "8" large number
+- "Quizzes completed" label
 
-Card 4 - Current Streak:
-- Flame icon in Amber circle
-- "7 days" large number
-- "Learning streak 🔥" label
+Card 4 - Study Streak:
+- Flame icon in Emerald circle, subtly animating.
+- "5 days" large number
+- "Study streak 🔥" label
 
-All cards: White, rounded-xl, shadow-sm, hover lift
+All cards: White, rounded-xl, shadow-sm, hover lift with a gentle scale, making them feel responsive and engaging.
 
-CONTINUE LEARNING SECTION:
-- Section title "Continue Learning"
-- Horizontal scroll of 3 course cards:
-  * Thumbnail (small, rounded-lg)
-  * Course title
-  * Progress bar (Royal Blue fill, gray track)
+RECENT DOCUMENTS SECTION:
+- Section title "Recent Documents" with "View all →" link
+- Horizontal scroll of 4 document cards:
+  * Document icon (based on type: PDF/DOCX)
+  * Document title
+  * Processing status badge
   * "Continue" button (outline, small)
+  * Cards feature a subtle hover effect and smooth scrolling.
 
-RECOMMENDED COURSES:
-- Section title "Recommended for You"
-- Grid of 4 course cards (same style as landing page)
+FLASHCARDS DUE SECTION:
+- Section title "Today's Review" with due count badge
+- Flashcard preview card:
+  * Front text preview
+  * "25 cards due" indicator
+  * "Start Review" button (primary, with a subtle pulse animation)
+
+QUICK ACTIONS:
+- 4 action buttons in a row:
+  * "Upload Document" (Royal Blue)
+  * "Review Flashcards" (outline)
+  * "Take Quiz" (outline)
+  * "Ask AI Tutor" (outline)
+  * Buttons feature smooth hover and click animations.
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 7: COURSE LIST (/app/courses)
+SCREEN 6: DOCUMENT LIST (/app/documents)
 ═══════════════════════════════════════════════════════════════════════════════
 
 PAGE HEADER:
-- "All Courses" heading
-- Breadcrumb: Home / Courses
+- "My Documents" heading
+- Breadcrumb: Home / Documents
+- "Upload New" button (primary, Royal Blue, with upload icon, featuring a subtle hover animation)
 
 FILTER BAR (sticky below navbar):
-- Left: Category dropdown (All Categories, Programming, Design, Business...)
-- Level dropdown (All Levels, Beginner, Intermediate, Advanced)
-- Search input
-- Right: Sort dropdown (Most Popular, Newest, Highest Rated)
-- Active filters shown as removable pills
+- Left: Status dropdown (All | Processing | Ready | Error)
+- File type dropdown (All | PDF | DOCX)
+- Search input, with a smooth focus animation.
+- Right: Sort dropdown (Newest, Oldest, Name A-Z)
 
-COURSE GRID:
+DOCUMENT GRID:
 - 3 columns on desktop, 2 on tablet, 1 on mobile
-- Course card:
-  * Thumbnail (16:9 ratio)
-  * Category pill (top left overlay)
-  * Favorite heart icon (top right)
+- Document card:
+  * File type icon (PDF = red, DOCX = blue) - large, 48px
   * Title (truncates to 2 lines)
-  * Instructor: avatar + name
-  * Rating: stars + "(123)"
-  * Students: user icon + "1.2k students"
-  * Duration: clock icon + "10 hours"
-  * Level badge: Beginner/Intermediate/Advanced
+  * File size: "2.5 MB"
+  * Upload date: "2 days ago"
+  * Status badge: Processing (Amber, animated pulse) | Ready (Emerald) | Error (Red)
+  * Quick stats (if ready):
+    - Flashcards: 45
+    - Quiz: 10 questions
+  * Actions menu (three dots):
+    - View Details
+    - Generate Quiz
+    - Generate Flashcards
+    - Delete
+  * Cards feature a subtle hover lift and shadow effect.
 
-PAGINATION:
-- Centered, numbered pages with prev/next arrows
+EMPTY STATE:
+- Upload icon (large, muted)
+- "No documents yet"
+- "Upload your first document to get started"
+- "Upload Document" button (primary, with a gentle bounce animation)
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 8: COURSE DETAIL (/app/courses/:id)
+SCREEN 7: DOCUMENT DETAIL (/app/documents/:id)
 ═══════════════════════════════════════════════════════════════════════════════
 
-HERO SECTION (gradient background based on category):
-- Course title (large, white)
-- Instructor info: avatar, name, "Instructor"
-- Rating, students, duration, last updated
-- Breadcrumb
+PAGE HEADER:
+- Document title (large)
+- Breadcrumb: Home / Documents / [Document Name]
+- File info: Type badge, Size, Upload date
+- Status badge: Ready (Emerald)
 
 TWO COLUMN LAYOUT:
 
 LEFT COLUMN (2/3 width):
 
-What you'll learn:
-- Grid of 6 items with check icons
-
-Course content:
-- Accordion of modules:
-  * Module header: "Module 1: Introduction" + lesson count + duration
-  * Expanded: List of lessons with play icon, title, duration, preview badge
-  * Completed lessons show checkmark
-
-Description:
-- Rich text with images
-
-RIGHT COLUMN (1/3 width, sticky):
-- Course card:
-  * Thumbnail
-  * Price (large): "$49.99" or "Free"
-  * "Enroll Now" button (Amber, full width, rounded-lg)
-  * "Add to Wishlist" button (outline)
-- Course includes list:
-  * 10 hours of video
-  * 5 articles
-  * 20 downloadable resources
-  * Certificate of completion
-  * Full lifetime access
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 9-10: CREATE/EDIT COURSE (/app/courses/create, /app/courses/:id/edit)
-═══════════════════════════════════════════════════════════════════════════════
-
-PAGE HEADER:
-- "Create New Course" or "Edit Course" heading
-- Breadcrumb
-
-FORM (two columns):
-
-LEFT COLUMN:
-- Title input (required)
-- Description textarea (required, markdown support)
-- Category dropdown (required)
-- Level dropdown: Beginner/Intermediate/Advanced
-- Duration input (hours)
-
-RIGHT COLUMN:
-- Thumbnail upload area (drag & drop, image preview)
-- Price input (or "Free" toggle)
-- Publish toggle (draft by default)
-
-ACTIONS:
-- "Save as Draft" button (outline)
-- "Publish" button (Royal Blue, primary)
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 11: MY COURSES (/app/my-courses)
-═══════════════════════════════════════════════════════════════════════════════
-
-PAGE HEADER:
-- "My Learning" heading
-- Stats: "3 in progress • 5 completed"
-
-TABS:
-- All | In Progress | Completed
-- Active tab: Royal Blue underline
-
-COURSE LIST:
-Card style (horizontal):
-- Left: Thumbnail (120x80px, rounded-lg)
-- Middle:
-  * Course title
-  * Instructor name
-  * Progress bar with percentage
-  * "12 of 24 lessons completed"
-- Right:
-  * "Continue" button (primary) OR "View Certificate" (if completed)
-  * Completed: Green checkmark badge
-
-EMPTY STATE:
-- Illustration of empty box
-- "No courses yet"
-- "Browse courses" button
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 12: LEARNING PAGE (/app/learn/:courseId/lesson/:lessonId)
-═══════════════════════════════════════════════════════════════════════════════
-
-TWO COLUMN LAYOUT:
-
-LEFT COLUMN (Video + Content):
-
-VIDEO PLAYER:
-- 16:9 aspect ratio, black background
-- Custom controls (appear on hover):
-  * Play/Pause (center large)
-  * Progress bar with preview thumbnail
-  * Volume slider
-  * Settings (quality, speed)
-  * Fullscreen
-  * Picture-in-picture
-- Lesson title below player
-
-LESSON CONTENT:
-- Description text (markdown)
-- Resources download links
-
-NOTES PANEL (collapsible, integrated):
-- Toggle button: "My Notes" with edit icon
-- Notes list for current lesson:
-  * Each note: content preview, timestamp (if video note), edit/delete
-- Add note button
-- Note editor (inline or modal):
-  * Textarea
-  * Timestamp picker (auto-capture current video time)
-  * Save/Cancel
+DOCUMENT INFO CARD:
+- Original filename
+- File type and size
+- Upload date
+- Processing completed date
+- Card features a clean, minimalist aesthetic.
 
 AI SUMMARY SECTION (collapsible):
-- "AI Summary" header with sparkle icon
-- "Generate Summary" button (if not generated)
+- Section header: "AI Summary" with sparkle icon, animating when summary is generated.
+- "Generate Summary" button (if not generated, with a subtle loading animation when clicked)
 - Summary content:
-  * Key points list
-  * Keywords tags
-- "Regenerate" button
+  * Key points list (3-5 bullet points)
+  * Keywords/tags
+- "Regenerate" button, with a smooth animation on click.
 
-NAVIGATION:
-- "Previous Lesson" "Mark Complete" "Next Lesson" buttons
+CONTENT PREVIEW:
+- Section header: "Document Content"
+- Text preview (first 500 characters)
+- "View Full Content" expand button, with a smooth accordion animation.
 
-RIGHT COLUMN (Course Sidebar, 320px):
+RIGHT COLUMN (1/3 width, sticky):
 
-COURSE INFO:
-- Course title
-- Progress: "45% complete" with progress bar
+ACTIONS CARD:
+- "Generate Flashcards" button (primary, full width, with a subtle AI generation animation)
+  * Shows count if already generated: "45 Flashcards"
+- "Take Quiz" button (secondary, full width, with a smooth hover effect)
+  * Shows count if quiz available: "10 Questions"
+- "Ask AI About This Document" button (outline, full width, with a subtle sparkle icon)
+- "Bookmark" toggle button, with a satisfying click animation.
+- "Delete Document" button (ghost, red text)
+- Card features a clean, actionable aesthetic.
 
-MODULE ACCORDION:
-- Module 1 (expanded):
-  * Lesson 1: Introduction ✓ (completed, green check)
-  * Lesson 2: Getting Started ▶ (current, Royal Blue highlight)
-  * Lesson 3: Basics (locked or unlocked)
-- Module 2 (collapsed):
-  * 5 lessons • 45 min
+STATS CARD:
+- Total Flashcards: 45
+- Quiz Questions: 10
+- Times Reviewed: 5
+- Last Reviewed: "2 hours ago"
+- Stats are presented clearly with subtle icons.
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 13: LESSON DETAIL (/app/lessons/:id)
+SCREEN 8: UPLOAD DOCUMENT (/app/documents/upload)
 ═══════════════════════════════════════════════════════════════════════════════
 
 PAGE HEADER:
-- Lesson title
-- Breadcrumb: Course > Module > Lesson
-- Duration, status badge
+- "Upload Document" heading
+- Breadcrumb: Home / Documents / Upload
 
-CONTENT AREA:
-- Video embed (if available)
-- Rich text content (markdown)
-- Attachments section
+UPLOAD AREA (centered, max-width 600px):
 
-EXERCISES SECTION (integrated):
-- Section header: "Exercises" with count badge
-- Exercise cards (compact list):
-  * Title, type icon, max score
-  * Status: Not Started | Submitted | Graded
-  * "Start" | "View" button
-- "View All Exercises" link (if more than 3)
+DRAG & DROP ZONE:
+- Dashed border (2px, gray), animating on drag-over.
+- Large upload icon (64px, Royal Blue)
+- "Drag and drop your file here" heading
+- "or click to browse" subtext
+- Accepted formats: "PDF, DOCX (max 10MB)"
+- Hidden file input
+- Zone features a subtle glow on hover.
 
-FLASHCARDS SECTION (integrated):
-- Section header: "Flashcards" with count badge
-- Flashcard preview (first 3):
-  * Front text preview
-  * Review status
-- "Review Flashcards" button
+SELECTED FILE PREVIEW (after selection):
+- File icon (based on type)
+- Filename
+- File size
+- Remove button (X icon, with a smooth fade-out animation for the file)
 
-AI SUMMARY SECTION (integrated):
-- Section header: "AI Summary" with sparkle icon
-- Collapsible summary content
-- Key points list
-- Keywords tags
+OPTIONS:
+- Auto-generate flashcards checkbox (checked by default)
+- Auto-generate quiz checkbox (checked by default)
+- Number of flashcards input (default: 20)
+- Number of quiz questions input (default: 10)
+- Options are clearly laid out with toggle animations.
 
-SIDEBAR:
-- Related quiz (if any)
-- AI Tutor chat button
-- Bookmark button
+ACTIONS:
+- "Upload" button (primary, full width) - enabled only when file selected, with a loading spinner on click.
+- "Cancel" button (ghost)
+
+UPLOADING STATE:
+- Progress bar (Royal Blue fill, animated smoothly)
+- Percentage: "45%"
+- Filename
+- "Uploading..." text, with subtle pulsating dots.
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 14: QUIZ PAGE (/app/quiz/:quizId)
+SCREEN 9: DOCUMENT PROCESSING (/app/documents/:id/processing)
+═══════════════════════════════════════════════════════════════════════════════
+
+PAGE HEADER:
+- "Processing Document" heading
+- Document name
+
+PROCESSING STATUS (centered card):
+- Animated processing icon (spinning, with a subtle glow)
+- "Analyzing your document..." text
+- Progress steps:
+  * ✓ Uploaded (completed, green check, with a satisfying pop-in)
+  * ✓ Extracted text (completed, green check)
+  * ◷ Creating embeddings (in progress, animated, with a subtle shimmer)
+  * ○ Generating flashcards (pending, gray)
+  * ○ Generating quiz (pending, gray)
+- Each step transitions smoothly from pending to complete.
+
+PROGRESS BAR:
+- Overall progress: "60%"
+- Royal Blue fill, animated with a fluid motion.
+
+ESTIMATED TIME:
+- "About 30 seconds remaining..."
+
+AUTO-REDIRECT:
+- Automatically redirects to document detail page when complete, with a smooth fade-out.
+- "We'll redirect you when ready" text
+
+ERROR STATE:
+- Error icon (red, with a subtle shake animation)
+- "Processing failed" heading
+- Error message
+- "Try Again" button
+- "Contact Support" link
+
+═══════════════════════════════════════════════════════════════════════════════
+SCREEN 10: QUIZ PAGE (/app/documents/:documentId/quiz)
 ═══════════════════════════════════════════════════════════════════════════════
 
 TWO COLUMN LAYOUT: Main content (left) + Question Navigator (right sidebar)
@@ -502,16 +447,16 @@ TOP HEADER (sticky, white, shadow-sm)
 ═══════════════════════════════════════════════════════════════════════════════
 
 LEFT SIDE:
-- Quiz title: "React Basics Quiz"
-- Breadcrumb: Course > Lesson > Quiz
+- Quiz title: "Quiz: [Document Name]"
+- Breadcrumb: Documents > [Document] > Quiz
 
 CENTER:
-- Progress bar (thin, Royal Blue fill): shows overall completion
+- Progress bar (thin, Royal Blue fill): shows overall completion, with a smooth fill animation.
 - Text: "Question 3 of 10"
 
 RIGHT SIDE:
 - Timer (prominent, in card):
-  * Circular countdown ring (Amber when < 2 min, Red when < 1 min)
+  * Circular countdown ring (Amber when < 2 min, Red when < 1 min, animating smoothly)
   * Time display: "14:30"
   * Label: "remaining"
 - Pause button (ghost, pause icon) - if allowed
@@ -525,20 +470,13 @@ QUESTION CARD (white, rounded-xl, shadow-sm, max-width 700px):
 QUESTION HEADER:
 - Question number badge: "Question 3" (Royal Blue bg, white text)
 - Question type badge: "Single Choice" | "Multiple Choice" (muted)
-- Flag button (ghost, flag icon):
-  * Unflagged: Gray outline flag
-  * Flagged: Amber filled flag with pulse animation
 - Points: "1 point"
 
 QUESTION TEXT:
 - Large text (18px, 600 weight, Deep Navy)
 - Supports markdown (bold, italic, code inline)
-- Code blocks (if any): dark background, syntax highlighting
-
-QUESTION MEDIA (optional):
-- Image: max-width 100%, rounded-lg
-- Code snippet: monospace, syntax highlighted
-
+- Code blocks (if any): Glassmorphism style, dark tint, syntax highlighting
+- Animation: When showing correct/incorrect answer, use subtle screen shake (wrong) or bounce (correct).
 ANSWER OPTIONS:
 
 For Single Choice:
@@ -547,8 +485,8 @@ For Single Choice:
   * Left: Circular radio indicator (empty circle or filled Royal Blue)
   * Letter badge: A, B, C, D (rounded-full, 32px)
   * Answer text (500 weight)
-  * Hover: Light blue background (#EFF6FF)
-  * Selected: Royal Blue border (2px), light blue bg, checkmark in radio
+  * Hover: Light blue background (#EFF6FF), with a smooth transition.
+  * Selected: Royal Blue border (2px), light blue bg, checkmark in radio, with a satisfying click animation.
 
 For Multiple Choice:
 - Checkbox-style selection
@@ -556,7 +494,7 @@ For Multiple Choice:
   * Left: Square checkbox indicator
   * Letter badge: A, B, C, D
   * Answer text
-  * Selected: Royal Blue border, checkmark in checkbox
+  * Selected: Royal Blue border, checkmark in checkbox, with a satisfying click animation.
 - Note text: "Select all that apply"
 
 ═══════════════════════════════════════════════════════════════════════════════
@@ -565,7 +503,7 @@ BOTTOM NAVIGATION BAR (sticky, white, shadow-top)
 
 LEFT:
 - "Previous" button (outline, chevron-left icon)
-- Disabled on first question
+- Disabled on first question, with a subtle grayed-out animation.
 
 CENTER:
 - Question indicator pills (scrollable on mobile):
@@ -573,13 +511,12 @@ CENTER:
   * States:
     - Unanswered: Gray outline
     - Answered: Royal Blue filled
-    - Flagged: Amber filled with flag icon
     - Current: Royal Blue ring (thicker border)
+  * Dots animate smoothly between states.
 
 RIGHT:
-- "Flag for Review" button (ghost, flag icon, Amber when active)
 - "Next" button (primary, chevron-right icon)
-- "Submit Quiz" button (primary, appears when all answered or on last question)
+- "Submit Quiz" button (primary, appears when all answered or on last question, with a subtle fade-in animation)
 
 ═══════════════════════════════════════════════════════════════════════════════
 RIGHT SIDEBAR: QUESTION NAVIGATOR (280px, sticky)
@@ -589,7 +526,6 @@ HEADER:
 - "Questions" title
 - Stats badges:
   * Answered: "5/10" (Royal Blue)
-  * Flagged: "2" (Amber)
   * Remaining: "5" (Gray)
 
 QUESTION GRID (5 columns):
@@ -598,25 +534,18 @@ QUESTION GRID (5 columns):
   * States:
     - Unanswered: White bg, Gray border, Gray text
     - Answered: Royal Blue bg, white text
-    - Flagged: Amber bg, flag icon, white text
     - Current: Royal Blue border (3px), white bg, Royal Blue text
-    - Answered + Flagged: Royal Blue bg, Amber flag icon corner
-  * Hover: Slight scale, shadow
-  * Click: Jump to question
-
-LEGEND (bottom of sidebar):
-- Mini legend showing states:
-  * Circle (Gray): Not answered
-  * Circle (Blue): Answered
-  * Circle (Amber) + Flag: Flagged
+  * Hover: Slight scale, shadow, with a smooth animation.
+  * Click: Jump to question, with a smooth scroll.
 
 SUBMIT SECTION:
 - "Submit Quiz" button (full width, primary, Amber)
 - Confirmation modal on click:
   * Title: "Submit Quiz?"
-  * Message: "You have answered 8/10 questions. 2 questions are flagged."
+  * Message: "You have answered 8/10 questions."
   * Warning if unanswered: "⚠️ You have 2 unanswered questions"
   * Buttons: "Continue Editing" (ghost) | "Submit" (primary)
+  * Modal appears with a subtle fade-in and scale animation.
 
 ═══════════════════════════════════════════════════════════════════════════════
 QUIZ RESULT VIEW (shown after submit, same page)
@@ -624,178 +553,44 @@ QUIZ RESULT VIEW (shown after submit, same page)
 
 RESULT HEADER:
 - Quiz title
+- Document name
 - Completion date
 
 SCORE DISPLAY (centered):
-- Large circular progress: "85%" in center
-- Pass/Fail badge (Emerald for pass, Red for fail)
-- "You passed!" or "Keep practicing!" message
+- Large circular progress: "85%" in center, with a dynamic fill animation.
+- Pass/Fail badge (Emerald for pass >= 70%, Red for fail, with a subtle pop-in)
+- "Great job!" or "Keep practicing!" message, with encouraging animations.
 
 STATS ROW:
 - Correct: 8/10 (Emerald)
 - Wrong: 2/10 (Red)
 - Time taken: "5:30"
-- Average time per question: "33s"
+- Stats animate into view.
 
 ANSWER REVIEW (accordion):
 - Each question card:
   * Question number and text
   * Your answer (with correct/wrong indicator)
   * Correct answer (shown if wrong)
-  * Explanation (expandable)
+  * Explanation (AI-generated, expandable)
+  * Accordion sections expand smoothly.
 
 ACTIONS:
 - "Retry Quiz" button (outline)
-- "Continue Course" button (primary)
-- "Review Lesson" button (ghost)
+- "Review Document" button (primary)
+- "Back to Documents" button (ghost)
+- Buttons feature smooth hover and click animations.
 
 ═══════════════════════════════════════════════════════════════════════════════
-MODAL: TIME'S UP WARNING
+SCREENS 11-12: FLASHCARD PAGES
 ═══════════════════════════════════════════════════════════════════════════════
 
-Triggered when 1 minute remaining:
-- Modal overlay (can be dismissed)
-- Warning icon (Amber)
-- "1 minute remaining!" heading
-- "Please complete your answers soon."
-- "Continue" button
-
-Triggered when time's up:
-- Modal overlay (cannot be dismissed)
-- Stop icon (Red)
-- "Time's up!" heading
-- "Your quiz has been automatically submitted."
-- "View Results" button
-
-═══════════════════════════════════════════════════════════════════════════════
-MODAL: QUIT QUIZ CONFIRMATION
-═══════════════════════════════════════════════════════════════════════════════
-
-Triggered when user tries to navigate away:
-- Warning icon (Amber)
-- "Leave Quiz?" heading
-- "Your progress will be lost if you leave now."
-- Buttons: "Stay" (primary) | "Leave" (outline, Red text)
-
-═══════════════════════════════════════════════════════════════════════════════
-MOBILE LAYOUT (<640px)
-═══════════════════════════════════════════════════════════════════════════════
-
-- Right sidebar: Hidden by default
-- "Questions" floating button (bottom-right, FAB):
-  * Shows count: "5/10"
-  * Tap to open question navigator as bottom sheet
-- Bottom navigation: Full width, stacked buttons
-- Question indicator: Horizontal scroll dots
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 15: EXERCISE DETAIL (/app/exercises/:id)
-═══════════════════════════════════════════════════════════════════════════════
-
-PAGE HEADER:
-- Exercise title
-- Lesson breadcrumb
-- Type badge: Text | Code | File | Multiple Choice
-- Max score, attempts used
-
-TWO COLUMN LAYOUT:
-
-LEFT COLUMN (2/3):
-DESCRIPTION:
-- Rich text description (markdown)
-- Requirements list with check icons
-- Rubric/criteria table
-
-INSTRUCTIONS:
-- Step-by-step guide
-- Code examples (if code exercise)
-- File format requirements (if file upload)
-
-RIGHT COLUMN (1/3, sticky):
-SUBMISSION STATUS CARD:
-- Status: Not Started | In Progress | Submitted | Graded
-- Score (if graded): "8.5/10"
-- Attempts remaining
-
-ACTIONS:
-- "Start Exercise" button (primary)
-- "View My Submissions" button (outline)
-
-MY SUBMISSIONS SECTION (integrated, collapsible):
-- Section header: "My Submissions" with count
-- List of submissions:
-  * Attempt number
-  * Submitted date
-  * Status badge
-  * Score (if graded)
-  * Click to expand details
-- Submission detail expansion:
-  * Your answer (code viewer / text / file link)
-  * AI Feedback (if graded):
-    - Overall comment
-    - Strengths list (Emerald icons)
-    - Improvements list (Amber icons)
-    - Suggestions
-  * Actions: "Try Again" (if attempts remaining)
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREEN 16: EXERCISE SUBMIT (/app/exercises/:id/submit)
-═══════════════════════════════════════════════════════════════════════════════
-
-PAGE HEADER:
-- Exercise title
-- Attempt number: "Attempt 2 of 3"
-
-SUBMISSION FORM:
-
-TEXT EXERCISE:
-- Large textarea (auto-grow)
-- Character count
-- Formatting toolbar (bold, italic, lists)
-
-CODE EXERCISE:
-- Monaco-style code editor
-- Language selector dropdown
-- Line numbers
-- Syntax highlighting
-- Run/Preview button (optional)
-
-FILE UPLOAD:
-- Drag & drop zone (dashed border)
-- Accepted formats list
-- Max file size: "10MB"
-- Uploaded file preview with remove button
-
-MULTIPLE CHOICE:
-- Question cards with radio/checkbox
-- Navigation between questions
-
-ACTIONS BAR (sticky bottom):
-- Left: "Save Draft" button (ghost)
-- Right: "Submit" button (primary, Amber)
-
-AFTER SUBMIT (same page):
-- Loading state: "Submitting..." with spinner
-- Grading state: "AI is grading your submission..." with progress
-- Result displayed inline:
-  * Score card: "8.5/10" with circular progress
-  * AI Feedback card:
-    - Overall comment section
-    - Strengths list (with thumbs up icons, Emerald)
-    - Improvements list (with lightbulb icons, Amber)
-    - Suggested solution (expandable)
-  * Actions: "Try Again" | "Continue Course"
-
-═══════════════════════════════════════════════════════════════════════════════
-SCREENS 17-19: FLASHCARD PAGES
-═══════════════════════════════════════════════════════════════════════════════
-
-SCREEN 17: FLASHCARD REVIEW (/app/flashcards) - Today's Due Cards
+SCREEN 11: FLASHCARD REVIEW (/app/flashcards) - Today's Due Cards
 
 HEADER:
 - "Today's Review" title
-- Due count badge: "15 cards due"
-- Lesson filter dropdown
+- Due count badge: "25 cards due"
+- Document filter dropdown
 
 CARD AREA (centered, swipeable):
 - Large flip card (300x200px)
@@ -813,82 +608,82 @@ RATING BUTTONS (after revealing answer):
 - 😎 5 - Perfect response
 
 PROGRESS INDICATOR:
-- "Card 5 of 15"
-- Circular progress
+- "Card 5 of 25"
+- Animation: Realistic 3D card flip when clicking 'Flip'. Slide out left/right on rating submission.
+- Confetti effect when finishing the whole deck.
+EMPTY STATE:
+- Check icon (Emerald)
+- "All caught up!"
+- "No flashcards due for review"
+- "Review specific document" link
 
-SCREEN 18: FLASHCARDS BY LESSON (/app/flashcards/:lessonId)
+SCREEN 12: FLASHCARDS BY DOCUMENT (/app/documents/:documentId/flashcards)
 
 HEADER:
-- Lesson title
+- Document title
 - Total cards count
 - "Start Review" button (primary)
+- "Generate More" button (outline)
 
 CARD LIST:
-- Table with columns: Front (preview), Status, Next Review
+- Table with columns: Front (preview), Status, Next Review, Ease Factor
 - Click row to edit/view
 - Bulk select for review
+- Delete individual cards
 
-SCREEN 19: FLASHCARD PROGRESS (/app/flashcards/progress)
-
-STATS CARDS:
-- Total Cards: 150
-- Mastered: 45 (Emerald)
-- Learning: 75 (Amber)
-- New: 30 (Gray)
-
-CHART:
-- Line chart: Reviews over time (7 days)
-- Bar chart: Cards by interval
-
-RETENTION STATS:
-- Average retention rate: 85%
-- Average ease factor: 2.4
+FLASHCARD STATS:
+- Total: 45 cards
+- New: 15 (Gray)
+- Learning: 20 (Amber)
+- Mastered: 10 (Emerald)
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 20: BOOKMARKS (/app/bookmarks)
+SCREEN 13: BOOKMARKS (/app/bookmarks)
 ═══════════════════════════════════════════════════════════════════════════════
 
 PAGE HEADER:
 - "My Bookmarks" title
-- Count: "12 lessons saved"
-- Filter by course dropdown
+- Count: "8 items saved"
+- Filter by type dropdown: All | Documents | Quiz Results | Notes
 
 BOOKMARK LIST:
 Card style (horizontal):
-- Left: Lesson icon or thumbnail
+- Left: Icon based on type (document/quiz/note)
 - Middle:
-  * Lesson title
-  * Course title (muted)
+  * Item title
+  * Document name (muted)
+  * Type badge
   * Date bookmarked
   * Note preview (if any)
 - Right:
-  * "Go to Lesson" button
+  * "Go to Item" button
   * Remove bookmark (trash icon)
 
 EMPTY STATE:
 - Bookmark icon (large, muted)
 - "No bookmarks yet"
-- "Save lessons for quick access"
+- "Save documents and quiz results for quick access"
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 21-22: AI TUTOR PAGES
+SCREENS 14-15: AI TUTOR PAGES
 ═══════════════════════════════════════════════════════════════════════════════
 
-SCREEN 21: AI CHAT - CONVERSATION LIST (/app/ai-tutor)
+SCREEN 14: AI CHAT - SESSION LIST (/app/ai-tutor)
 
-CONVERSATION LIST (left sidebar, 280px):
+SESSION LIST (left sidebar, 280px):
 
 HEADER:
 - "AI Tutor" title with sparkle icon
 - "New Chat" button (primary, small)
 
 SEARCH:
-- Search conversations input
+- Search sessions input
 
-CONVERSATION LIST:
+SESSION LIST:
 - Each item:
   * Title (truncated)
   * Preview message
+  * Document context badge (if linked)
   * Timestamp
   * Active: Royal Blue background
 
@@ -898,20 +693,21 @@ WELCOME SCREEN:
 - Large AI Tutor logo with sparkle
 - "How can I help you learn today?" heading
 - Quick suggestion pills:
-  * "Explain a concept"
-  * "Help me practice"
+  * "Explain a concept from my document"
   * "Quiz me on a topic"
   * "Summarize my notes"
+  * "Help me understand this"
 
-COURSE CONTEXT SELECTOR:
-- Dropdown: "Select a course for context (optional)"
-- Shows enrolled courses
+DOCUMENT CONTEXT SELECTOR:
+- Dropdown: "Select a document for context (optional)"
+- Shows uploaded documents
+- When selected: Document badge appears in chat header
 
-SCREEN 22: AI CONVERSATION (/app/ai-tutor/:conversationId)
+SCREEN 15: AI SESSION (/app/ai-tutor/:sessionId)
 
 CHAT HEADER:
-- Conversation title (editable)
-- Course context badge (if set): "React Basics"
+- Session title (editable)
+- Document context badge (if set): "[Document Name]"
 - Model indicator: "Claude Sonnet"
 - More options menu (rename, delete, clear)
 
@@ -936,49 +732,38 @@ TYPING INDICATOR:
 INPUT AREA (sticky bottom):
 - Text input (auto-grow, rounded-2xl)
 - Attachment icon (left) - for code snippets
+- Document context indicator (if linked)
 - Send button (right, Royal Blue, appears when text entered)
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 23: PROGRESS (/app/progress)
+SCREEN 16: NOTES (/app/notes)
 ═══════════════════════════════════════════════════════════════════════════════
 
 PAGE HEADER:
-- "My Progress" title
-- Period filter: Week | Month | Year
+- "My Notes" title
+- Count: "15 notes"
+- Filter by document dropdown
+- Search input
 
-OVERVIEW CARDS (4 in row):
-- Courses Completed: 5
-- Lessons Completed: 45
-- Hours Learned: 25.5
-- Current Streak: 7 days 🔥
+NOTES LIST:
+Card style:
+- Document badge (source document)
+- Note content preview (first 100 chars)
+- Created/updated date
+- Quick actions: Edit, Delete
 
-CHARTS SECTION:
+EMPTY STATE:
+- Note icon (large, muted)
+- "No notes yet"
+- "Add notes while viewing documents"
 
-Activity Chart:
-- Bar chart: Daily activity (lessons completed)
-- X-axis: Days of week
-- Y-axis: Count
-
-Progress Over Time:
-- Line chart: Cumulative progress
-- Multiple lines: Lessons, Quizzes, Flashcards
-
-CATEGORY BREAKDOWN:
-- Pie chart: Time by category
-- Programming: 40%
-- Design: 30%
-- Business: 20%
-- Other: 10%
-
-ACHIEVEMENTS:
-- Badge grid with earned/locked states
-- "First Course" ✓
-- "7-Day Streak" ✓
-- "Quiz Master" (locked)
-- "Flashcard Pro" (locked)
+NOTE EDITOR (modal or inline):
+- Document selector (optional)
+- Note content textarea
+- Save/Cancel buttons
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 24: PROFILE (/app/profile)
+SCREEN 17: PROFILE (/app/profile)
 ═══════════════════════════════════════════════════════════════════════════════
 
 TWO COLUMN LAYOUT:
@@ -986,7 +771,6 @@ TWO COLUMN LAYOUT:
 LEFT COLUMN (Sidebar navigation):
 - Profile (active)
 - Settings
-- Security
 - Help
 
 RIGHT COLUMN:
@@ -996,18 +780,26 @@ PROFILE HEADER:
 - Name (large)
 - Email (muted)
 - Member since date
+- Google account badge (if signed up with Google)
 
 STATS ROW:
-- 3 stat cards: Courses enrolled, Hours learned, Certificates earned
+- 3 stat cards:
+  * Documents: 12
+  * Flashcards Mastered: 45
+  * Quizzes Passed: 8
 
 EDIT PROFILE FORM:
 - Full name input
-- Email input (readonly, with "Change email" link)
+- Email input (readonly, shows "Managed by Google" if applicable)
 - Bio textarea
 - "Save Changes" button
 
+DANGER ZONE:
+- "Delete Account" button (red, ghost)
+- Warning text about data loss
+
 ═══════════════════════════════════════════════════════════════════════════════
-SCREENS 25-27: ADMIN PAGES
+SCREENS 18-19: ADMIN PAGES
 ═══════════════════════════════════════════════════════════════════════════════
 
 ADMIN LAYOUT:
@@ -1015,50 +807,32 @@ ADMIN LAYOUT:
 - Admin-specific navigation
 - Back to App link
 
-SCREEN 25: ADMIN DASHBOARD (/admin/dashboard)
+SCREEN 18: ADMIN DASHBOARD (/admin/dashboard)
 
 STATS CARDS:
 - Total Users: 1,250 (+15 today)
-- Total Courses: 45 (32 published)
-- Total Enrollments: 3,500
+- Total Documents: 5,500
+- Total Flashcards: 25,000
 - Active Now: 45
 
 CHARTS:
 - User growth line chart
-- Enrollment growth bar chart
+- Document uploads bar chart
 
 RECENT ACTIVITY FEED:
 - User registered
-- Course published
-- New enrollment
+- Document uploaded
+- Quiz completed
 
-SCREEN 26: USER MANAGEMENT (/admin/users)
+SCREEN 19: USER MANAGEMENT (/admin/users)
 
 SEARCH & FILTER:
 - Search input
-- Role filter: All | User | Admin
 - Status filter: Active | Inactive
 
 USER TABLE:
-| Avatar | Name | Email | Role | Courses | Joined | Actions |
-- Actions: View | Edit Role | Deactivate
-
-SCREEN 27: CATEGORY MANAGEMENT (/admin/categories)
-
-CATEGORY LIST:
-- Table: Name | Slug | Courses Count | Actions
-- Add Category button (top right)
-- Edit/Delete actions
-
-SCREEN 28: ALL COURSES (/admin/courses)
-
-FILTER:
-- Status: All | Published | Draft
-- Category filter
-
-COURSE TABLE:
-| Thumbnail | Title | Creator | Category | Status | Enrolled | Actions |
-- Actions: View | Publish/Unpublish | Delete
+| Avatar | Name | Email | Documents | Quizzes | Joined | Actions |
+- Actions: View Details | Deactivate
 
 ═══════════════════════════════════════════════════════════════════════════════
 COMPONENT SPECIFICATIONS
@@ -1140,7 +914,7 @@ RESPONSIVE BREAKPOINTS
 
 Mobile (<640px):
 - Sidebar: Hidden, hamburger menu
-- Bottom navigation bar (Dashboard, Courses, AI Tutor, Profile)
+- Bottom navigation bar (Dashboard, Documents, AI Tutor, Profile)
 - Cards: Full width
 - Forms: Full width
 - Chat: Full screen
@@ -1164,51 +938,39 @@ TECH STACK NOTES
 - React Router 7 for navigation
 - React Query 5 for data fetching
 - Zustand for client state
-- Code editor: Monaco Editor for code exercises
 - Charts: Recharts for progress visualization
 - Markdown: react-markdown for content rendering
 
 ═══════════════════════════════════════════════════════════════════════════════
 
 Design with attention to detail. Every element should feel intentional and polished. Use consistent spacing (8px grid system). Prioritize readability and usability. Make it feel like a premium product worth paying for.
-```
-
----
 
 ## SCREEN SUMMARY TABLE
 
 | # | Screen | Route | Type | Notes |
 |---|--------|-------|------|-------|
 | 1 | Landing Page | `/` | Public | |
-| 2 | Login | `/auth/login` | Public | |
-| 3 | Register | `/auth/register` | Public | |
-| 4 | Forgot Password | `/auth/forgot-password` | Public | |
-| 5 | Dashboard | `/app/dashboard` | Protected | |
-| 6 | Course List | `/app/courses` | Protected | |
-| 7 | Course Detail | `/app/courses/:id` | Protected | |
-| 8 | Create Course | `/app/courses/create` | Protected | |
-| 9 | Edit Course | `/app/courses/:id/edit` | Protected | |
-| 10 | My Courses | `/app/my-courses` | Protected | |
-| 11 | Learning Page | `/app/learn/:courseId/lesson/:lessonId` | Protected | Includes Notes panel, AI Summary |
-| 12 | Lesson Detail | `/app/lessons/:id` | Protected | Includes Exercises, Flashcards, AI Summary |
-| 13 | Quiz Page | `/app/quiz/:quizId` | Protected | Includes Result view, Question Navigator, Flag |
-| 14 | Exercise Detail | `/app/exercises/:id` | Protected | Includes Submission list with feedback |
-| 15 | Exercise Submit | `/app/exercises/:id/submit` | Protected | Includes inline feedback |
-| 16 | Flashcard Review | `/app/flashcards` | Protected | |
-| 17 | Flashcards by Lesson | `/app/flashcards/:lessonId` | Protected | |
-| 18 | Flashcard Progress | `/app/flashcards/progress` | Protected | |
-| 19 | Bookmarks | `/app/bookmarks` | Protected | |
-| 20 | AI Chat | `/app/ai-tutor` | Protected | |
-| 21 | AI Conversation | `/app/ai-tutor/:conversationId` | Protected | |
-| 22 | Progress | `/app/progress` | Protected | |
-| 23 | Profile | `/app/profile` | Protected | |
-| 24 | Admin Dashboard | `/admin/dashboard` | Admin | |
-| 25 | User Management | `/admin/users` | Admin | |
-| 26 | Category Management | `/admin/categories` | Admin | |
-| 27 | All Courses | `/admin/courses` | Admin | |
-
+| 2 | Login | `/auth/login` | Public | Google OAuth 2.0 only |
+| 3 | Dashboard | `/app/dashboard` | Protected | |
+| 4 | Document List | `/app/documents` | Protected | |
+| 5 | Document Detail | `/app/documents/:id` | Protected | Includes AI Summary |
+| 6 | Upload Document | `/app/documents/upload` | Protected | Drag & drop |
+| 7 | Document Processing | `/app/documents/:id/processing` | Protected | Progress tracking |
+| 8 | Learning Path Explorer | `/app/documents/:id/path` | Protected | Interactive roadmap |
+| 9 | Lesson Progress | `/app/path/:id/lessons/:lessonId` | Protected | Detailed lesson view |
+| 10 | Quiz Page | `/app/documents/:documentId/quiz` | Protected | Includes Result view |
+| 11 | Flashcard Review | `/app/flashcards` | Protected | SM-2 algorithm |
+| 12 | Flashcards by Document | `/app/documents/:documentId/flashcards` | Protected | |
+| 13 | AI Chat | `/app/ai-tutor` | Protected | Session list |
+| 14 | AI Session | `/app/ai-tutor/:sessionId` | Protected | Document context |
+| 15 | Notes | `/app/notes` | Protected | |
+| 16 | Profile | `/app/profile` | Protected | |
+| 17 | Admin Dashboard | `/admin/dashboard` | Admin | |
+| 18 | User Management | `/admin/users` | Admin | |
+---
+Total Screens: 18 (Public: 2, User: 12, Admin: 4)
 ---
 
-*Version: 6.0 - Updated: 2026-03-01*
-*27 Screens - Synced with 00-FE-OVERVIEW.md*
-*Integrated: Quiz Result → Quiz Page, Notes → Learning Page, Submissions → Exercise Detail*
+*Version: 7.0 - Updated: 2026-03-01*
+*18 Screens - Document-based AI Tutor Platform*
+*Authentication: Google OAuth Only*

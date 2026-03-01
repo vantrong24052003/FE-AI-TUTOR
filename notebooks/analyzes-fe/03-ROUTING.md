@@ -1,8 +1,9 @@
 # FE AI TUTOR - Routing Structure
 
-> Cấu trúc routing cho ứng dụng
->
-> **Version**: 3.0 - 31 Screens
+> Cấu trúc routing chi tiết cho ứng dụng - Document-RAG Based
+
+**Version**: 5.1 - 20 Screens
+**ID Type**: string (UUID)
 
 ---
 
@@ -11,59 +12,45 @@
 ```
 /                                    → Landing Page (Public)
 ├── /auth
-│   ├── /login                         → Login
-│   ├── /register                      → Register
-│   └── /forgot-password                → Forgot Password
+│   └── /login                       → Login (Google Only)
 │
-├── /app                               → Main App (Protected)
-│   ├── /dashboard                     → Dashboard
+├── /app                             → Main App (Protected)
+│   ├── /dashboard                   → Dashboard Summary
+│   ├── /profile                     → User Profile & Settings
 │   │
-│   ├── /courses                       → Course List
-│   ├── /courses/create                 → Create Course
-│   ├── /courses/:id                    → Course Detail
-│   ├── /courses/:id/edit               → Edit Course
+│   ├── /documents                   → Documents List
+│   │   ├── /upload                  → Upload New Document
+│   │   └── /:id                     → Document Detail
+│   │       ├── /processing          → Processing Status
+│   │       ├── /path                → Learning Path (Roadmap)
+│   │       └── /flashcards          → Flashcards by Document
 │   │
-│   ├── /my-courses                     → My Enrolled Courses
+│   ├── /path/:id/lessons/:lessonId  → Lesson Progress Content
 │   │
-│   ├── /learn/:courseId
-│   │   └── /lesson/:lessonId            → Learning Page
+│   ├── /quizzes/:id                 → Quiz Interface
+│   │   └── /results                 → Quiz Results & Review
 │   │
-│   ├── /lessons/:id                    → Lesson Detail
-│   │
-│   ├── /quiz/:quizId                   → Quiz Page
-│   │
-│   ├── /exercises/:id                  → Exercise Detail
-│   ├── /exercises/:id/submit            → Submit Exercise
-│   │
-│   ├── /flashcards                     → Flashcard Review (Today)
-│   ├── /flashcards/:lessonId            → Flashcards by Lesson
-│   ├── /flashcards/progress             → Flashcard Progress
-│   │
-│   ├── /bookmarks                       → Bookmarks List
-│   │
-│   ├── /ai-tutor                        → AI Chat
-│   ├── /ai-tutor/:conversationId        → AI Chat Conversation
-│   │
-│   ├── /progress                        → Learning Progress
-│   │
-│   └── /profile                         → Profile
+│   ├── /flashcards                  → Daily SRS Review
+│   ├── /homework                    → Homework Solver
+│   └── /ai-tutor                    → AI Tutor Chat
 │
-├── /admin                              → Admin Panel (Admin only)
-│   ├── /dashboard                      → Admin Dashboard
-│   ├── /users                           → User Management
-│   ├── /categories                      → Category Management
-│   └── /courses                         → All Courses
-│
-└── /*                                  → 404 Not Found
+└── /admin                           → Admin Panel (Admin Only)
+    ├── /dashboard                   → Admin Statistics
+    ├── /users                       → User Management
+    ├── /documents                   → Document Management
+    └── /audit-logs                  → System Audit Logs
 ```
+
+Note: Bookmarks, Notes, and Flashcards by Document are integrated as sub-tabs/overlays in the Document Detail view to keep the UI clean.
 
 ---
 
-## 2. ROUTE CONFIGURATION
+## 2. ROUTE CONFIGURATION (React Router v7)
 
 ```tsx
 // app/router/index.tsx
 import { createBrowserRouter } from 'react-router'
+import { lazy, Suspense } from 'react'
 
 const router = createBrowserRouter([
   // ============ PUBLIC ROUTES ============
@@ -75,61 +62,33 @@ const router = createBrowserRouter([
     path: '/auth/login',
     element: <LoginPage />,
   },
-  {
-    path: '/auth/register',
-    element: <RegisterPage />,
-  },
-  {
-    path: '/auth/forgot-password',
-    element: <ForgotPasswordPage />,
-  },
 
   // ============ PROTECTED USER ROUTES ============
   {
     path: '/app',
     element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
     children: [
-      // Dashboard
       { path: 'dashboard', element: <DashboardPage /> },
+      
+      // Document Module
+      { path: 'documents', element: <DocumentsPage /> },
+      { path: 'documents/upload', element: <UploadDocumentPage /> },
+      { path: 'documents/:id', element: <DocumentDetailPage /> },
+      { path: 'documents/:id/processing', element: <ProcessingStatusPage /> },
+      { path: 'documents/:id/path', element: <LearningPathPage /> },
+      { path: 'documents/:id/flashcards', element: <FlashcardsDocPage /> },
 
-      // Courses
-      { path: 'courses', element: <CoursesPage /> },
-      { path: 'courses/create', element: <CreateCoursePage /> },
-      { path: 'courses/:id', element: <CourseDetailPage /> },
-      { path: 'courses/:id/edit', element: <EditCoursePage /> },
-
-      // My Learning
-      { path: 'my-courses', element: <MyCoursesPage /> },
-
-      // Learning
-      { path: 'learn/:courseId/lesson/:lessonId', element: <LearningPage /> },
-
-      // Lessons
-      { path: 'lessons/:id', element: <LessonDetailPage /> },
-
-      // Quiz
-      { path: 'quiz/:quizId', element: <QuizPage /> },
-
-      // Exercises
-      { path: 'exercises/:id', element: <ExerciseDetailPage /> },
-      { path: 'exercises/:id/submit', element: <ExerciseSubmitPage /> },
-
-      // Flashcards
+      // Learning Module
+      { path: 'path/:id/lessons/:lessonId', element: <LessonPage /> },
+      { path: 'quizzes/:id', element: <QuizPage /> },
+      { path: 'quizzes/:id/results', element: <QuizResultPage /> },
       { path: 'flashcards', element: <FlashcardReviewPage /> },
-      { path: 'flashcards/:lessonId', element: <FlashcardLessonPage /> },
-      { path: 'flashcards/progress', element: <FlashcardProgressPage /> },
-
-      // Bookmarks
-      { path: 'bookmarks', element: <BookmarksPage /> },
-
-      // AI Tutor
-      { path: 'ai-tutor', element: <AITutorPage /> },
-      { path: 'ai-tutor/:conversationId', element: <AITutorPage /> },
-
-      // Progress
-      { path: 'progress', element: <ProgressPage /> },
-
-      // Profile
+      
+      // Specialized Features
+      { path: 'homework', element: <HomeworkSolverPage /> },
+      { path: 'ai-tutor', element: <AITutorChatPage /> },
+      
+      // User Profile
       { path: 'profile', element: <ProfilePage /> },
     ],
   },
@@ -141,8 +100,6 @@ const router = createBrowserRouter([
     children: [
       { path: 'dashboard', element: <AdminDashboardPage /> },
       { path: 'users', element: <UsersPage /> },
-      { path: 'categories', element: <CategoriesPage /> },
-      { path: 'courses', element: <AllCoursesPage /> },
     ],
   },
 
@@ -158,134 +115,54 @@ export default router
 
 ---
 
-## 3. ROUTE GUARDS
+## 3. PAGE CHECKLIST (20 SCREENS)
 
-```tsx
-// components/auth/ProtectedRoute.tsx
-import { Navigate, useLocation } from 'react-router'
-import { useAuthStore } from '@/stores/auth.store'
-import type { PropsWithChildren } from 'react'
+### PUBLIC (2)
+- [x] Landing Page (`/`)
+- [x] Login (`/auth/login`)
 
-export function ProtectedRoute({ children }: PropsWithChildren) {
-  const { isAuthenticated } = useAuthStore()
-  const location = useLocation()
+### USER CORE (2)
+- [x] Dashboard (`/app/dashboard`)
+- [x] Profile (`/app/profile`)
 
-  if (!isAuthenticated) {
-    return <Navigate to="/auth/login" state={{ from: location }} replace />
-  }
+### USER DOCUMENTS (4)
+- [x] Documents List (`/app/documents`)
+- [x] Document Detail (`/app/documents/:id`)
+- [x] Upload Document (`/app/documents/upload`)
+- [x] Processing Status (`/app/documents/:id/processing`)
 
-  return <>{children}</>
-}
+### USER LEARNING (5)
+- [x] Learning Path (`/app/documents/:id/path`)
+- [x] Lesson Progress (`/app/path/:id/lessons/:lessonId`)
+- [x] Quiz Interface (`/app/quizzes/:id`)
+- [x] Quiz Results (`/app/quizzes/:id/results`)
+- [x] Flashcard Review (`/app/flashcards`)
 
-// components/auth/AdminRoute.tsx
-export function AdminRoute({ children }: PropsWithChildren) {
-  const { isAuthenticated, user } = useAuthStore()
-  const location = useLocation()
+### USER TOOLS & AI (3)
+- [x] Flashcards Doc View (`/app/documents/:id/flashcards`)
+- [x] AI Tutor Chat (`/app/ai-tutor`)
+- [x] Homework Solver (`/app/homework`)
 
-  if (!isAuthenticated) {
-    return <Navigate to="/auth/login" state={{ from: location }} replace />
-  }
-
-  if (user?.role !== 'admin') {
-    return <Navigate to="/app/dashboard" replace />
-  }
-
-  return <>{children}</>
-}
-```
+### ADMIN (4)
+- [x] Admin Dashboard (`/admin/dashboard`)
+- [x] User Management (`/admin/users`)
+- [x] Document Management (`/admin/documents`)
+- [x] System Audit (`/admin/audit-logs`)
 
 ---
 
-## 4. PAGES CHECKLIST
+## 4. NAVIGATION RULES
 
-### Public Pages (4)
-- [ ] LandingPage
-- [ ] LoginPage
-- [ ] RegisterPage
-- [ ] ForgotPasswordPage
-- [ ] NotFoundPage
-
-### User Pages (21)
-- [ ] DashboardPage
-- [ ] CoursesPage
-- [ ] CourseDetailPage
-- [ ] CreateCoursePage
-- [ ] EditCoursePage
-- [ ] MyCoursesPage
-- [ ] LearningPage
-- [ ] LessonDetailPage
-- [ ] QuizPage
-- [ ] ExerciseDetailPage
-- [ ] ExerciseSubmitPage
-- [ ] FlashcardReviewPage
-- [ ] FlashcardLessonPage
-- [ ] FlashcardProgressPage
-- [ ] BookmarksPage
-- [ ] AITutorPage
-- [ ] ProgressPage
-- [ ] ProfilePage
-
-### Admin Pages (4)
-- [ ] AdminDashboardPage
-- [ ] UsersPage
-- [ ] CategoriesPage
-- [ ] AllCoursesPage
-
-**Total: 31 Pages**
+| Source | Item | Destination |
+|--------|------|-------------|
+| Dashboard | Start Review | `/app/flashcards` |
+| Dashboard | Upload New | `/app/documents/upload` |
+| Doc List | Click Card | `/app/documents/:id` |
+| Doc Detail | Generate Quiz | Redirect to Quiz loading |
+| Doc Detail | Start Path | `/app/documents/:id/path` |
+| Admin | Manage Users | `/admin/users` |
 
 ---
 
-## 5. ROUTE-BASED CODE SPLITTING
-
-```tsx
-// Lazy load pages for better performance
-import { lazy, Suspense } from 'react'
-
-const DashboardPage = lazy(() => import('@/pages/app/DashboardPage'))
-const CoursesPage = lazy(() => import('@/pages/app/CoursesPage'))
-const FlashcardReviewPage = lazy(() => import('@/pages/app/FlashcardReviewPage'))
-// ... etc
-
-// In route config
-{
-  path: 'dashboard',
-  element: (
-    <Suspense fallback={<PageLoader />}>
-      <DashboardPage />
-    </Suspense>
-  ),
-}
-```
-
----
-
-## 6. NAVIGATION PATTERNS
-
-### Sidebar Navigation (Main App)
-```tsx
-const navItems = [
-  { icon: Home, label: 'Dashboard', href: '/app/dashboard' },
-  { icon: Book, label: 'Courses', href: '/app/courses' },
-  { icon: GraduationCap, label: 'My Learning', href: '/app/my-courses' },
-  { icon: Layers, label: 'Flashcards', href: '/app/flashcards' },
-  { icon: Bookmark, label: 'Bookmarks', href: '/app/bookmarks' },
-  { icon: Bot, label: 'AI Tutor', href: '/app/ai-tutor' },
-  { icon: BarChart3, label: 'Progress', href: '/app/progress' },
-  { icon: User, label: 'Profile', href: '/app/profile' },
-]
-```
-
-### Admin Sidebar Navigation
-```tsx
-const adminNavItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/admin/dashboard' },
-  { icon: Users, label: 'Users', href: '/admin/users' },
-  { icon: Folder, label: 'Categories', href: '/admin/categories' },
-  { icon: BookOpen, label: 'Courses', href: '/admin/courses' },
-]
-```
-
----
-
-*Version: 3.0 - Updated: 2026-03-01*
-*31 Screens, Full Feature Set*
+*Version: 5.1 - Final Document-RAG Architecture Mapping*
+*18 Screens, UUID based.*
