@@ -60,35 +60,33 @@
 | 12 | Lesson Detail | `/app/lessons/:id` | Chi tiết bài học |
 | **Quiz** |
 | 13 | Quiz | `/app/quiz/:quizId` | Làm bài kiểm tra |
-| 14 | Quiz Result | `/app/quiz/:quizId/result` | Kết quả quiz |
 | **Exercises** |
-| 15 | Exercise List | `/app/lessons/:id/exercises` | Danh sách bài tập |
-| 16 | Exercise Detail | `/app/exercises/:id` | Chi tiết bài tập |
-| 17 | Exercise Submit | `/app/exercises/:id/submit` | Nộp bài tập |
-| 18 | Submission Detail | `/app/submissions/:id` | Chi tiết bài nộp |
+| 14 | Exercise Detail | `/app/exercises/:id` | Chi tiết bài tập |
+| 15 | Exercise Submit | `/app/exercises/:id/submit` | Nộp bài tập |
 | **Flashcards** |
-| 19 | Flashcard List | `/app/lessons/:id/flashcards` | Danh sách flashcard |
-| 20 | Flashcard Review | `/app/flashcards/review` | Học flashcard (SRS) |
-| 21 | Flashcard Progress | `/app/flashcards/progress` | Tiến độ học |
-| **Notes & Bookmarks** |
-| 22 | My Notes | `/app/notes` | Ghi chú cá nhân |
-| 23 | Bookmarks | `/app/bookmarks` | Bài đã đánh dấu |
+| 16 | Flashcard Review | `/app/flashcards` | Học flashcard hôm nay (SRS) |
+| 17 | Flashcards by Lesson | `/app/flashcards/:lessonId` | Flashcards theo bài |
+| 18 | Flashcard Progress | `/app/flashcards/progress` | Tiến độ học |
+| **Bookmarks** |
+| 19 | Bookmarks | `/app/bookmarks` | Bài đã đánh dấu |
 | **AI Services** |
-| 24 | AI Chat | `/app/ai-tutor` | Chat với AI |
-| 25 | AI Summaries | `/app/ai-summaries` | Tóm tắt AI |
+| 20 | AI Chat | `/app/ai-tutor` | Chat với AI |
+| 21 | AI Conversation | `/app/ai-tutor/:conversationId` | Hội thoại cụ thể |
 | **Progress** |
-| 26 | My Progress | `/app/progress` | Tiến độ học tập |
+| 22 | Progress | `/app/progress` | Tiến độ học tập |
 | **Profile** |
-| 27 | Profile | `/app/profile` | Thông tin cá nhân |
+| 23 | Profile | `/app/profile` | Thông tin cá nhân |
 
 ### Protected Pages - Admin (Admin only)
 
 | STT | Màn hình | Route | Mô tả |
 |-----|----------|-------|-------|
-| 28 | Admin Dashboard | `/admin/dashboard` | Thống kê tổng quan |
-| 29 | User Management | `/admin/users` | Quản lý users |
-| 30 | Category Management | `/admin/categories` | Quản lý danh mục |
-| 31 | All Courses | `/admin/courses` | Xem tất cả khóa học |
+| 24 | Admin Dashboard | `/admin/dashboard` | Thống kê tổng quan |
+| 25 | User Management | `/admin/users` | Quản lý users |
+| 26 | Category Management | `/admin/categories` | Quản lý danh mục |
+| 27 | All Courses | `/admin/courses` | Xem tất cả khóa học |
+
+> **Note**: Các màn hình con (Exercise List, Flashcard List, Notes, Quiz Result, AI Summaries) được tích hợp vào màn hình Detail tương ứng để tối ưu UX.
 
 ---
 
@@ -345,5 +343,6 @@ Mỗi màn hình sẽ có format:
 
 ---
 
-*Version: 3.0 - Updated: 2026-03-01*
-*31 Screens, 75 APIs, Full Feature Set*
+*Version: 4.0 - Updated: 2026-03-01*
+*27 Screens (simplified), 75 APIs, Full Feature Set*
+*Synced with BE specs and 01-UI-SPECIFICATION.md, 03-ROUTING.md*
