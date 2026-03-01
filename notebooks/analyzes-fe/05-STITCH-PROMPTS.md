@@ -57,14 +57,14 @@ USER - LEARNING (2):
 12. Lesson Detail (/app/lessons/:id)
 
 USER - QUIZ (1):
-13. Quiz Page (/app/quiz/:quizId)
+13. Quiz Page (/app/quiz/:quizId) - Includes result view
 
 USER - EXERCISES (2):
-14. Exercise Detail (/app/exercises/:id)
-15. Exercise Submit (/app/exercises/:id/submit)
+14. Exercise Detail (/app/exercises/:id) - Includes submission list
+15. Exercise Submit (/app/exercises/:id/submit) - Includes feedback view
 
 USER - FLASHCARDS (3):
-16. Flashcard Review (/app/flashcards) - Today's due cards
+16. Flashcard Review (/app/flashcards)
 17. Flashcards by Lesson (/app/flashcards/:lessonId)
 18. Flashcard Progress (/app/flashcards/progress)
 
@@ -86,6 +86,8 @@ ADMIN (4):
 25. User Management (/admin/users)
 26. Category Management (/admin/categories)
 27. All Courses (/admin/courses)
+
+Note: Các màn hình con (Notes, Quiz Result, Submission Detail, AI Summaries) được tích hợp vào màn hình Detail tương ứng để tối ưu UX.
 
 ═══════════════════════════════════════════════════════════════════════════════
 SCREEN 1: LANDING PAGE (/)
@@ -413,8 +415,24 @@ VIDEO PLAYER:
 LESSON CONTENT:
 - Description text (markdown)
 - Resources download links
-- Notes section (expandable)
-- AI Summarize button (sparkle icon)
+
+NOTES PANEL (collapsible, integrated):
+- Toggle button: "My Notes" with edit icon
+- Notes list for current lesson:
+  * Each note: content preview, timestamp (if video note), edit/delete
+- Add note button
+- Note editor (inline or modal):
+  * Textarea
+  * Timestamp picker (auto-capture current video time)
+  * Save/Cancel
+
+AI SUMMARY SECTION (collapsible):
+- "AI Summary" header with sparkle icon
+- "Generate Summary" button (if not generated)
+- Summary content:
+  * Key points list
+  * Keywords tags
+- "Regenerate" button
 
 NAVIGATION:
 - "Previous Lesson" "Mark Complete" "Next Lesson" buttons
@@ -447,86 +465,332 @@ CONTENT AREA:
 - Rich text content (markdown)
 - Attachments section
 
+EXERCISES SECTION (integrated):
+- Section header: "Exercises" with count badge
+- Exercise cards (compact list):
+  * Title, type icon, max score
+  * Status: Not Started | Submitted | Graded
+  * "Start" | "View" button
+- "View All Exercises" link (if more than 3)
+
+FLASHCARDS SECTION (integrated):
+- Section header: "Flashcards" with count badge
+- Flashcard preview (first 3):
+  * Front text preview
+  * Review status
+- "Review Flashcards" button
+
+AI SUMMARY SECTION (integrated):
+- Section header: "AI Summary" with sparkle icon
+- Collapsible summary content
+- Key points list
+- Keywords tags
+
 SIDEBAR:
-- Related exercises count
-- Related flashcards count
 - Related quiz (if any)
 - AI Tutor chat button
+- Bookmark button
 
 ═══════════════════════════════════════════════════════════════════════════════
 SCREEN 14: QUIZ PAGE (/app/quiz/:quizId)
 ═══════════════════════════════════════════════════════════════════════════════
 
-QUIZ HEADER:
-- Quiz title
-- Timer (circular progress): "14:30 remaining"
-- Question indicator: "Question 3 of 10"
+TWO COLUMN LAYOUT: Main content (left) + Question Navigator (right sidebar)
 
-QUESTION CARD (centered, max-width 700px):
-- Question text (large, bold)
-- "Select one answer" or "Select all that apply"
-- 4 option cards:
-  * Letter badge (A, B, C, D)
+═══════════════════════════════════════════════════════════════════════════════
+TOP HEADER (sticky, white, shadow-sm)
+═══════════════════════════════════════════════════════════════════════════════
+
+LEFT SIDE:
+- Quiz title: "React Basics Quiz"
+- Breadcrumb: Course > Lesson > Quiz
+
+CENTER:
+- Progress bar (thin, Royal Blue fill): shows overall completion
+- Text: "Question 3 of 10"
+
+RIGHT SIDE:
+- Timer (prominent, in card):
+  * Circular countdown ring (Amber when < 2 min, Red when < 1 min)
+  * Time display: "14:30"
+  * Label: "remaining"
+- Pause button (ghost, pause icon) - if allowed
+
+═══════════════════════════════════════════════════════════════════════════════
+LEFT COLUMN: QUESTION AREA (main content)
+═══════════════════════════════════════════════════════════════════════════════
+
+QUESTION CARD (white, rounded-xl, shadow-sm, max-width 700px):
+
+QUESTION HEADER:
+- Question number badge: "Question 3" (Royal Blue bg, white text)
+- Question type badge: "Single Choice" | "Multiple Choice" (muted)
+- Flag button (ghost, flag icon):
+  * Unflagged: Gray outline flag
+  * Flagged: Amber filled flag with pulse animation
+- Points: "1 point"
+
+QUESTION TEXT:
+- Large text (18px, 600 weight, Deep Navy)
+- Supports markdown (bold, italic, code inline)
+- Code blocks (if any): dark background, syntax highlighting
+
+QUESTION MEDIA (optional):
+- Image: max-width 100%, rounded-lg
+- Code snippet: monospace, syntax highlighted
+
+ANSWER OPTIONS:
+
+For Single Choice:
+- Radio-style selection
+- Each option card:
+  * Left: Circular radio indicator (empty circle or filled Royal Blue)
+  * Letter badge: A, B, C, D (rounded-full, 32px)
+  * Answer text (500 weight)
+  * Hover: Light blue background (#EFF6FF)
+  * Selected: Royal Blue border (2px), light blue bg, checkmark in radio
+
+For Multiple Choice:
+- Checkbox-style selection
+- Each option card:
+  * Left: Square checkbox indicator
+  * Letter badge: A, B, C, D
   * Answer text
-  * Hover: light blue background
-  * Selected: Royal Blue border, checkmark
-
-NAVIGATION:
-- Progress dots (10 dots, answered = filled, current = ring)
-- "Previous" "Next" "Submit Quiz" buttons
-
-RESULT VIEW (after submit):
-- Score display: "85%" in large circle
-- Pass/Fail message
-- Correct/Wrong breakdown
-- "Review Answers" "Retry Quiz" "Continue" buttons
+  * Selected: Royal Blue border, checkmark in checkbox
+- Note text: "Select all that apply"
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 15-16: EXERCISE DETAIL & SUBMIT (/app/exercises/:id)
+BOTTOM NAVIGATION BAR (sticky, white, shadow-top)
 ═══════════════════════════════════════════════════════════════════════════════
 
-EXERCISE DETAIL:
+LEFT:
+- "Previous" button (outline, chevron-left icon)
+- Disabled on first question
+
+CENTER:
+- Question indicator pills (scrollable on mobile):
+  * Dot for each question
+  * States:
+    - Unanswered: Gray outline
+    - Answered: Royal Blue filled
+    - Flagged: Amber filled with flag icon
+    - Current: Royal Blue ring (thicker border)
+
+RIGHT:
+- "Flag for Review" button (ghost, flag icon, Amber when active)
+- "Next" button (primary, chevron-right icon)
+- "Submit Quiz" button (primary, appears when all answered or on last question)
+
+═══════════════════════════════════════════════════════════════════════════════
+RIGHT SIDEBAR: QUESTION NAVIGATOR (280px, sticky)
+═══════════════════════════════════════════════════════════════════════════════
+
+HEADER:
+- "Questions" title
+- Stats badges:
+  * Answered: "5/10" (Royal Blue)
+  * Flagged: "2" (Amber)
+  * Remaining: "5" (Gray)
+
+QUESTION GRID (5 columns):
+- Each cell is a button (40x40px, rounded-lg):
+  * Number: 1, 2, 3, 4, 5...
+  * States:
+    - Unanswered: White bg, Gray border, Gray text
+    - Answered: Royal Blue bg, white text
+    - Flagged: Amber bg, flag icon, white text
+    - Current: Royal Blue border (3px), white bg, Royal Blue text
+    - Answered + Flagged: Royal Blue bg, Amber flag icon corner
+  * Hover: Slight scale, shadow
+  * Click: Jump to question
+
+LEGEND (bottom of sidebar):
+- Mini legend showing states:
+  * Circle (Gray): Not answered
+  * Circle (Blue): Answered
+  * Circle (Amber) + Flag: Flagged
+
+SUBMIT SECTION:
+- "Submit Quiz" button (full width, primary, Amber)
+- Confirmation modal on click:
+  * Title: "Submit Quiz?"
+  * Message: "You have answered 8/10 questions. 2 questions are flagged."
+  * Warning if unanswered: "⚠️ You have 2 unanswered questions"
+  * Buttons: "Continue Editing" (ghost) | "Submit" (primary)
+
+═══════════════════════════════════════════════════════════════════════════════
+QUIZ RESULT VIEW (shown after submit, same page)
+═══════════════════════════════════════════════════════════════════════════════
+
+RESULT HEADER:
+- Quiz title
+- Completion date
+
+SCORE DISPLAY (centered):
+- Large circular progress: "85%" in center
+- Pass/Fail badge (Emerald for pass, Red for fail)
+- "You passed!" or "Keep practicing!" message
+
+STATS ROW:
+- Correct: 8/10 (Emerald)
+- Wrong: 2/10 (Red)
+- Time taken: "5:30"
+- Average time per question: "33s"
+
+ANSWER REVIEW (accordion):
+- Each question card:
+  * Question number and text
+  * Your answer (with correct/wrong indicator)
+  * Correct answer (shown if wrong)
+  * Explanation (expandable)
+
+ACTIONS:
+- "Retry Quiz" button (outline)
+- "Continue Course" button (primary)
+- "Review Lesson" button (ghost)
+
+═══════════════════════════════════════════════════════════════════════════════
+MODAL: TIME'S UP WARNING
+═══════════════════════════════════════════════════════════════════════════════
+
+Triggered when 1 minute remaining:
+- Modal overlay (can be dismissed)
+- Warning icon (Amber)
+- "1 minute remaining!" heading
+- "Please complete your answers soon."
+- "Continue" button
+
+Triggered when time's up:
+- Modal overlay (cannot be dismissed)
+- Stop icon (Red)
+- "Time's up!" heading
+- "Your quiz has been automatically submitted."
+- "View Results" button
+
+═══════════════════════════════════════════════════════════════════════════════
+MODAL: QUIT QUIZ CONFIRMATION
+═══════════════════════════════════════════════════════════════════════════════
+
+Triggered when user tries to navigate away:
+- Warning icon (Amber)
+- "Leave Quiz?" heading
+- "Your progress will be lost if you leave now."
+- Buttons: "Stay" (primary) | "Leave" (outline, Red text)
+
+═══════════════════════════════════════════════════════════════════════════════
+MOBILE LAYOUT (<640px)
+═══════════════════════════════════════════════════════════════════════════════
+
+- Right sidebar: Hidden by default
+- "Questions" floating button (bottom-right, FAB):
+  * Shows count: "5/10"
+  * Tap to open question navigator as bottom sheet
+- Bottom navigation: Full width, stacked buttons
+- Question indicator: Horizontal scroll dots
+
+═══════════════════════════════════════════════════════════════════════════════
+SCREEN 15: EXERCISE DETAIL (/app/exercises/:id)
+═══════════════════════════════════════════════════════════════════════════════
 
 PAGE HEADER:
 - Exercise title
 - Lesson breadcrumb
+- Type badge: Text | Code | File | Multiple Choice
 - Max score, attempts used
 
-CONTENT:
-- Description (markdown)
-- Requirements list
+TWO COLUMN LAYOUT:
+
+LEFT COLUMN (2/3):
+DESCRIPTION:
+- Rich text description (markdown)
+- Requirements list with check icons
 - Rubric/criteria table
 
-SUBMISSION AREA (tabbed):
-- Text answer tab (for text exercises)
-- Code editor tab (for code exercises, with syntax highlighting)
-- File upload tab (for file exercises)
+INSTRUCTIONS:
+- Step-by-step guide
+- Code examples (if code exercise)
+- File format requirements (if file upload)
 
-MY SUBMISSIONS:
-- List of previous submissions with scores
-- Click to view feedback
+RIGHT COLUMN (1/3, sticky):
+SUBMISSION STATUS CARD:
+- Status: Not Started | In Progress | Submitted | Graded
+- Score (if graded): "8.5/10"
+- Attempts remaining
 
-SUBMIT PAGE:
+ACTIONS:
+- "Start Exercise" button (primary)
+- "View My Submissions" button (outline)
 
-FORM:
-- Code editor (Monaco-style) or text area
-- File upload drag & drop
-- "Submit" button
-
-AFTER SUBMIT:
-- "Grading..." status with spinner
-- AI feedback card when complete:
-  * Score: 8.5/10
-  * Overall comment
-  * Strengths list
-  * Improvements list
-  * Suggested solution (collapsible)
+MY SUBMISSIONS SECTION (integrated, collapsible):
+- Section header: "My Submissions" with count
+- List of submissions:
+  * Attempt number
+  * Submitted date
+  * Status badge
+  * Score (if graded)
+  * Click to expand details
+- Submission detail expansion:
+  * Your answer (code viewer / text / file link)
+  * AI Feedback (if graded):
+    - Overall comment
+    - Strengths list (Emerald icons)
+    - Improvements list (Amber icons)
+    - Suggestions
+  * Actions: "Try Again" (if attempts remaining)
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 17-19: FLASHCARD PAGES
+SCREEN 16: EXERCISE SUBMIT (/app/exercises/:id/submit)
 ═══════════════════════════════════════════════════════════════════════════════
 
-FLASHCARD REVIEW (/app/flashcards) - Today's Due Cards:
+PAGE HEADER:
+- Exercise title
+- Attempt number: "Attempt 2 of 3"
+
+SUBMISSION FORM:
+
+TEXT EXERCISE:
+- Large textarea (auto-grow)
+- Character count
+- Formatting toolbar (bold, italic, lists)
+
+CODE EXERCISE:
+- Monaco-style code editor
+- Language selector dropdown
+- Line numbers
+- Syntax highlighting
+- Run/Preview button (optional)
+
+FILE UPLOAD:
+- Drag & drop zone (dashed border)
+- Accepted formats list
+- Max file size: "10MB"
+- Uploaded file preview with remove button
+
+MULTIPLE CHOICE:
+- Question cards with radio/checkbox
+- Navigation between questions
+
+ACTIONS BAR (sticky bottom):
+- Left: "Save Draft" button (ghost)
+- Right: "Submit" button (primary, Amber)
+
+AFTER SUBMIT (same page):
+- Loading state: "Submitting..." with spinner
+- Grading state: "AI is grading your submission..." with progress
+- Result displayed inline:
+  * Score card: "8.5/10" with circular progress
+  * AI Feedback card:
+    - Overall comment section
+    - Strengths list (with thumbs up icons, Emerald)
+    - Improvements list (with lightbulb icons, Amber)
+    - Suggested solution (expandable)
+  * Actions: "Try Again" | "Continue Course"
+
+═══════════════════════════════════════════════════════════════════════════════
+SCREENS 17-19: FLASHCARD PAGES
+═══════════════════════════════════════════════════════════════════════════════
+
+SCREEN 17: FLASHCARD REVIEW (/app/flashcards) - Today's Due Cards
 
 HEADER:
 - "Today's Review" title
@@ -552,7 +816,7 @@ PROGRESS INDICATOR:
 - "Card 5 of 15"
 - Circular progress
 
-FLASHCARDS BY LESSON (/app/flashcards/:lessonId):
+SCREEN 18: FLASHCARDS BY LESSON (/app/flashcards/:lessonId)
 
 HEADER:
 - Lesson title
@@ -564,7 +828,7 @@ CARD LIST:
 - Click row to edit/view
 - Bulk select for review
 
-FLASHCARD PROGRESS (/app/flashcards/progress):
+SCREEN 19: FLASHCARD PROGRESS (/app/flashcards/progress)
 
 STATS CARDS:
 - Total Cards: 150
@@ -607,13 +871,15 @@ EMPTY STATE:
 - "Save lessons for quick access"
 
 ═══════════════════════════════════════════════════════════════════════════════
-SCREEN 21-22: AI TUTOR CHAT (/app/ai-tutor)
+SCREEN 21-22: AI TUTOR PAGES
 ═══════════════════════════════════════════════════════════════════════════════
+
+SCREEN 21: AI CHAT - CONVERSATION LIST (/app/ai-tutor)
 
 CONVERSATION LIST (left sidebar, 280px):
 
 HEADER:
-- "AI Tutor" title
+- "AI Tutor" title with sparkle icon
 - "New Chat" button (primary, small)
 
 SEARCH:
@@ -626,13 +892,28 @@ CONVERSATION LIST:
   * Timestamp
   * Active: Royal Blue background
 
-CHAT AREA (main content):
+CHAT AREA (main content - new chat):
+
+WELCOME SCREEN:
+- Large AI Tutor logo with sparkle
+- "How can I help you learn today?" heading
+- Quick suggestion pills:
+  * "Explain a concept"
+  * "Help me practice"
+  * "Quiz me on a topic"
+  * "Summarize my notes"
+
+COURSE CONTEXT SELECTOR:
+- Dropdown: "Select a course for context (optional)"
+- Shows enrolled courses
+
+SCREEN 22: AI CONVERSATION (/app/ai-tutor/:conversationId)
 
 CHAT HEADER:
-- "AI Tutor" title with sparkle icon
-- Course context dropdown: "React Basics" (optional context)
+- Conversation title (editable)
+- Course context badge (if set): "React Basics"
 - Model indicator: "Claude Sonnet"
-- Clear chat button
+- More options menu (rename, delete, clear)
 
 CHAT MESSAGES (scrollable, light gray background):
 
@@ -642,6 +923,7 @@ AI MESSAGE (left-aligned):
 - Content: Markdown supported (code blocks, lists, bold)
 - Timestamp: "2:30 PM"
 - Copy button (appears on hover)
+- Thumbs up/down buttons (for feedback)
 
 USER MESSAGE (right-aligned):
 - Avatar: User photo
@@ -650,9 +932,6 @@ USER MESSAGE (right-aligned):
 
 TYPING INDICATOR:
 - Three animated dots in AI bubble
-
-QUICK SUGGESTIONS (below chat, when new):
-- Horizontal pills: "Explain this concept" "Give me an example" "Quiz me" "Summarize"
 
 INPUT AREA (sticky bottom):
 - Text input (auto-grow, rounded-2xl)
@@ -732,11 +1011,11 @@ SCREENS 25-27: ADMIN PAGES
 ═══════════════════════════════════════════════════════════════════════════════
 
 ADMIN LAYOUT:
-- Separate sidebar (darker theme)
+- Separate sidebar (darker theme: Deep Navy background)
 - Admin-specific navigation
 - Back to App link
 
-ADMIN DASHBOARD (/admin/dashboard):
+SCREEN 25: ADMIN DASHBOARD (/admin/dashboard)
 
 STATS CARDS:
 - Total Users: 1,250 (+15 today)
@@ -753,7 +1032,7 @@ RECENT ACTIVITY FEED:
 - Course published
 - New enrollment
 
-USER MANAGEMENT (/admin/users):
+SCREEN 26: USER MANAGEMENT (/admin/users)
 
 SEARCH & FILTER:
 - Search input
@@ -764,14 +1043,14 @@ USER TABLE:
 | Avatar | Name | Email | Role | Courses | Joined | Actions |
 - Actions: View | Edit Role | Deactivate
 
-CATEGORY MANAGEMENT (/admin/categories):
+SCREEN 27: CATEGORY MANAGEMENT (/admin/categories)
 
 CATEGORY LIST:
 - Table: Name | Slug | Courses Count | Actions
 - Add Category button (top right)
 - Edit/Delete actions
 
-ALL COURSES (/admin/courses):
+SCREEN 28: ALL COURSES (/admin/courses)
 
 FILTER:
 - Status: All | Published | Draft
@@ -896,5 +1175,40 @@ Design with attention to detail. Every element should feel intentional and polis
 
 ---
 
-*Version: 4.0 - Updated: 2026-03-01*
-*27 Screens - Synced with 00-FE-OVERVIEW.md, 01-UI-SPECIFICATION.md, 03-ROUTING.md*
+## SCREEN SUMMARY TABLE
+
+| # | Screen | Route | Type | Notes |
+|---|--------|-------|------|-------|
+| 1 | Landing Page | `/` | Public | |
+| 2 | Login | `/auth/login` | Public | |
+| 3 | Register | `/auth/register` | Public | |
+| 4 | Forgot Password | `/auth/forgot-password` | Public | |
+| 5 | Dashboard | `/app/dashboard` | Protected | |
+| 6 | Course List | `/app/courses` | Protected | |
+| 7 | Course Detail | `/app/courses/:id` | Protected | |
+| 8 | Create Course | `/app/courses/create` | Protected | |
+| 9 | Edit Course | `/app/courses/:id/edit` | Protected | |
+| 10 | My Courses | `/app/my-courses` | Protected | |
+| 11 | Learning Page | `/app/learn/:courseId/lesson/:lessonId` | Protected | Includes Notes panel, AI Summary |
+| 12 | Lesson Detail | `/app/lessons/:id` | Protected | Includes Exercises, Flashcards, AI Summary |
+| 13 | Quiz Page | `/app/quiz/:quizId` | Protected | Includes Result view, Question Navigator, Flag |
+| 14 | Exercise Detail | `/app/exercises/:id` | Protected | Includes Submission list with feedback |
+| 15 | Exercise Submit | `/app/exercises/:id/submit` | Protected | Includes inline feedback |
+| 16 | Flashcard Review | `/app/flashcards` | Protected | |
+| 17 | Flashcards by Lesson | `/app/flashcards/:lessonId` | Protected | |
+| 18 | Flashcard Progress | `/app/flashcards/progress` | Protected | |
+| 19 | Bookmarks | `/app/bookmarks` | Protected | |
+| 20 | AI Chat | `/app/ai-tutor` | Protected | |
+| 21 | AI Conversation | `/app/ai-tutor/:conversationId` | Protected | |
+| 22 | Progress | `/app/progress` | Protected | |
+| 23 | Profile | `/app/profile` | Protected | |
+| 24 | Admin Dashboard | `/admin/dashboard` | Admin | |
+| 25 | User Management | `/admin/users` | Admin | |
+| 26 | Category Management | `/admin/categories` | Admin | |
+| 27 | All Courses | `/admin/courses` | Admin | |
+
+---
+
+*Version: 6.0 - Updated: 2026-03-01*
+*27 Screens - Synced with 00-FE-OVERVIEW.md*
+*Integrated: Quiz Result → Quiz Page, Notes → Learning Page, Submissions → Exercise Detail*
